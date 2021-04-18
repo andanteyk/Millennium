@@ -16,7 +16,13 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: a5aa5b74eba4a0a4aae52cf9d6e5d6d6
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 4d9d796c20828ca45bc3938d848df2e9
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Bullet/PlayerBullet.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d80804b7e98dd9444a9c47da8e7a54af, type: 2}
   m_SchemaSet:

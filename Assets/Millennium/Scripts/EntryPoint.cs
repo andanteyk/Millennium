@@ -12,7 +12,8 @@ namespace Millennium
         async void Start()
         {
             var input = new InputControls();
-            input.Player.Submit.performed += _ => Debug.Log("yayaya!");
+            input.Enable();
+
             while (true)
             {
                 if (input.Player.Submit.triggered)
