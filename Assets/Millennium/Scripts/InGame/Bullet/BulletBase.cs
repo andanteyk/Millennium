@@ -26,5 +26,10 @@ namespace Millennium.InGame.Bullet
                 await UniTask.Yield();
             }
         }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            Destroy(gameObject);
+        }
     }
 }
