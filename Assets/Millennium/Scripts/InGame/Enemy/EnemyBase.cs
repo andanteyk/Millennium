@@ -1,4 +1,6 @@
 using Cysharp.Threading.Tasks;
+using Millennium.InGame.Bullet;
+using Millennium.InGame.Effect;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -9,7 +11,9 @@ namespace Millennium.InGame.Enemy
 {
     public abstract class EnemyBase : MonoBehaviour
     {
-        // Start is called before the first frame update
+        public int Health = 1000;
+
+
         async void Start()
         {
             async UniTask OnStart(CancellationToken token)
@@ -31,7 +35,17 @@ namespace Millennium.InGame.Enemy
         // TEST
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            Destroy(gameObject);
+            var bullet = collision.GetComponent<BulletBase>();
+            if (bullet != null)
+            {
+                Health -= bullet.Power;
+
+                if (Health <= 0)
+                {
+                    EffectManager.I.Play(EffectType.Explosion, transform.position);
+                    Destroy(gameObject);
+                }
+            }
         }
     }
 }

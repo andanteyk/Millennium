@@ -29,6 +29,60 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: d16523f95f659d148879d8d8ded86517
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Effect/Explosion.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: b667b2b4fe3853248ac5cfa29566fc06
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Effect/PlusDecay.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 3f72986c9eb4b9745b12ec9a81f9a1c6
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecay.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: c6f4a315d818a554d877305beccd0d40
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayBlue.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 2f56c4b2da8e9924dafe902a9bd2979f
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayGreen.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: bb2a9f1b0f2fc274c8079c65fb157831
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayRed.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 11e4aacfe1c9de640811954d9c71e3f3
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Effect/PlusDecayRed.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: bd804271eebbb7248a08b8c7a3db7649
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Effect/PlusDecayGreen.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: cfe5741027410d34d9dc09b7b3e03d12
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Effect/PlusDecayBlue.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d80804b7e98dd9444a9c47da8e7a54af, type: 2}
   m_SchemaSet:
