@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Millennium/Scenes/InGame.unity
+    guid: d3decda2fc8caa44ea5cc0395cfe94d6
+  - enabled: 1
     path: Assets/Millennium/Scenes/OutGame.unity
     guid: ab26b38f03c4313418350053421e445f
   m_configObjects:

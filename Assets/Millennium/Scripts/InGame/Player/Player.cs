@@ -23,17 +23,27 @@ namespace Millennium.InGame.Player
 
                 var bulletPrefab = await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Bullet/PlayerBullet.prefab");
 
+                var rigidbody = GetComponent<Rigidbody2D>();
+
+                var coolTime = 0f;
+                var coolTimeMax = 0.25f;
+
+                await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
+
                 while (!token.IsCancellationRequested)
                 {
-                    transform.position += (Vector3)input.Player.Direction.ReadValue<Vector2>() * 64 * Time.deltaTime;
+                    rigidbody.MovePosition(transform.position + (Vector3)input.Player.Direction.ReadValue<Vector2>() * 64 * Time.deltaTime);
 
-                    if (input.Player.Submit.triggered)
+                    if (coolTime <= 0)
                     {
                         var bullet = Instantiate(bulletPrefab);
                         bullet.transform.position = transform.position;
-                    }
 
-                    await UniTask.Yield();
+                        coolTime += coolTimeMax;
+                    }
+                    coolTime -= Time.deltaTime;
+
+                    await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
                 }
             }
 
