@@ -11,8 +11,11 @@ namespace Millennium.InGame.Effect
         async void Start()
         {
             var particle = GetComponent<ParticleSystem>();
-            await UniTask.WaitWhile(() => particle.IsAlive());
-            Destroy(gameObject);
+            await UniTask.WaitWhile(() => particle != null && particle.IsAlive());
+
+            // エディタ再生を終了したときに null になるので
+            if (gameObject != null)
+                Destroy(gameObject);
         }
     }
 }
