@@ -83,6 +83,42 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: a6c9a822a66d83040bd7830c6236f861
+    m_Address: Assets/Millennium/Assets/Sounds/Bgm/Binar_intro.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: db59407e7c1c23c4cae826c12407f5dd
+    m_Address: Assets/Millennium/Assets/Sounds/Se/Disabled.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 7c6a0d4ebab6f07438cd2e016ad7d3a1
+    m_Address: Assets/Millennium/Assets/Sounds/Se/Ok.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: dd253c77018e60c4488f8f7fcca04e54
+    m_Address: Assets/Millennium/Assets/Sounds/Se/Accept.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 8bc43a0867b302042bad5592f3cda098
+    m_Address: Assets/Millennium/Assets/Sounds/Se/Cancel.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 5224352b5f1b37a419ca76a8ef185f40
+    m_Address: Assets/Millennium/Assets/Prefabs/Common/Sounds/AudioSource.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d80804b7e98dd9444a9c47da8e7a54af, type: 2}
   m_SchemaSet:

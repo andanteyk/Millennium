@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Millennium.InGame.Bullet;
 using Millennium.InGame.Effect;
+using Millennium.Sound;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
