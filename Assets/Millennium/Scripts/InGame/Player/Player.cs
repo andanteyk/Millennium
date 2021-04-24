@@ -32,7 +32,11 @@ namespace Millennium.InGame.Player
 
                 while (!token.IsCancellationRequested)
                 {
-                    rigidbody.MovePosition(transform.position + (Vector3)input.Player.Direction.ReadValue<Vector2>() * 64 * Time.deltaTime);
+                    var movedPosition = transform.position + (Vector3)input.Player.Direction.ReadValue<Vector2>() * 64 * Time.deltaTime;
+                    movedPosition = new Vector3(
+                        Mathf.Clamp(movedPosition.x, InGameConstants.PlayerFieldArea.xMin, InGameConstants.PlayerFieldArea.xMax),
+                        Mathf.Clamp(movedPosition.y, InGameConstants.PlayerFieldArea.yMin, InGameConstants.PlayerFieldArea.yMax));
+                    rigidbody.MovePosition(movedPosition);
 
                     if (coolTime <= 0)
                     {

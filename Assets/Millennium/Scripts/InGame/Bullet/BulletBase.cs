@@ -22,13 +22,11 @@ namespace Millennium.InGame.Bullet
         {
             async UniTask OnStart(CancellationToken token)
             {
-                var screenArea = new Rect(-256 / 2 - 32, -224 / 2 - 32, 256 + 32 * 2, 224 + 32 * 2);
-
                 while (!token.IsCancellationRequested)
                 {
                     transform.position += Speed * Time.deltaTime;
 
-                    if (!screenArea.Contains(transform.position))
+                    if (!InGameConstants.ExtendedFieldArea.Contains(transform.position))
                     {
                         Destroy(gameObject);
                         break;
