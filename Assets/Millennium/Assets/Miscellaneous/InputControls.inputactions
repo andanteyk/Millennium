@@ -6,25 +6,33 @@
             "id": "35890f8a-e306-4552-b6f3-c09738ffa262",
             "actions": [
                 {
-                    "name": "Submit",
-                    "type": "Button",
+                    "name": "Fire",
+                    "type": "Value",
                     "id": "7dfb3dda-064c-4b51-85b1-e99ad54a5e17",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 },
                 {
-                    "name": "Cancel",
-                    "type": "Button",
+                    "name": "Bomb",
+                    "type": "Value",
                     "id": "54081402-a3be-48f3-a839-6008f44a3aa7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap"
+                },
+                {
+                    "name": "Direction",
+                    "type": "Value",
+                    "id": "9e3f54b7-ec67-49b2-a6ac-6f7bd4ee2419",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 },
                 {
-                    "name": "Direction",
-                    "type": "Button",
-                    "id": "9e3f54b7-ec67-49b2-a6ac-6f7bd4ee2419",
+                    "name": "Slow",
+                    "type": "Value",
+                    "id": "52aa5a05-c759-4153-8141-a7c219d8b787",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -38,7 +46,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Submit",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -49,7 +57,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Cancel",
+                    "action": "Bomb",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -107,6 +115,17 @@
                     "action": "Direction",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "a51cbdd3-f8eb-4a91-8698-27f458c8d0a4",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

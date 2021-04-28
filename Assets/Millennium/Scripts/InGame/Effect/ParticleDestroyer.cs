@@ -14,7 +14,7 @@ namespace Millennium.InGame.Effect
             await UniTask.WaitWhile(() => particle != null && particle.IsAlive());
 
             // エディタ再生を終了したときに null になるので
-            if (gameObject != null)
+            if (this != null && gameObject != null)
                 Destroy(gameObject);
         }
     }

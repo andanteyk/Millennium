@@ -18,30 +18,32 @@ namespace Millennium.InGame.Bullet
         public EffectType EffectOnDestroy = EffectType.CrossDecay;
 
 
-        async void Start()
+        protected virtual async void Start()
         {
-            async UniTask OnStart(CancellationToken token)
-            {
-                while (!token.IsCancellationRequested)
-                {
-                    transform.position += Speed * Time.deltaTime;
-
-                    if (!InGameConstants.ExtendedFieldArea.Contains(transform.position))
-                    {
-                        Destroy(gameObject);
-                        break;
-                    }
-
-                    await UniTask.Yield();
-                }
-            }
-
             await OnStart(this.GetCancellationTokenOnDestroy());
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        protected async UniTask OnStart(CancellationToken token)
         {
-            EffectManager.I.Play(EffectOnDestroy, collision.transform.position);
+            while (!token.IsCancellationRequested)
+            {
+                transform.position += Speed * Time.deltaTime;
+
+                if (!InGameConstants.ExtendedFieldArea.Contains(transform.position))
+                {
+                    Destroy(gameObject);
+                    break;
+                }
+
+                await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
+            }
+        }
+
+
+
+        protected virtual void OnTriggerEnter2D(Collider2D collision)
+        {
+            EffectManager.I.Play(EffectOnDestroy, transform.position);
             Destroy(gameObject);
         }
     }
