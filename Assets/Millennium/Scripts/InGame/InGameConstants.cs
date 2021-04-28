@@ -10,7 +10,7 @@ namespace Millennium.InGame
         public static Vector2 ScreenSize => new Vector2(256, 224);
 
         /// <summary> メインフィールドの座標とサイズ </summary>
-        public static Rect FieldArea => new Rect(256 / -2 + 8, 224 / -2 + 8, 176, 208);
+        public static Rect FieldArea => new Rect(176 / -2, 224 / -2, 176, 224);
 
         /// <summary> メインフィールド外周の座標とサイズ(範囲外に行ったオブジェクトは削除してよい) </summary>
         public static Rect ExtendedFieldArea => new Rect(FieldArea.x - 32, FieldArea.y - 32, FieldArea.width + 64, FieldArea.height + 64);
