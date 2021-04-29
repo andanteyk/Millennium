@@ -6,16 +6,15 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Millennium.InGame.Player
+namespace Millennium.InGame.Entity.Player
 {
-    public class Player : MonoBehaviour
+    public class Player : EntityLiving
     {
-
-
-
         // Start is called before the first frame update
         async void Start()
         {
+            Health = HealthMax;
+
             async UniTask OnStart(CancellationToken token)
             {
                 var input = new InputControls();
@@ -44,11 +43,7 @@ namespace Millennium.InGame.Player
                     // 入力が絡むもの (特に down/up イベントが必要なもの) は Update でやる
 
                     // move
-                    var movedPosition = transform.position + (Vector3)input.Player.Direction.ReadValue<Vector2>() * 64 * Time.deltaTime;
-                    movedPosition = new Vector3(
-                        Mathf.Clamp(movedPosition.x, InGameConstants.PlayerFieldArea.xMin, InGameConstants.PlayerFieldArea.xMax),
-                        Mathf.Clamp(movedPosition.y, InGameConstants.PlayerFieldArea.yMin, InGameConstants.PlayerFieldArea.yMax));
-                    rigidbody.MovePosition(movedPosition);
+                    MoveByInput(rigidbody, input, 1);
 
                     // shot
                     if (coolTime <= 0)
@@ -65,6 +60,24 @@ namespace Millennium.InGame.Player
             }
 
             await OnStart(this.GetCancellationTokenOnDestroy());
+        }
+
+
+        protected void MoveByInput(Rigidbody2D rigidbody, InputControls input, float scale)
+        {
+            var movedPosition = transform.position + (Vector3)input.Player.Direction.ReadValue<Vector2>() * 64 * Time.deltaTime;
+            movedPosition = new Vector3(
+                Mathf.Clamp(movedPosition.x, InGameConstants.PlayerFieldArea.xMin, InGameConstants.PlayerFieldArea.xMax),
+                Mathf.Clamp(movedPosition.y, InGameConstants.PlayerFieldArea.yMin, InGameConstants.PlayerFieldArea.yMax));
+            rigidbody.MovePosition(movedPosition);
+        }
+
+        public override void DealDamage(DamageSource damage)
+        {
+            Health -= damage.Damage;
+
+            // hit register(i.e. invincibl-ize)
+            // TODO: death
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Millennium.InGame.Bullet
+namespace Millennium.InGame.Entity.Bullet
 {
     public class PlayerBomb : BulletBase
     {
@@ -25,6 +25,14 @@ namespace Millennium.InGame.Bullet
             // NOP 
 
             // TODO: お行儀がよくないのでは？？？
+        }
+
+        protected void OnTriggerStay2D(Collider2D collision)
+        {
+            if (collision.gameObject.GetComponent<Entity>() is EntityLiving entity)
+            {
+                entity.DealDamage(new DamageSource(this, Power));
+            }
         }
     }
 }

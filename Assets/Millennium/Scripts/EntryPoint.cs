@@ -9,7 +9,7 @@ namespace Millennium
 
     public class EntryPoint : MonoBehaviour
     {
-        async void Start()
+        void Start()
         {
             Sound.SoundManager.I.PlayBgm(Sound.BgmType.Test).Forget();
         }

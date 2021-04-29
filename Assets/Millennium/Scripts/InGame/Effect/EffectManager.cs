@@ -27,20 +27,20 @@ namespace Millennium.InGame.Effect
         private async void Start()
         {
             // TODO: ロードが終わる前にコールされる可能性がある　なんかで待ち合わせできるようにしたほうがいいかも
-            Prefabs = new Dictionary<EffectType, GameObject>();
+            Prefabs = new Dictionary<EffectType, GameObject>
+            {
+                { EffectType.Explosion, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/Explosion.prefab") },
 
-            Prefabs.Add(EffectType.Explosion, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/Explosion.prefab"));
+                { EffectType.PlusDecay, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/PlusDecay.prefab") },
+                { EffectType.PlusDecayRed, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/PlusDecayRed.prefab") },
+                { EffectType.PlusDecayGreen, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/PlusDecayGreen.prefab") },
+                { EffectType.PlusDecayBlue, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/PlusDecayBlue.prefab") },
 
-            Prefabs.Add(EffectType.PlusDecay, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/PlusDecay.prefab"));
-            Prefabs.Add(EffectType.PlusDecayRed, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/PlusDecayRed.prefab"));
-            Prefabs.Add(EffectType.PlusDecayGreen, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/PlusDecayGreen.prefab"));
-            Prefabs.Add(EffectType.PlusDecayBlue, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/PlusDecayBlue.prefab"));
-
-            Prefabs.Add(EffectType.CrossDecay, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecay.prefab"));
-            Prefabs.Add(EffectType.CrossDecayRed, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayRed.prefab"));
-            Prefabs.Add(EffectType.CrossDecayGreen, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayGreen.prefab"));
-            Prefabs.Add(EffectType.CrossDecayBlue, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayBlue.prefab"));
-
+                { EffectType.CrossDecay, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecay.prefab") },
+                { EffectType.CrossDecayRed, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayRed.prefab") },
+                { EffectType.CrossDecayGreen, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayGreen.prefab") },
+                { EffectType.CrossDecayBlue, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayBlue.prefab") }
+            };
         }
 
 

@@ -11,8 +11,8 @@ namespace Millennium.Sound
     {
         public static SoundManager I { get; private set; }
 
-        private Dictionary<BgmType, AudioClip> BgmClips = new Dictionary<BgmType, AudioClip>();
-        private Dictionary<SeType, AudioClip> SeClips = new Dictionary<SeType, AudioClip>();
+        private Dictionary<BgmType, AudioClip> BgmClips;
+        private Dictionary<SeType, AudioClip> SeClips;
 
         private AudioSource CurrentBgm = null;
 
@@ -34,13 +34,24 @@ namespace Millennium.Sound
 
         private async void Start()
         {
-            BgmClips.Add(BgmType.None, null);
-            BgmClips.Add(BgmType.Test, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Bgm/Binar_intro.wav"));
+            BgmClips = new Dictionary<BgmType, AudioClip>
+            {
+                { BgmType.None, null },
+                { BgmType.Test, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Bgm/Binar_intro.wav") }
+            };
 
-            SeClips.Add(SeType.Ok, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/Ok.wav"));
-            SeClips.Add(SeType.Cancel, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/Cancel.wav"));
-            SeClips.Add(SeType.Accept, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/Accept.wav"));
-            SeClips.Add(SeType.Disabled, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/Disabled.wav"));
+            SeClips = new Dictionary<SeType, AudioClip>
+            {
+                { SeType.Ok, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/Ok.wav") },
+                { SeType.Cancel, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/Cancel.wav") },
+                { SeType.Accept, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/Accept.wav") },
+                { SeType.Disabled, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/Disabled.wav") },
+
+                {SeType.Explosion, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/Explosion.wav") },
+                {SeType.PlayerBulletHit, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/PlayerBulletHit.wav") },
+                {SeType.PlayerBulletHitCritical, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/PlayerBulletHit2.wav") },
+
+            };
 
             AudioSourcePrefab = await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/Common/Sounds/AudioSource.prefab");
 
@@ -120,5 +131,9 @@ namespace Millennium.Sound
         Cancel,
         Accept,
         Disabled,
+
+        Explosion,
+        PlayerBulletHit,
+        PlayerBulletHitCritical,
     }
 }

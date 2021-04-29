@@ -1,19 +1,22 @@
 using Cysharp.Threading.Tasks;
 using Millennium.InGame.Effect;
+using Millennium.Sound;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace Millennium.InGame.Bullet
+namespace Millennium.InGame.Entity.Bullet
 {
-    public abstract class BulletBase : MonoBehaviour
+    public abstract class BulletBase : Entity
     {
         [SerializeField]
         private int m_Power = 100;
         public int Power { get => m_Power; protected set => m_Power = value; }
 
-        public Vector3 Speed;
+        [SerializeField, FormerlySerializedAs("Speed")]
+        private Vector3 m_Speed;
 
         public EffectType EffectOnDestroy = EffectType.CrossDecay;
 
@@ -25,9 +28,11 @@ namespace Millennium.InGame.Bullet
 
         protected async UniTask OnStart(CancellationToken token)
         {
+            await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
+
             while (!token.IsCancellationRequested)
             {
-                transform.position += Speed * Time.deltaTime;
+                transform.position += m_Speed * Time.deltaTime;
 
                 if (!InGameConstants.ExtendedFieldArea.Contains(transform.position))
                 {
@@ -43,6 +48,12 @@ namespace Millennium.InGame.Bullet
 
         protected virtual void OnTriggerEnter2D(Collider2D collision)
         {
+            if (collision.gameObject.GetComponent<Entity>() is EntityLiving entity)
+            {
+                entity.DealDamage(new DamageSource(this, Power));
+                SoundManager.I.PlaySe(SeType.PlayerBulletHit).Forget();
+            }
+
             EffectManager.I.Play(EffectOnDestroy, transform.position);
             Destroy(gameObject);
         }

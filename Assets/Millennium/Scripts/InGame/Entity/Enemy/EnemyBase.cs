@@ -1,22 +1,23 @@
 using Cysharp.Threading.Tasks;
-using Millennium.InGame.Bullet;
 using Millennium.InGame.Effect;
 using Millennium.Sound;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Serialization;
 
-namespace Millennium.InGame.Enemy
+namespace Millennium.InGame.Entity.Enemy
 {
-    public abstract class EnemyBase : MonoBehaviour
+    public abstract class EnemyBase : EntityLiving
     {
-        public int Health = 1000;
+        [SerializeField, FormerlySerializedAs("Health")]
+        private int m_InitialHealth = 1000;
 
 
         async void Start()
         {
+            Health = HealthMax = m_InitialHealth;
+
             async UniTask OnStart(CancellationToken token)
             {
                 var bulletPrefab = await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Bullet/EnemyBullet.prefab");
@@ -33,19 +34,16 @@ namespace Millennium.InGame.Enemy
             await OnStart(this.GetCancellationTokenOnDestroy());
         }
 
-        // TEST
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            var bullet = collision.GetComponent<BulletBase>();
-            if (bullet != null)
-            {
-                Health -= bullet.Power;
 
-                if (Health <= 0)
-                {
-                    EffectManager.I.Play(EffectType.Explosion, transform.position);
-                    Destroy(gameObject);
-                }
+        public override void DealDamage(DamageSource damage)
+        {
+            Health -= damage.Damage;
+
+            if (Health <= 0)
+            {
+                EffectManager.I.Play(EffectType.Explosion, transform.position);
+                SoundManager.I.PlaySe(SeType.Explosion).Forget();
+                Destroy(gameObject);
             }
         }
     }
