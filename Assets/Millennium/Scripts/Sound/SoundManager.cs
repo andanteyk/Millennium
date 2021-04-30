@@ -32,7 +32,7 @@ namespace Millennium.Sound
             I = this;
         }
 
-        private async void Start()
+        public async UniTask Load()
         {
             BgmClips = new Dictionary<BgmType, AudioClip>
             {
@@ -50,6 +50,8 @@ namespace Millennium.Sound
                 {SeType.Explosion, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/Explosion.wav") },
                 {SeType.PlayerBulletHit, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/PlayerBulletHit.wav") },
                 {SeType.PlayerBulletHitCritical, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/PlayerBulletHit2.wav") },
+
+                 {SeType.EnemyShot, await Addressables.LoadAssetAsync<AudioClip>( "Assets/Millennium/Assets/Sounds/Se/InGame/EnemyShot.wav") },
 
             };
 
@@ -85,7 +87,7 @@ namespace Millennium.Sound
             var source = CreateSource(SeClips[se]);
             source.Play();
 
-            await UniTask.WaitWhile(() => source.isPlaying);
+            await UniTask.WaitWhile(() => source.isPlaying, cancellationToken: this.GetCancellationTokenOnDestroy());
 
             Destroy(source.gameObject);
         }
@@ -135,5 +137,7 @@ namespace Millennium.Sound
         Explosion,
         PlayerBulletHit,
         PlayerBulletHitCritical,
+
+        EnemyShot,
     }
 }

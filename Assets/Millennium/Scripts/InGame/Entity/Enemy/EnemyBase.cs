@@ -15,26 +15,9 @@ namespace Millennium.InGame.Entity.Enemy
 
         public bool CanMove => Health > 0;
 
-        async void Start()
+        private void Start()
         {
             Health = HealthMax = m_InitialHealth;
-
-            /*
-            async UniTask OnStart(CancellationToken token)
-            {
-                var bulletPrefab = await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Bullet/EnemyBullet.prefab");
-
-                while (!token.IsCancellationRequested)
-                {
-                    var bullet = Instantiate(bulletPrefab);
-                    bullet.transform.position = transform.position;
-
-                    await UniTask.Delay(1000);
-                }
-            }
-
-            await OnStart(this.GetCancellationTokenOnDestroy());
-            */
         }
 
 

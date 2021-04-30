@@ -14,11 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemies:
   - SpawnSeconds: 1
-    Position: {x: -32, y: 64}
-    Prefab: {fileID: 3322470297347819875, guid: 3495225d5a540f04383e73e6666fd742, type: 3}
+    Position: {x: -64, y: 128}
+    Prefab: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+  - SpawnSeconds: 1.5
+    Position: {x: -32, y: 128}
+    Prefab: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
   - SpawnSeconds: 2
-    Position: {x: 0, y: 64}
-    Prefab: {fileID: 3322470297347819875, guid: 3495225d5a540f04383e73e6666fd742, type: 3}
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+  - SpawnSeconds: 2.5
+    Position: {x: 32, y: 128}
+    Prefab: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
   - SpawnSeconds: 3
-    Position: {x: 32, y: 64}
-    Prefab: {fileID: 3322470297347819875, guid: 3495225d5a540f04383e73e6666fd742, type: 3}
+    Position: {x: 64, y: 128}
+    Prefab: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}

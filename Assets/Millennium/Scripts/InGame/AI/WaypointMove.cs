@@ -21,19 +21,22 @@ namespace Millennium.InGame.AI
         [SerializeField]
         private Waypoint[] m_Waypoints;
 
-        private async void Start()
+        private void Start()
         {
             var owner = GetComponent<EnemyBase>();
 
-            var sequence = DOTween.Sequence();
+            var sequence = DOTween.Sequence()
+                .SetUpdate(UpdateType.Fixed)
+                .SetLink(gameObject);
             foreach (var waypoint in m_Waypoints)
             {
-                // TODO: discard ‚É‚·‚×‚«H
-                _ = sequence.Append(transform.DOLocalMove(waypoint.Point, waypoint.Duration).SetEase(Ease.InOutQuad));
+                sequence.Append(transform.DOLocalMove(waypoint.Point, waypoint.Duration)
+                   .SetEase(Ease.InOutQuad)
+                   .SetRelative());
             }
-            _ = sequence.AppendCallback(() => Destroy(gameObject));
+            sequence.AppendCallback(() => Destroy(gameObject));
 
-            await sequence.ToUniTask(cancellationToken: this.GetCancellationTokenOnDestroy());
+            sequence.ToUniTask(cancellationToken: this.GetCancellationTokenOnDestroy()).Forget();
         }
     }
 }

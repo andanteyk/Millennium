@@ -25,7 +25,7 @@ namespace Millennium.InGame.Effect
             I = this;
         }
 
-        private async void Start()
+        public async UniTask Load()
         {
             // TODO: ロードが終わる前にコールされる可能性がある　なんかで待ち合わせできるようにしたほうがいいかも
             Prefabs = new Dictionary<EffectType, GameObject>
