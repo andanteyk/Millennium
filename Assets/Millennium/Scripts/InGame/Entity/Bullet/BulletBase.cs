@@ -17,6 +17,7 @@ namespace Millennium.InGame.Entity.Bullet
 
         [SerializeField, FormerlySerializedAs("Speed")]
         private Vector3 m_Speed;
+        public Vector3 Speed { get => m_Speed; set => m_Speed = value; }
 
         public EffectType EffectOnDestroy = EffectType.CrossDecay;
 

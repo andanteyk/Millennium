@@ -10,6 +10,13 @@ namespace Millennium.InGame.Entity.Player
 {
     public class Player : EntityLiving
     {
+
+
+        private bool IsInvincible => InvincibleTime > 0;
+        private float InvincibleTime { get; set; }
+
+
+
         // Start is called before the first frame update
         async void Start()
         {

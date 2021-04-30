@@ -17,5 +17,8 @@ namespace Millennium.InGame
 
         /// <summary> プレイヤーが移動可能な範囲 </summary>
         public static Rect PlayerFieldArea => new Rect(FieldArea.x + 8, FieldArea.y + 8, FieldArea.width - 16, FieldArea.height - 16);
+
+
+        public static string PlayerTag => "Player";
     }
 }

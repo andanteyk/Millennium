@@ -10,14 +10,16 @@ namespace Millennium.InGame.Entity.Enemy
 {
     public abstract class EnemyBase : EntityLiving
     {
-        [SerializeField, FormerlySerializedAs("Health")]
+        [SerializeField]
         private int m_InitialHealth = 1000;
 
+        public bool CanMove => Health > 0;
 
         async void Start()
         {
             Health = HealthMax = m_InitialHealth;
 
+            /*
             async UniTask OnStart(CancellationToken token)
             {
                 var bulletPrefab = await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Bullet/EnemyBullet.prefab");
@@ -32,6 +34,7 @@ namespace Millennium.InGame.Entity.Enemy
             }
 
             await OnStart(this.GetCancellationTokenOnDestroy());
+            */
         }
 
 

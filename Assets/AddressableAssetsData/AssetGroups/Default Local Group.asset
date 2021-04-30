@@ -131,6 +131,30 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 1ffbfb066cebb334cbf7b8658796e731
+    m_Address: Assets/Millennium/Assets/Sounds/Se/InGame/PlayerBulletHit2.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: bfcaaf9e7d4680c4e951bb72cab8b686
+    m_Address: Assets/Millennium/Assets/Sounds/Se/InGame/PlayerBulletHit.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 47b64dbd18723dc4da9892c7fff17115
+    m_Address: Assets/Millennium/Assets/Sounds/Se/InGame/Explosion.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 6f02c4ffffd683248bc7d793d9970e49
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Effect/Caution.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d80804b7e98dd9444a9c47da8e7a54af, type: 2}
   m_SchemaSet:

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Assertions;
 
 namespace Millennium.InGame.Effect
 {
@@ -39,13 +40,17 @@ namespace Millennium.InGame.Effect
                 { EffectType.CrossDecay, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecay.prefab") },
                 { EffectType.CrossDecayRed, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayRed.prefab") },
                 { EffectType.CrossDecayGreen, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayGreen.prefab") },
-                { EffectType.CrossDecayBlue, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayBlue.prefab") }
+                { EffectType.CrossDecayBlue, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayBlue.prefab") },
+
+                { EffectType.Caution, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/Caution.prefab") },
             };
         }
 
 
         public Transform Play(EffectType effect, Vector3 position)
         {
+            Assert.IsTrue(Prefabs[effect] != null, $"{effect} is null");
+
             var instance = Instantiate(Prefabs[effect]);
             instance.transform.position = position;
             return instance.transform;
@@ -55,13 +60,17 @@ namespace Millennium.InGame.Effect
     public enum EffectType
     {
         Explosion,
+
         PlusDecay,
         PlusDecayRed,
         PlusDecayGreen,
         PlusDecayBlue,
+
         CrossDecay,
         CrossDecayRed,
         CrossDecayGreen,
         CrossDecayBlue,
+
+        Caution,
     }
 }
