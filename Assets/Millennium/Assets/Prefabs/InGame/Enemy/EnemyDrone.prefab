@@ -177,12 +177,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a516c5c05cc36d43a5e17df8ffb84a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Speed: 64
+  m_Speed: 32
   m_Interval: 2
   m_StartTime: 2
   m_Way: 3
   m_WayDegree: 30
-  m_Repeat: 5
+  m_Repeat: 3
   m_BulletPrefab: {fileID: 2207737299194203055, guid: 7815aec88216ca145b33dcb4d3adece9, type: 3}
 --- !u!114 &3561050883749886484
 MonoBehaviour:
@@ -199,5 +199,5 @@ MonoBehaviour:
   m_Waypoints:
   - Point: {x: 0, y: -32}
     Duration: 2
-  - Point: {x: 0, y: -300}
-    Duration: 15
+  - Point: {x: 0, y: -256}
+    Duration: 20

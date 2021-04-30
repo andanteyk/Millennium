@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -43,6 +42,8 @@ namespace Millennium.InGame.Effect
                 { EffectType.CrossDecayBlue, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayBlue.prefab") },
 
                 { EffectType.Caution, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/Caution.prefab") },
+                { EffectType.MuzzleFlash, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/MuzzleFlash.prefab") },
+
             };
         }
 
@@ -72,5 +73,7 @@ namespace Millennium.InGame.Effect
         CrossDecayBlue,
 
         Caution,
+
+        MuzzleFlash,
     }
 }

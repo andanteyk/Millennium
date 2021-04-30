@@ -1,15 +1,11 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
+using Millennium.InGame.Effect;
 using Millennium.InGame.Entity.Bullet;
 using Millennium.InGame.Entity.Enemy;
-using Millennium.InGame.Entity.Player;
 using Millennium.Sound;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace Millennium.InGame.AI
 {
@@ -81,6 +77,7 @@ namespace Millennium.InGame.AI
                             m_Speed * Mathf.Sin(direction + (i - (m_Way - 1) / 2) * unitRad));
                     }
 
+                    EffectManager.I.Play(EffectType.MuzzleFlash, transform.position);
                     SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
 
                     await UniTask.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken: token);

@@ -367,8 +367,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Speed: 32
   m_Interval: 1
+  m_StartTime: 1
   m_Way: 3
   m_WayDegree: 30
+  m_Repeat: -1
   m_BulletPrefab: {fileID: 2207737299194203055, guid: 7815aec88216ca145b33dcb4d3adece9, type: 3}
 --- !u!1 &654177344
 GameObject:
