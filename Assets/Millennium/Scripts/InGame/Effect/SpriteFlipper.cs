@@ -15,7 +15,7 @@ namespace Millennium.InGame.Effect
         private bool m_FlipY;
 
         [SerializeField]
-        private float m_Interval;
+        private float m_Interval = 0.5f;
 
 
         private void Start()

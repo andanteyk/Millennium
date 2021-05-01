@@ -79,7 +79,7 @@ namespace Millennium.Sound
             CurrentBgm.Play();
         }
 
-        public async UniTask PlaySe(SeType se)
+        public async UniTask PlaySe(SeType se)      // TODO: audio source のキャッシュを行う、同時発声数の制限
         {
             await AwaitLoading();
 

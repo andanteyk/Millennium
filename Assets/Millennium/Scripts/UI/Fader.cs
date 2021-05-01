@@ -40,7 +40,7 @@ namespace Millennium.UI
                 .ForEachAwaitAsync(async sprite =>
             {
                 m_Image.sprite = sprite;
-                await UniTask.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken: token);
+                await UniTask.Delay(TimeSpan.FromSeconds(m_Interval), ignoreTimeScale: true, cancellationToken: token);
             }, token);
         }
 
@@ -56,7 +56,7 @@ namespace Millennium.UI
                 .ForEachAwaitAsync(async sprite =>
                 {
                     m_Image.sprite = sprite;
-                    await UniTask.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken: token);
+                    await UniTask.Delay(TimeSpan.FromSeconds(m_Interval), ignoreTimeScale: true, cancellationToken: token);
                 }, token);
             m_Image.enabled = false;
         }

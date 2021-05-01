@@ -142,14 +142,29 @@ namespace Millennium.InGame.Entity.Player
             }
             else
             {
-                // TODO: game over
-                EffectManager.I.Play(EffectType.Explosion, transform.position);
+                GameOver().Forget();
             }
         }
 
         private void SetInvincible(float seconds)
         {
             m_InvincibleUntil = Time.fixedTime + seconds;
+        }
+
+
+
+        // TODO: ‚±‚±‚É’u‚­‚×‚«?
+        private async UniTask GameOver()
+        {
+            // TODO: game over
+            EffectManager.I.Play(EffectType.Explosion, transform.position);
+
+            await UniTask.Delay(1000);
+
+            Time.timeScale = 0;
+
+            var fade = await UI.Fader.CreateFade();
+            await fade.Show();
         }
     }
 }
