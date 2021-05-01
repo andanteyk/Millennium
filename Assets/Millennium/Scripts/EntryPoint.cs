@@ -36,6 +36,17 @@ namespace Millennium
 
             // TODO: debug
             SoundManager.I.PlayBgm(Sound.BgmType.Test).Forget();
+
+            /*
+            await UniTask.Delay(1000);
+            var fader = await UI.Fader.CreateFade();
+            await UniTask.Yield();
+            await fader.Show();
+            await UniTask.Delay(1000);
+            await fader.Hide();
+            await UniTask.Delay(1000);
+            Destroy(fader.gameObject);
+            //*/
         }
 
         private async UniTask StartOutGame()

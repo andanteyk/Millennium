@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Way: 3
   m_WayDegree: 30
   m_Repeat: 3
-  m_BulletPrefab: {fileID: 2207737299194203055, guid: 7815aec88216ca145b33dcb4d3adece9, type: 3}
+  m_BulletPrefab: {fileID: 5121678088230232624, guid: 907876539ec9f21418ce758c3a8c0676, type: 3}
 --- !u!114 &3561050883749886484
 MonoBehaviour:
   m_ObjectHideFlags: 0

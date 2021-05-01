@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Millennium.InGame.Effect;
 using Millennium.Sound;
+using System;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -24,6 +25,15 @@ namespace Millennium.InGame.Entity.Enemy
         public override void DealDamage(DamageSource damage)
         {
             Health -= damage.Damage;
+
+            if (Health / Math.Max(HealthMax, 0.0) <= 0.1)
+            {
+                SoundManager.I.PlaySe(SeType.PlayerBulletHitCritical).Forget();
+            }
+            else
+            {
+                SoundManager.I.PlaySe(SeType.PlayerBulletHit).Forget();
+            }
 
             if (Health <= 0)
             {

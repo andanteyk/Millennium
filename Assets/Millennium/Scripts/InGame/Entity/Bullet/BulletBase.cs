@@ -52,7 +52,6 @@ namespace Millennium.InGame.Entity.Bullet
             if (collision.gameObject.GetComponent<Entity>() is EntityLiving entity)
             {
                 entity.DealDamage(new DamageSource(this, Power));
-                SoundManager.I.PlaySe(SeType.PlayerBulletHit).Forget();
             }
 
             EffectManager.I.Play(EffectOnDestroy, transform.position);
