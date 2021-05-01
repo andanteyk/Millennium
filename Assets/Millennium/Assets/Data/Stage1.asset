@@ -12,4 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ee77a6802dc26429c3dfedd70e863d, type: 3}
   m_Name: Stage1
   m_EditorClassIdentifier: 
-  Enemies: []
+  Enemies:
+  - SpawnSeconds: 5
+    Position: {x: -64, y: 128}
+    Prefab: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+  - SpawnSeconds: 5.5
+    Position: {x: -32, y: 128}
+    Prefab: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+  - SpawnSeconds: 6
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+  - SpawnSeconds: 6.5
+    Position: {x: 32, y: 128}
+    Prefab: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+  - SpawnSeconds: 7
+    Position: {x: 64, y: 128}
+    Prefab: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
