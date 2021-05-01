@@ -19,8 +19,6 @@ namespace Millennium.Editor
     {
         public override async void OnInspectorGUI()
         {
-            base.OnInspectorGUI();
-
             if (GUILayout.Button("Create from Spreadsheet"))
             {
                 var values = await LoadFromSpreadSheet(target.name);
@@ -29,6 +27,8 @@ namespace Millennium.Editor
                     Parse(target as StageData, values);
                 }
             }
+
+            base.OnInspectorGUI();
         }
 
 

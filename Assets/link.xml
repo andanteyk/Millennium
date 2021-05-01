@@ -1,0 +1,6 @@
+<linker>
+  <assembly fullname="UnityEngine">
+    <type fullname="UnityEngine.Joint2D" preserve="all" />
+    <type fullname="UnityEngine.Collider" preserve="all" />
+  </assembly>
+</linker>

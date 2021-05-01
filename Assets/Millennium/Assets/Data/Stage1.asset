@@ -15,16 +15,28 @@ MonoBehaviour:
   Enemies:
   - SpawnSeconds: 5
     Position: {x: -64, y: 128}
-    Prefab: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
-  - SpawnSeconds: 5.5
+    Prefab: {fileID: 7080115360011398123, guid: 0617740e70738a249977e79fb8882057, type: 3}
+  - SpawnSeconds: 5.25
     Position: {x: -32, y: 128}
-    Prefab: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
-  - SpawnSeconds: 6
+    Prefab: {fileID: 7080115360011398123, guid: 0617740e70738a249977e79fb8882057, type: 3}
+  - SpawnSeconds: 5.5
     Position: {x: 0, y: 128}
-    Prefab: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
-  - SpawnSeconds: 6.5
+    Prefab: {fileID: 7080115360011398123, guid: 0617740e70738a249977e79fb8882057, type: 3}
+  - SpawnSeconds: 5.75
     Position: {x: 32, y: 128}
-    Prefab: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
-  - SpawnSeconds: 7
+    Prefab: {fileID: 7080115360011398123, guid: 0617740e70738a249977e79fb8882057, type: 3}
+  - SpawnSeconds: 6
     Position: {x: 64, y: 128}
-    Prefab: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+    Prefab: {fileID: 7080115360011398123, guid: 0617740e70738a249977e79fb8882057, type: 3}
+  - SpawnSeconds: 9
+    Position: {x: 48, y: 128}
+    Prefab: {fileID: 7080115360011398123, guid: 0617740e70738a249977e79fb8882057, type: 3}
+  - SpawnSeconds: 9.25
+    Position: {x: 16, y: 128}
+    Prefab: {fileID: 7080115360011398123, guid: 0617740e70738a249977e79fb8882057, type: 3}
+  - SpawnSeconds: 9.5
+    Position: {x: -16, y: 128}
+    Prefab: {fileID: 7080115360011398123, guid: 0617740e70738a249977e79fb8882057, type: 3}
+  - SpawnSeconds: 9.75
+    Position: {x: -48, y: 128}
+    Prefab: {fileID: 7080115360011398123, guid: 0617740e70738a249977e79fb8882057, type: 3}

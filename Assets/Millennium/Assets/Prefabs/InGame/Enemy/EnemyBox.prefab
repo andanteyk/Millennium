@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3322470297347819870}
   - component: {fileID: 6278222785853421924}
   - component: {fileID: 7637670493568935177}
+  - component: {fileID: 521593702}
   m_Layer: 10
   m_Name: EnemyBox
   m_TagString: Untagged
@@ -146,3 +147,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &521593702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3322470297347819875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a516c5c05cc36d43a5e17df8ffb84a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Speed: 32
+  m_Interval: 1
+  m_StartTime: 1
+  m_Way: 3
+  m_WayDegree: 30
+  m_Repeat: -1
+  m_BulletPrefab: {fileID: 2207737299194203055, guid: 7815aec88216ca145b33dcb4d3adece9, type: 3}

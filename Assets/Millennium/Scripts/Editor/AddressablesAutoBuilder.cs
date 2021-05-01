@@ -13,7 +13,8 @@ namespace Millennium.Editor
 
         public void OnPreprocessBuild(BuildReport report)
         {
-            AddressableAssetSettings.BuildPlayerContent();
+            // Ç»Ç∫Ç©ÉGÉâÅ[Ç…Ç»ÇÈ :(
+            //AddressableAssetSettings.BuildPlayerContent();
         }
     }
 }

@@ -10,11 +10,17 @@ namespace Millennium.InGame.Stage
     {
         public async UniTask Play(StageData stage)
         {
+            float skipFrom = 5;
+
             await UniTask.WhenAll(stage.Enemies.Select(enemy =>
                 {
                     async UniTask instantiate(EnemyData enemy)
                     {
-                        await UniTask.Delay(TimeSpan.FromSeconds(enemy.SpawnSeconds));
+                        float spawnSeconds = enemy.SpawnSeconds - skipFrom;
+                        if (spawnSeconds < 0)
+                            return;
+
+                        await UniTask.Delay(TimeSpan.FromSeconds(spawnSeconds));
                         var instance = Instantiate(enemy.Prefab);
                         instance.transform.position = enemy.Position;
                     }
@@ -25,7 +31,7 @@ namespace Millennium.InGame.Stage
         // TODO : test
         private async void Start()
         {
-            var data = await Addressables.LoadAssetAsync<StageData>("Assets/Millennium/Assets/Data/TestStage.asset");
+            var data = await Addressables.LoadAssetAsync<StageData>("Assets/Millennium/Assets/Data/Stage1.asset");
 
             Play(data).Forget();
         }
