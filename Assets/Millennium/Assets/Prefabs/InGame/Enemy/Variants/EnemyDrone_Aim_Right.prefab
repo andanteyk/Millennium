@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5501804769279222408
+--- !u!1001 &1442103421821649409
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -53,15 +53,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
       propertyPath: m_Name
-      value: EnemyDrone_NoShot
+      value: EnemyDrone_Aim_Right
+      objectReference: {fileID: 0}
+    - target: {fileID: 3561050883749886484, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+      propertyPath: m_Waypoints.Array.data[0].Point.x
+      value: -128
       objectReference: {fileID: 0}
     - target: {fileID: 3561050883749886484, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
       propertyPath: m_Waypoints.Array.data[0].Point.y
-      value: -128
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3561050883749886484, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+      propertyPath: m_Waypoints.Array.data[1].Point.x
+      value: -192
+      objectReference: {fileID: 0}
+    - target: {fileID: 3561050883749886484, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+      propertyPath: m_Waypoints.Array.data[1].Point.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3561050883749886484, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+      propertyPath: m_Waypoints.Array.data[1].Duration
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5613909694765341236, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: m_Way
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613909694765341236, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+      propertyPath: m_Repeat
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613909694765341236, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+      propertyPath: m_StartTime
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613909694765341236, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+      propertyPath: m_WayDegree
+      value: 45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}

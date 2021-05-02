@@ -1,6 +1,27 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5501804769279222408
+--- !u!114 &7520287052837951077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5721910682550608638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d3de4687cc0184caba7f84d5fc69e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Speed: 32
+  m_Interval: 3
+  m_StartTime: 2
+  m_InitialDegree: -90
+  m_RandomizeDegree: 0
+  m_Way: 1
+  m_WayDegree: 30
+  m_Repeat: 3
+  m_BulletPrefab: {fileID: 5121678088230232624, guid: 907876539ec9f21418ce758c3a8c0676, type: 3}
+--- !u!1001 &7022103935037287325
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -53,15 +74,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
       propertyPath: m_Name
-      value: EnemyDrone_NoShot
+      value: EnemyDrone_OneShot_Left
+      objectReference: {fileID: 0}
+    - target: {fileID: 3561050883749886484, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+      propertyPath: m_Waypoints.Array.data[0].Point.x
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 3561050883749886484, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
       propertyPath: m_Waypoints.Array.data[0].Point.y
-      value: -128
-      objectReference: {fileID: 0}
-    - target: {fileID: 5613909694765341236, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3561050883749886484, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+      propertyPath: m_Waypoints.Array.data[1].Point.x
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 3561050883749886484, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+      propertyPath: m_Waypoints.Array.data[1].Duration
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5613909694765341236, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+--- !u!1 &5721910682550608638 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3322470297347819875, guid: b8dd426a17c8f96459aab311416cfaad, type: 3}
+  m_PrefabInstance: {fileID: 7022103935037287325}
+  m_PrefabAsset: {fileID: 0}

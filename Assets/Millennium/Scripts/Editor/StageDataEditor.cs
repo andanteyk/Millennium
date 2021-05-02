@@ -17,15 +17,17 @@ namespace Millennium.Editor
     [CustomEditor(typeof(StageData))]
     public class StageDataEditor : UnityEditor.Editor
     {
-        public override async void OnInspectorGUI()
+        public override void OnInspectorGUI()
         {
             if (GUILayout.Button("Create from Spreadsheet"))
             {
-                var values = await LoadFromSpreadSheet(target.name);
-                if (values != null)
+                // このコンテキストで await すると怒られが発生するので…
+                var values = LoadFromSpreadSheet(target.name);
+                values.ContinueWith(result =>
                 {
-                    Parse(target as StageData, values);
-                }
+                    if (result != null)
+                        Parse(target as StageData, result);
+                });
             }
 
             base.OnInspectorGUI();
