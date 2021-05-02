@@ -1,20 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &7869995887250061849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3492578372097320742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a74693014d057aa47a988809f4488c84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Power: 100
-  Speed: {x: 0, y: 64, z: 0}
-  EffectOnDestroy: 5
 --- !u!70 &8255780327376366723
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -31,6 +16,23 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 40, y: 64}
   m_Direction: 0
+--- !u!114 &7869995887250061849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3492578372097320742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a74693014d057aa47a988809f4488c84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Power: 100
+  m_Speed: {x: 0, y: 64, z: 0}
+  m_LifeTime: 20
+  EffectOnDestroy: 8
+  m_HitInterval: 0.25
 --- !u!1001 &7254402024248126817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38,6 +40,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 417658410202453122, guid: 4d9d796c20828ca45bc3938d848df2e9, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 417658410202453122, guid: 4d9d796c20828ca45bc3938d848df2e9, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 6112776344313891394, guid: 4d9d796c20828ca45bc3938d848df2e9, type: 3}
       propertyPath: m_Radius
       value: 32

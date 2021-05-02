@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -14,8 +15,12 @@ namespace Millennium.Sound
         private Dictionary<SeType, AudioClip> SeClips;
 
         private AudioSource CurrentBgm = null;
+        private List<AudioSource> SeBuffer;
+
+        private const int SeCapacity = 8;
 
         private GameObject AudioSourcePrefab;
+
 
         public bool IsLoaded { get; private set; } = false;
 
@@ -55,6 +60,9 @@ namespace Millennium.Sound
             };
 
             AudioSourcePrefab = await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/Common/Sounds/AudioSource.prefab");
+            SeBuffer = new List<AudioSource>(SeCapacity);
+            for (int i = 0; i < SeCapacity; i++)
+                SeBuffer.Add(CreateSource(null));
 
             IsLoaded = true;
         }
@@ -72,23 +80,34 @@ namespace Millennium.Sound
             else
             {
                 CurrentBgm = CreateSource(BgmClips[bgm]);
+                CurrentBgm.priority = 10;
             }
 
             CurrentBgm.loop = true;
-            CurrentBgm.volume = 0.1f;       // TODO
+            CurrentBgm.volume = 0.1f;       // TODO: 作業用に低め
             CurrentBgm.Play();
         }
 
-        public async UniTask PlaySe(SeType se)      // TODO: audio source のキャッシュを行う、同時発声数の制限
+        public async UniTask PlaySe(SeType se)
         {
             await AwaitLoading();
 
-            var source = CreateSource(SeClips[se]);
+            var clip = SeClips[se];
+
+            // 同一フレームで同じのが発声していたらスキップ
+            if (SeBuffer.Exists(s => s.isPlaying && s.clip == clip && s.time == 0))
+                return;
+
+            // 空き枠を探す(見つからなかったら一番長く再生しているやつを消す)
+            var source = SeBuffer.Find(s => !s.isPlaying);
+            if (source == null)
+                source = SeBuffer.Aggregate((AudioSource)null, (current, next) => (current != null ? current.time : 0) <= next.time ? next : current);
+
+            source.clip = clip;
             source.Play();
 
-            await UniTask.WaitWhile(() => source.isPlaying, cancellationToken: this.GetCancellationTokenOnDestroy());
-
-            Destroy(source.gameObject);
+            // TODO: ↑ で上書きされたときに正しく動作しないかも?
+            await UniTask.WaitWhile(() => source.isPlaying, cancellationToken: source.GetCancellationTokenOnDestroy());
         }
 
         public async UniTask StopBgm()
