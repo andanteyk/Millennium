@@ -1,6 +1,9 @@
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Linq;
+using Cysharp.Threading.Tasks.Triggers;
 using Millennium.InGame.Effect;
 using Millennium.Sound;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -15,47 +18,55 @@ namespace Millennium.InGame.Entity.Bullet
         private int m_Power = 100;
         public int Power { get => m_Power; protected set => m_Power = value; }
 
-        [SerializeField, FormerlySerializedAs("Speed")]
+        [SerializeField]
         private Vector3 m_Speed;
         public Vector3 Speed { get => m_Speed; set => m_Speed = value; }
+
+        [SerializeField]
+        private float m_LifeTime = 20;
 
         public EffectType EffectOnDestroy = EffectType.CrossDecay;
 
 
-        protected virtual async void Start()
+        protected UniTask Move(CancellationToken token)
         {
-            await OnStart(this.GetCancellationTokenOnDestroy());
+            return UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
+                .ForEachAsync(_ => transform.position += m_Speed * Time.deltaTime, token);
         }
 
-        protected async UniTask OnStart(CancellationToken token)
+        protected UniTask DestroyWhenExpired(CancellationToken token)
         {
-            await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
+            return UniTaskAsyncEnumerable.Timer(TimeSpan.FromSeconds(m_LifeTime), PlayerLoopTiming.FixedUpdate)
+                .ForEachAsync(_ => Destroy(gameObject), token);
+        }
 
-            while (!token.IsCancellationRequested)
-            {
-                transform.position += m_Speed * Time.deltaTime;
+        protected UniTask DestroyWhenFrameOut(CancellationToken token)
+        {
+            return UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
+                .Where(_ => !InGameConstants.ExtendedFieldArea.Contains(transform.position))
+                .ForEachAsync(_ => Destroy(gameObject), token);
+        }
 
-                if (!InGameConstants.ExtendedFieldArea.Contains(transform.position))
+        protected UniTask DamageWhenEnter(CancellationToken token)
+        {
+            return this.GetAsyncTriggerEnter2DTrigger()
+                .ForEachAsync(collision =>
                 {
-                    Destroy(gameObject);
-                    break;
-                }
-
-                await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
-            }
+                    if (collision.gameObject.GetComponent<Entity>() is EntityLiving entity)
+                    {
+                        entity.DealDamage(new DamageSource(this, Power));
+                    }
+                }, token);
         }
 
-
-
-        protected virtual void OnTriggerEnter2D(Collider2D collision)
+        protected UniTask DestroyWhenEnter(CancellationToken token)
         {
-            if (collision.gameObject.GetComponent<Entity>() is EntityLiving entity)
-            {
-                entity.DealDamage(new DamageSource(this, Power));
-            }
-
-            EffectManager.I.Play(EffectOnDestroy, transform.position);
-            Destroy(gameObject);
+            return this.GetAsyncTriggerEnter2DTrigger()
+                .ForEachAsync(collision =>
+                {
+                    EffectManager.I.Play(EffectOnDestroy, transform.position);
+                    Destroy(gameObject);
+                }, token);
         }
     }
 }

@@ -9,29 +9,34 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Serialization;
 
 namespace Millennium.InGame.Entity.Player
 {
-    public class Player : EntityLiving
+    public abstract class Player : EntityLiving
     {
+        [SerializeField, FormerlySerializedAs("m_BulletPrefab")]
+        protected GameObject m_MainShotPrefab;
         [SerializeField]
-        private GameObject m_BulletPrefab;
+        protected GameObject m_SubShotPrefab;
         [SerializeField]
-        private GameObject m_BombPrefab;
+        protected GameObject m_BombPrefab;
 
+        [SerializeField, FormerlySerializedAs("m_ShotInterval")]
+        protected float m_MainShotInterval = 0.25f;
         [SerializeField]
-        private float m_ShotInterval = 0.25f;
+        protected float m_SubShotInterval = 0.5f;
 
         [SerializeField]
         private float m_MoveSpeed = 64;
 
 
-        private bool IsInvincible => Time.fixedTime < m_InvincibleUntil;
+        protected bool IsInvincible => Time.fixedTime < m_InvincibleUntil;
         private float m_InvincibleUntil = 0;
 
         private int m_BombCount = 3;
 
-        private bool IsControllable => Health > 0;
+        protected bool IsControllable => Health > 0;
 
 
 
@@ -44,8 +49,6 @@ namespace Millennium.InGame.Entity.Player
             var input = new InputControls();
             input.Enable();
 
-            //var bulletPrefab = await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Bullet/PlayerBullet.prefab");
-            //var bombPrefab = await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Bullet/AliceBomb Variant.prefab");
 
             var rigidbody = GetComponent<Rigidbody2D>();
             var renderer = GetComponent<SpriteRenderer>();
@@ -53,7 +56,7 @@ namespace Millennium.InGame.Entity.Player
 
             var token = this.GetCancellationTokenOnDestroy();
 
-            // input loop - shot
+            // input loop - main shot
             UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
                 .ForEachAwaitAsync(async _ =>
                 {
@@ -62,10 +65,23 @@ namespace Millennium.InGame.Entity.Player
                     if (!input.Player.Fire.IsPressed())
                         return;
 
-                    var bullet = Instantiate(m_BulletPrefab);
-                    bullet.transform.position = transform.position;
+                    await MainShot();
 
-                    await UniTask.Delay(TimeSpan.FromSeconds(m_ShotInterval));
+                    await UniTask.Delay(TimeSpan.FromSeconds(m_MainShotInterval));
+                }, token);
+
+            // input loop - sub shot
+            UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
+                .ForEachAwaitAsync(async _ =>
+                {
+                    if (!IsControllable)
+                        return;
+                    if (!input.Player.Fire.IsPressed())
+                        return;
+
+                    await SubShot();
+
+                    await UniTask.Delay(TimeSpan.FromSeconds(m_SubShotInterval));
                 }, token);
 
             // input loop - bomb
@@ -95,7 +111,7 @@ namespace Millennium.InGame.Entity.Player
 
             // input loop - move
             UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
-                .ForEachAwaitAsync(async _ =>
+                .ForEachAsync(_ =>
                 {
                     if (!IsControllable)
                         return;
@@ -109,7 +125,7 @@ namespace Millennium.InGame.Entity.Player
 
             // display update
             UniTaskAsyncEnumerable.EveryUpdate()
-                .ForEachAwaitAsync(async _ =>
+                .ForEachAsync(_ =>
                 {
                     if (IsInvincible)
                     {
@@ -121,6 +137,15 @@ namespace Millennium.InGame.Entity.Player
                     }
                 }, token);
         }
+
+
+        protected virtual UniTask MainShot()
+        {
+            var bullet = Instantiate(m_MainShotPrefab);
+            bullet.transform.position = transform.position;
+            return UniTask.CompletedTask;
+        }
+        protected virtual UniTask SubShot() => UniTask.CompletedTask;
 
 
         public override void DealDamage(DamageSource damage)

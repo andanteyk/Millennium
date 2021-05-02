@@ -10,7 +10,7 @@ namespace Millennium.InGame.Stage
     {
         public async UniTask Play(StageData stage)
         {
-            float skipFrom = 60;
+            float skipFrom = 0;
 
             await UniTask.WhenAll(stage.Enemies.Select(enemy =>
                 {
