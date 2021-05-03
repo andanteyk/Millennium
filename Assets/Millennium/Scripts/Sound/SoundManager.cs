@@ -57,6 +57,8 @@ namespace Millennium.Sound
                 { SeType.EnemyShot, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/EnemyShot.wav") },
                 { SeType.PlayerDamaged, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/PlayerDamaged.wav") },
                 { SeType.PlayerBulletImmune, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/PlayerBulletImmune.wav") },
+
+                { SeType.Concentration, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/Concentration.wav") },
             };
 
             AudioSourcePrefab = await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/Common/Sounds/AudioSource.prefab");
@@ -158,5 +160,6 @@ namespace Millennium.Sound
         EnemyShot,
         PlayerDamaged,
         PlayerBulletImmune,
+        Concentration,
     }
 }

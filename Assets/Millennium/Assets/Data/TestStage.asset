@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemies:
   - SpawnSeconds: 0
-    Position: {x: 0, y: 64}
+    Position: {x: 0, y: 128}
     Prefab: {fileID: 4574660940798036903, guid: 1b911d6ca52317545b3e4a7a01461845, type: 3}
