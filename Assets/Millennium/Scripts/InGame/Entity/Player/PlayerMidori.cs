@@ -12,7 +12,7 @@ namespace Millennium.InGame.Entity.Player
         protected override UniTask SubShot()
         {
             // –ˆƒtƒŒ[ƒ€‚¶‚á‚È‚¢‚©‚ç‹–‚µ‚Ä
-            var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            var enemies = GameObject.FindGameObjectsWithTag(InGameConstants.EnemyTag);
             var nearest = enemies.Aggregate((GameObject)null, (current, next) => ((current != null ? Vector3.Distance(transform.position, current.transform.position) : float.PositiveInfinity) > Vector3.Distance(transform.position, next.transform.position) ? next : current));
 
             for (int i = 0; i < 2; i++)

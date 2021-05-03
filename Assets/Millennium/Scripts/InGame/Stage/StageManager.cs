@@ -31,7 +31,7 @@ namespace Millennium.InGame.Stage
         // TODO : test
         private async void Start()
         {
-            var data = await Addressables.LoadAssetAsync<StageData>("Assets/Millennium/Assets/Data/Stage1.asset");
+            var data = await Addressables.LoadAssetAsync<StageData>("Assets/Millennium/Assets/Data/TestStage.asset");
 
             Play(data).Forget();
         }

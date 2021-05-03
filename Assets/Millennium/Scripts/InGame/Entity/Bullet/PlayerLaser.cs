@@ -1,5 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
+using Cysharp.Threading.Tasks.Triggers;
+using Millennium.InGame.Effect;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +19,17 @@ namespace Millennium.InGame.Entity.Bullet
             var token = this.GetCancellationTokenOnDestroy();
 
             DestroyWhenFrameOut(token);
-            DamageWhenEnter(token);
+
+            this.GetAsyncTriggerEnter2DTrigger()
+                .ForEachAsync(collision =>
+                {
+                    if (collision.gameObject.GetComponent<Entity>() is EntityLiving entity)
+                    {
+                        entity.DealDamage(new DamageSource(this, Power));
+                    }
+
+                    EffectManager.I.Play(EffectOnDestroy, transform.position);
+                }, token);
 
             UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
                 .ForEachAsync(_ =>

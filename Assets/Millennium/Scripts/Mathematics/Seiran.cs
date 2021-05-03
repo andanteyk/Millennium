@@ -5,6 +5,9 @@ using System.Security.Cryptography;
 
 namespace Millennium.Mathematics
 {
+    /// <summary>
+    /// Seiran128 Random Number Generator
+    /// </summary>
     public sealed class Seiran
     {
         private ulong State0;

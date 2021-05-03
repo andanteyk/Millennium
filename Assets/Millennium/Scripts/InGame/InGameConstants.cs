@@ -20,5 +20,6 @@ namespace Millennium.InGame
 
 
         public static string PlayerTag => "Player";
+        public static string EnemyTag => "Enemy";
     }
 }

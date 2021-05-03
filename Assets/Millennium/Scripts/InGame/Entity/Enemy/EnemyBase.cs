@@ -24,7 +24,6 @@ namespace Millennium.InGame.Entity.Enemy
 
         public override void DealDamage(DamageSource damage)
         {
-            Debug.Log($"damage from {damage.Attacker.name}; {Health} -> {Health - damage.Damage} (-{damage.Damage})");
             Health -= damage.Damage;
 
             if (Health / Math.Max(HealthMax, 0.0) <= 0.1)
