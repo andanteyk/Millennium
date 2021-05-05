@@ -44,6 +44,9 @@ namespace Millennium.InGame.Effect
                 { EffectType.Caution, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/Caution.prefab") },
                 { EffectType.MuzzleFlash, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/MuzzleFlash.prefab") },
                 { EffectType.Concentration, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/Concentration.prefab") },
+                { EffectType.SpreadExplosion, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/SpreadExplosion.prefab") },
+
+
             };
         }
 
@@ -76,5 +79,6 @@ namespace Millennium.InGame.Effect
 
         MuzzleFlash,
         Concentration,
+        SpreadExplosion,
     }
 }

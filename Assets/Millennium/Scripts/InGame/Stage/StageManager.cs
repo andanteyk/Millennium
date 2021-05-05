@@ -61,7 +61,7 @@ namespace Millennium.InGame.Stage
         {
             var data = await Addressables.LoadAssetAsync<StageData>("Assets/Millennium/Assets/Data/TestStage.asset");
 
-            Play(data, PlayerType.Midori).Forget();
+            Play(data, PlayerType.Alice).Forget();
         }
     }
 }

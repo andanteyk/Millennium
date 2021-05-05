@@ -45,6 +45,13 @@ namespace Millennium.UI
                 m_SubGauge.rectTransform.sizeDelta.y);
         }
 
+        public void DecrementSubGauge()
+        {
+            m_SubGauge.rectTransform.sizeDelta = new Vector2(
+                m_SubGauge.rectTransform.sizeDelta.x - m_SubGaugeWidth,
+                m_SubGauge.rectTransform.sizeDelta.y);
+        }
+
 
         public void SetGaugeColor(Color color)
         {

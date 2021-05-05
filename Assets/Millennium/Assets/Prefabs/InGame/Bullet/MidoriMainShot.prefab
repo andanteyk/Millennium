@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6112776344313891395, guid: 4d9d796c20828ca45bc3938d848df2e9, type: 3}
+      propertyPath: m_Speed.y
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 6112776344313891395, guid: 4d9d796c20828ca45bc3938d848df2e9, type: 3}
       propertyPath: EffectOnDestroy
       value: 7
       objectReference: {fileID: 0}
@@ -61,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6112776344313891399, guid: 4d9d796c20828ca45bc3938d848df2e9, type: 3}
       propertyPath: m_Name
-      value: PlayerBullet
+      value: MidoriMainShot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d9d796c20828ca45bc3938d848df2e9, type: 3}

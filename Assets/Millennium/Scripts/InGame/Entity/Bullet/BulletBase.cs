@@ -68,5 +68,25 @@ namespace Millennium.InGame.Entity.Bullet
                     Destroy(gameObject);
                 }, token);
         }
+
+
+        public static BulletBase Instantiate(GameObject prefab, Vector3 position, Vector3 speed)
+        {
+            var instance = Instantiate(prefab);
+            instance.transform.position = position;
+
+            var bullet = instance.GetComponent<BulletBase>();
+            bullet.Speed = speed;
+
+            return bullet;
+        }
+
+        public static BulletBase Instantiate(GameObject prefab, Vector3 position)
+        {
+            var instance = Instantiate(prefab);
+            instance.transform.position = position;
+
+            return instance.GetComponent<BulletBase>();
+        }
     }
 }

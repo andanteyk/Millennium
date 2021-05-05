@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks.Linq;
 using Millennium.InGame.Effect;
 using Millennium.InGame.Entity.Bullet;
 using Millennium.InGame.Entity.Enemy;
+using Millennium.Mathematics;
 using Millennium.Sound;
 using System;
 using UnityEngine;
@@ -42,7 +43,6 @@ namespace Millennium.InGame.AI
         private async UniTaskVoid OnStart()
         {
             var owner = GetComponent<EnemyBase>();
-            Transform playerTransform = null;
 
             var token = this.GetCancellationTokenOnDestroy();
 
@@ -57,24 +57,11 @@ namespace Millennium.InGame.AI
                         return;
                     m_Repeat--;
 
-                    playerTransform = playerTransform != null ? playerTransform : GameObject.FindGameObjectWithTag(InGameConstants.PlayerTag)?.transform;
+                    float direction = BallisticMath.AimToPlayer(transform.position);
 
-                    if (playerTransform == null)
-                        return;
-
-                    // もっと簡単に計算する方法があった気もする…
-                    float direction = Mathf.Atan2(playerTransform.position.y - transform.position.y, playerTransform.position.x - transform.position.x);
-                    float unitRad = m_WayDegree * Mathf.Deg2Rad;
-
-                    for (int i = 0; i < m_Way; i++)
+                    foreach (var angle in BallisticMath.CalculateWayRadians(direction, (int)m_Way, m_WayDegree * Mathf.Deg2Rad))
                     {
-                        var instance = Instantiate(m_BulletPrefab);
-                        instance.transform.position = transform.position;
-
-                        var bullet = instance.GetComponent<BulletBase>();
-                        bullet.Speed = new Vector3(
-                            m_Speed * Mathf.Cos(direction + (i - (m_Way - 1) / 2) * unitRad),
-                            m_Speed * Mathf.Sin(direction + (i - (m_Way - 1) / 2) * unitRad));
+                        BulletBase.Instantiate(m_BulletPrefab, transform.position, BallisticMath.FromPolar(m_Speed, angle));
                     }
 
                     EffectManager.I.Play(EffectType.MuzzleFlash, transform.position);

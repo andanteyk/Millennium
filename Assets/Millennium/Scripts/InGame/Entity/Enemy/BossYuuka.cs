@@ -19,84 +19,48 @@ namespace Millennium.InGame.Entity.Enemy
         [SerializeField]
         private GameObject m_NormalShotPrefab;
 
-        [SerializeField]
-        private GameObject m_BulletRemoverPrefab;
 
 
-        private CancellationTokenSource m_PhaseToken;
 
 
-        private async void Start()
+        private void Start()
         {
-            // TODO
-            Health = HealthMax = 5000;
+            OnStart().Forget();
+        }
 
+        private async UniTask OnStart()
+        {
             var destroyToken = this.GetCancellationTokenOnDestroy();
 
 
+            SetupHealthGauge(2, destroyToken);
+
             // TODO
-            InGameUI.I.BossHealthGauge.SetSubGauge(2);
-            InGameUI.I.BossHealthGauge.Show();
-            UniTaskAsyncEnumerable.EveryUpdate()
-                .ForEachAsync(_ =>
-                {
-                    InGameUI.I.BossHealthGauge.SetGauge(Health, HealthMax);
-                }, destroyToken)
-                .Forget();
-            destroyToken.Register(() => InGameUI.I.BossHealthGauge.Hide());
-
-
-            m_PhaseToken = new CancellationTokenSource();
-            using (var combinedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(m_PhaseToken.Token, destroyToken))
-            {
-                var token = combinedTokenSource.Token;
-
-                await UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
-                    .ForEachAwaitAsync(async _ =>
-                    {
-                        await RandomMove(1, token);
-                        await Baramaki(token);
-                        await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
-                    }, token).SuppressCancellationThrow();
-            }
-
-            // test
-            Instantiate(m_BulletRemoverPrefab).transform.position = transform.position;
-            InGameUI.I.BossHealthGauge.SetSubGauge(1);
-
-            EffectManager.I.Play(EffectType.Explosion, transform.position);
-            SoundManager.I.PlaySe(SeType.Explosion).Forget();
-            await UniTask.Delay(TimeSpan.FromSeconds(3), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: destroyToken);
-
-            EffectManager.I.Play(EffectType.Concentration, transform.position);
-            SoundManager.I.PlaySe(SeType.Concentration).Forget();
-            await UniTask.Delay(TimeSpan.FromSeconds(2), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: destroyToken);
             Health = HealthMax = 5000;
-
-
-            m_PhaseToken = new CancellationTokenSource();
-            using (var combinedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(m_PhaseToken.Token, destroyToken))
+            await RunPhase(async (_, token) =>
             {
-                var token = combinedTokenSource.Token;
+                await RandomMove(1, token);
+                await Baramaki(token);
+                await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
+            }, destroyToken);
+            await OnEndPhase(destroyToken);
 
-                await UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
-                    .ForEachAwaitAsync(async _ =>
-                    {
-                        await RandomMove(1, token);
-                        await PlayerAimShot1(token);
-                        await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
-                    }, token).SuppressCancellationThrow();
-            }
+            Health = HealthMax = 5000;          // TODO
+            await RunPhase(async (_, token) =>
+            {
+                await RandomMove(1, token);
+                await PlayerAimShot1(token);
+                await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
+            }, destroyToken);
 
+            await PlayDeathEffect(destroyToken);
 
-            // Œã•Ð•t‚¯
             if (destroyToken.IsCancellationRequested)
                 return;
-
-            EffectManager.I.Play(EffectType.Explosion, transform.position);
-            SoundManager.I.PlaySe(SeType.Explosion).Forget();
             Destroy(gameObject);
         }
+
+
 
         private async UniTask PlayerAimShot1(CancellationToken token)
         {
@@ -108,20 +72,13 @@ namespace Millennium.InGame.Entity.Enemy
 
             EffectManager.I.Play(EffectType.MuzzleFlash, transform.position);
 
-            float direction = Mathf.Atan2(playerTransform.position.y - transform.position.y, playerTransform.position.x - transform.position.x);
+            float direction = BallisticMath.AimToPlayer(transform.position);
 
 
             for (int i = 0; i < 4 && !token.IsCancellationRequested; i++)
             {
-                var bullet = Instantiate(m_NormalShotPrefab).GetComponent<EnemyBullet>();
-                bullet.transform.position = transform.position;
-
-                //float direction = Mathf.Atan2(playerTransform.position.y - transform.position.y, playerTransform.position.x - transform.position.x);
-                float speed = bullet.Speed.y;
-                bullet.Speed = new Vector3(
-                    speed * Mathf.Cos(direction),
-                    speed * Mathf.Sin(direction)
-                    );
+                var bullet = BulletBase.Instantiate(m_NormalShotPrefab, transform.position);
+                bullet.Speed = BallisticMath.FromPolar(bullet.Speed.y, direction);
 
                 SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
 
@@ -137,28 +94,17 @@ namespace Millennium.InGame.Entity.Enemy
 
             for (int loop = 0; loop < 32 && !token.IsCancellationRequested; loop++)
             {
-
                 EffectManager.I.Play(EffectType.MuzzleFlash, transform.position);
                 SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
 
-                float direction = Seiran.Shared.NextSingle(0, Mathf.PI * 2);
-                int way = 12;
-                for (int i = 0; i < way; i++)
+                foreach (var radian in BallisticMath.CalculateWayRadians(Seiran.Shared.NextSingle(0, Mathf.PI * 2), 12, 2 * Mathf.PI / 12))
                 {
-                    var bullet = Instantiate(m_NormalShotPrefab).GetComponent<EnemyBullet>();
-                    bullet.transform.position = transform.position;
-
-                    float speed = 64;
-                    bullet.Speed = new Vector3(
-                        speed * Mathf.Cos(direction + (i * Mathf.PI * 2 / way)),
-                        speed * Mathf.Sin(direction + (i * Mathf.PI * 2 / way))
-                        );
+                    BulletBase.Instantiate(m_NormalShotPrefab, transform.position, BallisticMath.FromPolar(64, radian));
                 }
 
                 await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: token);
             }
         }
-
 
 
 
@@ -185,6 +131,13 @@ namespace Millennium.InGame.Entity.Enemy
                 m_PhaseToken?.Dispose();
                 m_PhaseToken = null;
             }
+        }
+
+        private void OnDestroy()
+        {
+            m_PhaseToken?.Cancel();
+            m_PhaseToken?.Dispose();
+            m_PhaseToken = null;
         }
     }
 }

@@ -227,6 +227,18 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: a18ddeaf2684d8f4ba8d4cc5793c7339
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Effect/SpreadExplosion.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 8538f2526557afc429c445e66e3759c1
+    m_Address: Assets/Millennium/Assets/Sounds/Se/InGame/SpreadExplosion.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d80804b7e98dd9444a9c47da8e7a54af, type: 2}
   m_SchemaSet:

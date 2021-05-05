@@ -68,17 +68,10 @@ namespace Millennium.InGame.AI
 
 
                     float direction = (m_InitialDegree + Seiran.Shared.NextSingle(-m_RandomizeDegree, m_RandomizeDegree)) * Mathf.Deg2Rad;
-                    float unitRad = m_WayDegree * Mathf.Deg2Rad;
 
-                    for (int i = 0; i < m_Way; i++)
+                    foreach (var way in BallisticMath.CalculateWayRadians(direction, (int)m_Way, m_WayDegree * Mathf.Deg2Rad))
                     {
-                        var instance = Instantiate(m_BulletPrefab);
-                        instance.transform.position = transform.position;
-
-                        var bullet = instance.GetComponent<BulletBase>();
-                        bullet.Speed = new Vector3(
-                            m_Speed * Mathf.Cos(direction + (i - (m_Way - 1) / 2) * unitRad),
-                            m_Speed * Mathf.Sin(direction + (i - (m_Way - 1) / 2) * unitRad));
+                        BulletBase.Instantiate(m_BulletPrefab, transform.position, BallisticMath.FromPolar(m_Speed, way));
                     }
 
                     EffectManager.I.Play(EffectType.MuzzleFlash, transform.position);

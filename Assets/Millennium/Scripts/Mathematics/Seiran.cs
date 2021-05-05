@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using UnityEngine;
 
 namespace Millennium.Mathematics
 {
@@ -136,6 +137,21 @@ namespace Millennium.Mathematics
                 ret = BitDecrement(ret);
 
             return ret;
+        }
+
+
+        public Vector3 OnUnitCircle()
+        {
+            var angle = NextSingle(0, Mathf.PI * 2);
+            return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle));
+        }
+
+        public Vector3 InsideUnitCircle()
+        {
+            var angle = NextSingle(0, Mathf.PI * 2);
+            var radius = Mathf.Sqrt(NextSingle());
+
+            return new Vector3(radius * Mathf.Cos(angle), radius * Mathf.Sin(angle));
         }
 
 
