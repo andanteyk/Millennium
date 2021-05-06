@@ -61,12 +61,14 @@ namespace Millennium.UI
 
         public void Show()
         {
-            m_CanvasGroup.alpha = 1;
+            if (m_CanvasGroup != null)
+                m_CanvasGroup.alpha = 1;
         }
 
         public void Hide()
         {
-            m_CanvasGroup.alpha = 0;
+            if (m_CanvasGroup != null)
+                m_CanvasGroup.alpha = 0;
         }
     }
 }

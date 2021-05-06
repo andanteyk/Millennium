@@ -163,5 +163,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InitialHealth: 1000
-  m_NormalShotPrefab: {fileID: 1657035952445159192, guid: ec533b8c80a6bde4f8bc19d7f0696985, type: 3}
   m_BulletRemoverPrefab: {fileID: 1886261628011126686, guid: f41442ce3539d4645b52ddfd73ca8fcc, type: 3}
+  m_NormalShotPrefab: {fileID: 1657035952445159192, guid: ec533b8c80a6bde4f8bc19d7f0696985, type: 3}
+  m_ShieldPrefab: {fileID: 1190607229414058846, guid: b7dbe39507205e5499b7b021e492cf46, type: 3}

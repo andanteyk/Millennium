@@ -19,7 +19,8 @@ namespace Millennium.InGame.Entity.Enemy
         [SerializeField]
         private GameObject m_NormalShotPrefab;
 
-
+        [SerializeField]
+        private GameObject m_ShieldPrefab;
 
 
 
@@ -28,30 +29,46 @@ namespace Millennium.InGame.Entity.Enemy
             OnStart().Forget();
         }
 
-        private async UniTask OnStart()
+        private async UniTaskVoid OnStart()
         {
             var destroyToken = this.GetCancellationTokenOnDestroy();
 
 
             SetupHealthGauge(2, destroyToken);
 
-            // TODO
+
+            // TEST
+            await RandomMove(1, destroyToken);
+
+
+            //*
             Health = HealthMax = 5000;
-            await RunPhase(async (_, token) =>
+            await RunPhase(async token =>
             {
-                await RandomMove(1, token);
-                await Baramaki(token);
-                await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
+                await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(2), PlayerLoopTiming.FixedUpdate))
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        await RandomMove(1, token);
+                        await PlayerAimShot1(token);
+                        await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
+                    }
+
+                    EffectManager.I.Play(EffectType.Concentration, transform.position);
+                    SoundManager.I.PlaySe(SeType.Concentration).Forget();
+                    await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
+                    await PlayerAimShot2(token);
+                }
             }, destroyToken);
             await OnEndPhase(destroyToken);
+            //*/
 
-            Health = HealthMax = 5000;          // TODO
-            await RunPhase(async (_, token) =>
-            {
-                await RandomMove(1, token);
-                await PlayerAimShot1(token);
-                await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
-            }, destroyToken);
+
+            Health = HealthMax = 10000;
+            await RunPhase(SkillIFF, destroyToken);
+            // await OnEndPhase(destroyToken);
+
+
 
             await PlayDeathEffect(destroyToken);
 
@@ -67,77 +84,145 @@ namespace Millennium.InGame.Entity.Enemy
             if (token.IsCancellationRequested)
                 return;
 
-            // TODO: cache
-            var playerTransform = GameObject.FindGameObjectWithTag(InGameConstants.PlayerTag).transform;
 
-            EffectManager.I.Play(EffectType.MuzzleFlash, transform.position);
+            float speed = 128;
 
-            float direction = BallisticMath.AimToPlayer(transform.position);
-
+            float playerDirection = BallisticMath.AimToPlayer(transform.position);
 
             for (int i = 0; i < 4 && !token.IsCancellationRequested; i++)
             {
-                var bullet = BulletBase.Instantiate(m_NormalShotPrefab, transform.position);
-                bullet.Speed = BallisticMath.FromPolar(bullet.Speed.y, direction);
+                for (int k = -1; k <= 1; k++)
+                {
+                    float direction = playerDirection + Mathf.PI / 6 * k;
+                    var offset = BallisticMath.FromPolar(4, direction + Mathf.PI / 2);
+                    BulletBase.Instantiate(m_NormalShotPrefab, transform.position + offset, BallisticMath.FromPolar(speed, direction));
+                    BulletBase.Instantiate(m_NormalShotPrefab, transform.position - offset, BallisticMath.FromPolar(speed, direction));
+                }
 
                 SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
+                EffectManager.I.Play(EffectType.MuzzleFlash, transform.position);
 
                 await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: token);
             }
         }
 
+        private async UniTask PlayerAimShot2(CancellationToken token)
+        {
+            if (token.IsCancellationRequested)
+                return;
+
+            float playerDirection = BallisticMath.AimToPlayer(transform.position);
+
+
+            foreach (float r in BallisticMath.CalculateWayRadians(playerDirection, 12, 12 * Mathf.Deg2Rad))
+            {
+                for (int k = 0; k < 4; k++)
+                {
+                    var bullet = BulletBase.Instantiate(m_NormalShotPrefab, transform.position, BallisticMath.FromPolar(32 - k * 4, r));
+                    _ = DOTween.Sequence()
+                        .AppendInterval(1f + k * 0.05f)
+                        .Append(DOTween.To(() => bullet.Speed, value => bullet.Speed = value, BallisticMath.FromPolar(96, r), 0.5f)
+                            .SetEase(Ease.Linear))
+                        .SetLink(bullet.gameObject);
+                }
+
+                SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
+                EffectManager.I.Play(EffectType.MuzzleFlash, transform.position);
+                await UniTask.Delay(TimeSpan.FromSeconds(0.05f), cancellationToken: token);
+            }
+
+        }
+
+
+        private async UniTask SkillIFF(CancellationToken token)
+        {
+            if (token.IsCancellationRequested)
+                return;
+
+            try
+            {
+                m_DamageRatio = 0.1f;
+
+                EffectManager.I.Play(EffectType.Concentration, transform.position);
+                SoundManager.I.PlaySe(SeType.Concentration).Forget();
+
+                EffectManager.I.Play(EffectType.Caution, new Vector3(-64, -16));
+
+                await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+
+
+                // generate shield
+                var shield = Instantiate(m_ShieldPrefab);
+                shield.transform.position = new Vector3(-64, -16);
+                {
+                    var spriteRenderer = shield.GetComponent<SpriteRenderer>();
+                    _ = DOTween.To(() => spriteRenderer.size, value => spriteRenderer.size = value, new Vector2(64, 16), 1)
+                        .ChangeStartValue(new Vector2(64, 0))
+                        .SetLink(shield.gameObject);
+                }
+                _ = shield.transform.DOLocalMoveX(64, 8)
+                    .SetEase(Ease.Linear)
+                    .SetLoops(-1, LoopType.Yoyo)
+                    .SetLink(shield.gameObject);
+                token.Register(() => Destroy(shield.gameObject));
+
+
+                // fire "test" shot
+                await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
+                await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(0.5f)).Take(1))
+                {
+                    foreach (var r in BallisticMath.CalculateWayRadians(Seiran.Shared.NextSingle(0, Mathf.PI * 2), 36))
+                        BulletBase.Instantiate(m_NormalShotPrefab, transform.position, BallisticMath.FromPolar(48, r));
+
+                    EffectManager.I.Play(EffectType.MuzzleFlash, transform.position);
+                    SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
+                }
+
+                await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
+                m_DamageRatio = 1;
+
+                // main loop
+                await foreach (var _ in UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate))
+                {
+                    EffectManager.I.Play(EffectType.Concentration, transform.position);
+                    SoundManager.I.PlaySe(SeType.Concentration).Forget();
+                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+
+                    await Baramaki(token);
+
+                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+
+                    await RandomMove(1, token);
+                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+                }
+
+            }
+            finally
+            {
+                m_DamageRatio = 1;
+            }
+        }
 
         private async UniTask Baramaki(CancellationToken token)
         {
             if (token.IsCancellationRequested)
                 return;
 
+            float speed = 128;
+
             for (int loop = 0; loop < 32 && !token.IsCancellationRequested; loop++)
             {
                 EffectManager.I.Play(EffectType.MuzzleFlash, transform.position);
                 SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
 
-                foreach (var radian in BallisticMath.CalculateWayRadians(Seiran.Shared.NextSingle(0, Mathf.PI * 2), 12, 2 * Mathf.PI / 12))
+                foreach (var radian in BallisticMath.CalculateWayRadians(Seiran.Shared.NextSingle(0, Mathf.PI * 2), 12))
                 {
-                    BulletBase.Instantiate(m_NormalShotPrefab, transform.position, BallisticMath.FromPolar(64, radian));
+                    BulletBase.Instantiate(m_NormalShotPrefab, transform.position, BallisticMath.FromPolar(speed, radian));
                 }
 
                 await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: token);
             }
         }
 
-
-
-        public override void DealDamage(DamageSource damage)
-        {
-            if (m_PhaseToken == null)
-                return;
-
-
-            Health -= damage.Damage;
-
-            if (Health / Math.Max(HealthMax, 0.0) <= 0.1)
-            {
-                SoundManager.I.PlaySe(SeType.PlayerBulletHitCritical).Forget();
-            }
-            else
-            {
-                SoundManager.I.PlaySe(SeType.PlayerBulletHit).Forget();
-            }
-
-            if (Health <= 0)
-            {
-                m_PhaseToken?.Cancel();
-                m_PhaseToken?.Dispose();
-                m_PhaseToken = null;
-            }
-        }
-
-        private void OnDestroy()
-        {
-            m_PhaseToken?.Cancel();
-            m_PhaseToken?.Dispose();
-            m_PhaseToken = null;
-        }
     }
 }

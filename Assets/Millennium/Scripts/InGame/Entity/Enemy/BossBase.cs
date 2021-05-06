@@ -20,6 +20,7 @@ namespace Millennium.InGame.Entity.Enemy
 
         protected CancellationTokenSource m_PhaseToken;
 
+        protected float m_DamageRatio = 1;
 
 
         protected async UniTask RandomMove(float moveSeconds, CancellationToken token)
@@ -54,23 +55,24 @@ namespace Millennium.InGame.Entity.Enemy
         }
 
 
-        protected async UniTask RunPhase(Func<AsyncUnit, CancellationToken, UniTask> action, CancellationToken destroyToken)
+        protected async UniTask RunPhase(Func<CancellationToken, UniTask> action, CancellationToken destroyToken)
         {
             UnityEngine.Assertions.Assert.IsNull(m_PhaseToken);
             m_PhaseToken = new CancellationTokenSource();
             using (var combinedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(destroyToken, m_PhaseToken.Token))
             {
-                var token = combinedTokenSource.Token;
+                var combinedToken = combinedTokenSource.Token;
 
-                await UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
-                    .ForEachAwaitWithCancellationAsync(action, token)
-                    .SuppressCancellationThrow();       // TODO: î˜ñ≠Ç…ãCÇ…Ç»ÇÈÅ@é¿ëïè„ñ‚ëËÇ™Ç»Ç¢Ç©í≤Ç◊ÇΩÇ¢
+                await action(combinedToken).SuppressCancellationThrow();
             }
         }
 
 
         protected async UniTask OnEndPhase(CancellationToken token)
         {
+            if (token.IsCancellationRequested)
+                return;
+
             Instantiate(m_BulletRemoverPrefab).transform.position = transform.position;
             InGameUI.I.BossHealthGauge.DecrementSubGauge();
 
@@ -78,14 +80,17 @@ namespace Millennium.InGame.Entity.Enemy
             SoundManager.I.PlaySe(SeType.Explosion).Forget();
             await UniTask.Delay(TimeSpan.FromSeconds(3), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
 
-            EffectManager.I.Play(EffectType.Concentration, transform.position);
-            SoundManager.I.PlaySe(SeType.Concentration).Forget();
-            await UniTask.Delay(TimeSpan.FromSeconds(2), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
+            //EffectManager.I.Play(EffectType.Concentration, transform.position);
+            //SoundManager.I.PlaySe(SeType.Concentration).Forget();
+            //await UniTask.Delay(TimeSpan.FromSeconds(2), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
         }
 
 
         protected async UniTask PlayDeathEffect(CancellationToken token)
         {
+            if (token.IsCancellationRequested)
+                return;
+
             try
             {
                 Time.timeScale = 1 / 3f;
@@ -116,6 +121,40 @@ namespace Millennium.InGame.Entity.Enemy
             {
                 Time.timeScale = 1f;
             }
+        }
+
+
+
+        public override void DealDamage(DamageSource damage)
+        {
+            if (m_PhaseToken == null)
+                return;
+
+
+            Health -= Mathf.FloorToInt(damage.Damage * m_DamageRatio);
+
+            if (Health / Math.Max(HealthMax, 0.0) <= 0.1)
+            {
+                SoundManager.I.PlaySe(SeType.PlayerBulletHitCritical).Forget();
+            }
+            else
+            {
+                SoundManager.I.PlaySe(SeType.PlayerBulletHit).Forget();
+            }
+
+            if (Health <= 0)
+            {
+                m_PhaseToken?.Cancel();
+                m_PhaseToken?.Dispose();
+                m_PhaseToken = null;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            m_PhaseToken?.Cancel();
+            m_PhaseToken?.Dispose();
+            m_PhaseToken = null;
         }
 
     }
