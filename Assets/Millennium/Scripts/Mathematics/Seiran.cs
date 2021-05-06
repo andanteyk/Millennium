@@ -139,6 +139,7 @@ namespace Millennium.Mathematics
             return ret;
         }
 
+        public float NextRadian() => NextSingle(-Mathf.PI, Mathf.PI);
 
         public Vector3 OnUnitCircle()
         {

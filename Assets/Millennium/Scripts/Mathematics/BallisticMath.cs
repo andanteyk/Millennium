@@ -12,6 +12,9 @@ namespace Millennium.Mathematics
             m_PlayerTransform = GameObject.FindGameObjectWithTag(InGameConstants.PlayerTag).transform;
 
 
+        // TODO: ‚ ‚Ü‚è‚æ‚­‚È‚¢‹C‚à‚·‚éc
+        public static Vector3 PlayerPosition => PlayerTransform.position;
+
         public static float AimToPlayer(Vector3 position)
             => Mathf.Atan2(PlayerTransform.position.y - position.y, PlayerTransform.position.x - position.x);
 
