@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using Cysharp.Threading.Tasks.Triggers;
+using DG.Tweening;
 using Millennium.InGame.Effect;
 using Millennium.Sound;
 using System;
@@ -68,6 +69,13 @@ namespace Millennium.InGame.Entity.Bullet
                     Destroy(gameObject);
                 }, token);
         }
+
+
+
+        public DG.Tweening.Core.TweenerCore<Vector3, Vector3, DG.Tweening.Plugins.Options.VectorOptions> DOSpeed(Vector3 endValue, float duration)
+            => DOTween.To(() => Speed, value => Speed = value, endValue, duration)
+                .SetEase(Ease.Linear)
+                .SetLink(gameObject);
 
 
         public static BulletBase Instantiate(GameObject prefab, Vector3 position, Vector3 speed)

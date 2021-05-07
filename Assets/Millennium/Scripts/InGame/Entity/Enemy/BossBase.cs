@@ -112,6 +112,8 @@ namespace Millennium.InGame.Entity.Enemy
                 EffectManager.I.Play(EffectType.SpreadExplosion, transform.position);
                 SoundManager.I.PlaySe(SeType.SpreadExplosion).Forget();
 
+                Time.timeScale = 1f;
+
                 await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
             }
             catch (OperationCanceledException)
