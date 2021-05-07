@@ -46,9 +46,13 @@ namespace Millennium.OutGame.Screen
             m_InformationButton.OnClickAsAsyncEnumerable(token)
                 .ForEachAwaitWithCancellationAsync(async (_, token) =>
                 {
+                    gameObject.SetActive(false);
+
                     var instance = Instantiate(await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/OutGame/UI/DialogInformation.prefab"));
                     instance.transform.SetParent(GetComponentInParent<Canvas>().transform, false);
                     await instance.OnDestroyAsync();            // note: cancellation token?
+
+                    gameObject.SetActive(true);
 
                     SelectFirstButton();
                 });

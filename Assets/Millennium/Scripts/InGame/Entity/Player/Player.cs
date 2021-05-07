@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks.Linq;
 using Millennium.InGame.Effect;
 using Millennium.IO;
 using Millennium.Sound;
+using Millennium.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,6 +39,7 @@ namespace Millennium.InGame.Entity.Player
 
         protected bool IsControllable => Health > 0;
 
+        protected long m_Score = 0;
 
 
         // Start is called before the first frame update
@@ -136,6 +138,23 @@ namespace Millennium.InGame.Entity.Player
                         renderer.enabled = true;
                     }
                 }, token);
+
+
+            InGameUI.I.PlayerHealthGauge.SetSubGauge(0);
+            InGameUI.I.SkillGauge.SetGaugeColor(Color.cyan);
+            InGameUI.I.PlayerHealthGauge.Show();
+            InGameUI.I.SkillGauge.Show();
+
+            // UI update
+            UniTaskAsyncEnumerable.EveryUpdate()
+                .ForEachAsync(_ =>
+                {
+                    var ui = InGameUI.I;
+                    ui.SetScore(m_Score);
+                    ui.PlayerHealthGauge.SetGauge(Health, HealthMax);
+                    ui.PlayerHealthGauge.SetSubGauge(Health / 100);
+                    ui.SkillGauge.SetSubGauge(m_BombCount);
+                }, token);
         }
 
 
@@ -176,6 +195,7 @@ namespace Millennium.InGame.Entity.Player
             m_InvincibleUntil = Time.fixedTime + seconds;
         }
 
+        public void AddScore(long score) => m_Score += score;
 
 
         // TODO: ‚±‚±‚É’u‚­‚×‚«?

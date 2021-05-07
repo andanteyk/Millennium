@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Millennium.UI
@@ -24,6 +25,19 @@ namespace Millennium.UI
         [SerializeField]
         private HealthGauge m_BossHealthGauge;
         public HealthGauge BossHealthGauge => m_BossHealthGauge;
+
+        [SerializeField]
+        private TextMeshProUGUI m_ScoreText;
+        public void SetScore(long value) => m_ScoreText.text = value.ToString();
+
+        [SerializeField]
+        private HealthGauge m_PlayerHealthGauge;
+        public HealthGauge PlayerHealthGauge => m_PlayerHealthGauge;
+
+        [SerializeField]
+        private HealthGauge m_SkillGauge;
+        public HealthGauge SkillGauge => m_SkillGauge;
+
 
     }
 }

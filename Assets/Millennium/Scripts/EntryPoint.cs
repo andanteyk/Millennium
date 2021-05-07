@@ -23,14 +23,12 @@ namespace Millennium
 
 
 
-        // TEST
         private async void Start()
         {
             await UniTask.WhenAll(
                 EffectManager.I.Load(),
                 SoundManager.I.Load());
 
-            // TODO: debug
             await StartOutGame();
 
             Destroy(m_NowLoading);
