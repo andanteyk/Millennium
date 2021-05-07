@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Millennium.InGame.Effect;
+using Millennium.InGame.Stage;
 using Millennium.IO;
 using Millennium.Sound;
 using System.Collections;
@@ -12,6 +13,16 @@ namespace Millennium
 
     public class EntryPoint : MonoBehaviour
     {
+        [SerializeField]
+        private GameObject m_NowLoading;
+
+        public class InGameParams
+        {
+            public StageManager.PlayerType PlayerType;
+        }
+
+
+
         // TEST
         private async void Start()
         {
@@ -20,13 +31,13 @@ namespace Millennium
                 SoundManager.I.Load());
 
             // TODO: debug
-            await StartInGame();
+            await StartOutGame();
+
+            Destroy(m_NowLoading);
         }
 
 
-
-
-        private async UniTask StartInGame()
+        public static async UniTask StartInGame(InGameParams param)
         {
             if (SceneManager.GetSceneByName("OutGame").isLoaded)
                 await SceneManager.UnloadSceneAsync("OutGame");
@@ -34,22 +45,10 @@ namespace Millennium
                 await SceneManager.LoadSceneAsync("InGame", LoadSceneMode.Additive);
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("InGame"));
 
-            // TODO: debug
-            SoundManager.I.PlayBgm(Sound.BgmType.Test).Forget();
-
-            /*
-            await UniTask.Delay(1000);
-            var fader = await UI.Fader.CreateFade();
-            await UniTask.Yield();
-            await fader.Show();
-            await UniTask.Delay(1000);
-            await fader.Hide();
-            await UniTask.Delay(1000);
-            Destroy(fader.gameObject);
-            //*/
+            FindObjectOfType<StageManager>().OnStart(param);
         }
 
-        private async UniTask StartOutGame()
+        public static async UniTask StartOutGame()
         {
             if (SceneManager.GetSceneByName("InGame").isLoaded)
                 await SceneManager.UnloadSceneAsync("InGame");

@@ -15,14 +15,14 @@ namespace Millennium.InGame.Entity.Player
 {
     public abstract class Player : EntityLiving
     {
-        [SerializeField, FormerlySerializedAs("m_BulletPrefab")]
+        [SerializeField]
         protected GameObject m_MainShotPrefab;
         [SerializeField]
         protected GameObject m_SubShotPrefab;
         [SerializeField]
         protected GameObject m_BombPrefab;
 
-        [SerializeField, FormerlySerializedAs("m_ShotInterval")]
+        [SerializeField]
         protected float m_MainShotInterval = 0.25f;
         [SerializeField]
         protected float m_SubShotInterval = 0.5f;

@@ -124,7 +124,6 @@ namespace Millennium.InGame.Entity.Enemy
         }
 
 
-
         public override void DealDamage(DamageSource damage)
         {
             if (m_PhaseToken == null)

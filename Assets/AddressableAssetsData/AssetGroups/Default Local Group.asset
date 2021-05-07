@@ -239,6 +239,24 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: e0487cc47ee4100409bb5de43881c8f5
+    m_Address: Assets/Millennium/Assets/Data/Information.txt
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 714595acd8690154b81eab5b3c361455
+    m_Address: Assets/Millennium/Assets/Prefabs/OutGame/UI/DialogInformation.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 70c91c99d80c5c043b7a0bfd04768b34
+    m_Address: Assets/Millennium/Assets/Prefabs/OutGame/UI/PlayerSelect.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d80804b7e98dd9444a9c47da8e7a54af, type: 2}
   m_SchemaSet:

@@ -77,6 +77,9 @@ namespace Millennium.UI
         }
 
 
+        public void SetColor(Color color) => m_Image.color = color;
+
+
         private void Cancel()
         {
             m_CancellationTokenSource?.Cancel();

@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Millennium.Sound;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,10 @@ namespace Millennium.InGame.Stage
 
         public async UniTask Play(StageData stage, PlayerType playerType)
         {
+            // TODO: test
+            SoundManager.I.PlayBgm(Sound.BgmType.Test).Forget();
+
+
             float skipFrom = 0;
 
 
@@ -57,11 +62,11 @@ namespace Millennium.InGame.Stage
 
 
         // TODO : test
-        private async void Start()
+        public async void OnStart(EntryPoint.InGameParams param)
         {
-            var data = await Addressables.LoadAssetAsync<StageData>("Assets/Millennium/Assets/Data/TestStage.asset");
+            var data = await Addressables.LoadAssetAsync<StageData>("Assets/Millennium/Assets/Data/Stage1.asset");
 
-            Play(data, PlayerType.Alice).Forget();
+            Play(data, param.PlayerType).Forget();
         }
     }
 }

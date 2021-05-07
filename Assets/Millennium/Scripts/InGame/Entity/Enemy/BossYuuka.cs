@@ -5,10 +5,7 @@ using Millennium.InGame.Effect;
 using Millennium.InGame.Entity.Bullet;
 using Millennium.Mathematics;
 using Millennium.Sound;
-using Millennium.UI;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
@@ -183,7 +180,7 @@ namespace Millennium.InGame.Entity.Enemy
 
             EffectManager.I.Play(EffectType.Concentration, transform.position);
             SoundManager.I.PlaySe(SeType.Concentration).Forget();
-            EffectManager.I.Play(EffectType.Caution, BallisticMath.PlayerPosition + Vector3.up * 16);
+            EffectManager.I.Play(EffectType.Caution, BallisticMath.PlayerPosition + Vector3.up * 32);
 
 
             float playerDirection = BallisticMath.AimToPlayer(transform.position);
