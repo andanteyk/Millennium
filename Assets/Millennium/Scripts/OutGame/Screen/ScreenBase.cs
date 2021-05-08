@@ -1,6 +1,10 @@
+using Cysharp.Threading.Tasks;
+using Millennium.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 namespace Millennium.OutGame.Screen
@@ -21,6 +25,26 @@ namespace Millennium.OutGame.Screen
         protected void SelectFirstButton()
         {
             m_FirstSelectedButton.Select();
+        }
+
+
+        protected async UniTask Transit(string addressablePath, CancellationToken token)
+        {
+            // TODO: cancellable
+            var fader = await Fader.CreateFade();
+            fader.SetColor(Color.cyan);             // TODO: そもそもデザインがよくないので　埋まらない色/形にする
+            await fader.Show();
+
+
+
+            var instance = Instantiate(await Addressables.LoadAssetAsync<GameObject>(addressablePath));
+            instance.transform.SetParent(GetComponentInParent<Canvas>().transform, false);
+            instance.transform.SetAsLastSibling();
+
+
+            await fader.Hide();
+            Destroy(fader.gameObject);
+            Destroy(gameObject);
         }
     }
 }

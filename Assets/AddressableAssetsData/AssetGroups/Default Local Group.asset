@@ -293,6 +293,18 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 5e8c0e52d6cb08a46917a2e1fbfc262f
+    m_Address: Assets/Millennium/Assets/Prefabs/OutGame/UI/Result.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: eb444089ae77f0f4ab26d353ecfd721e
+    m_Address: Assets/Millennium/Assets/Prefabs/OutGame/UI/Title.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d80804b7e98dd9444a9c47da8e7a54af, type: 2}
   m_SchemaSet:

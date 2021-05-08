@@ -42,6 +42,8 @@ namespace Millennium.InGame.Entity.Player
 
         protected long m_Score = 0;
 
+        protected bool m_IsDead = false;
+
 
         // Start is called before the first frame update
         private void Start()
@@ -181,13 +183,12 @@ namespace Millennium.InGame.Entity.Player
 
             if (Health > 0)
             {
-                // damaged - invinsiblize, bomb?
                 SetInvincible(5);
-
                 SoundManager.I.PlaySe(SeType.PlayerDamaged).Forget();
             }
-            else
+            else if (!m_IsDead)
             {
+                m_IsDead = true;
                 GameOver().Forget();
             }
         }
@@ -201,17 +202,25 @@ namespace Millennium.InGame.Entity.Player
 
 
         // TODO: ‚±‚±‚É’u‚­‚×‚«?
-        private async UniTask GameOver()
+        private async UniTaskVoid GameOver()
         {
             // TODO: game over
             EffectManager.I.Play(EffectType.Explosion, transform.position);
+            SoundManager.I.PlaySe(SeType.PlayerDamaged).Forget();
 
             await UniTask.Delay(1000);
 
             Time.timeScale = 0;
 
             var fade = await UI.Fader.CreateFade();
+            DontDestroyOnLoad(fade);
             await fade.Show();
+
+            await EntryPoint.StartOutGame("Assets/Millennium/Assets/Prefabs/OutGame/UI/Result.prefab");
+
+            Time.timeScale = 1;
+            await fade.Hide();
+            Destroy(fade.gameObject);
         }
     }
 }

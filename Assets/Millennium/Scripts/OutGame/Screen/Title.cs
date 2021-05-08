@@ -29,33 +29,14 @@ namespace Millennium.OutGame.Screen
                 .Take(1)
                 .ForEachAwaitWithCancellationAsync(async (_, token) =>
                 {
-                    var fader = await Fader.CreateFade();
-                    fader.SetColor(Color.cyan);             // TODO: そもそもデザインがよくないので　埋まらない色/形にする
-                    await fader.Show();
-
-
-                    var instance = Instantiate(await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/OutGame/UI/PlayerSelect.prefab"));
-                    instance.transform.SetParent(GetComponentInParent<Canvas>().transform, false);
-
-
-                    await fader.Hide();
-                    Destroy(fader.gameObject);
-                    Destroy(gameObject);
-                });
+                    await Transit("Assets/Millennium/Assets/Prefabs/OutGame/UI/PlayerSelect.prefab", token);
+                }, token);
 
             m_InformationButton.OnClickAsAsyncEnumerable(token)
                 .ForEachAwaitWithCancellationAsync(async (_, token) =>
                 {
-                    gameObject.SetActive(false);
-
-                    var instance = Instantiate(await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/OutGame/UI/DialogInformation.prefab"));
-                    instance.transform.SetParent(GetComponentInParent<Canvas>().transform, false);
-                    await instance.OnDestroyAsync();            // note: cancellation token?
-
-                    gameObject.SetActive(true);
-
-                    SelectFirstButton();
-                });
+                    await Transit("Assets/Millennium/Assets/Prefabs/OutGame/UI/DialogInformation.prefab", token);
+                }, token);
         }
 
 

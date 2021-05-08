@@ -33,7 +33,7 @@ namespace Millennium.OutGame.Screen
 
 
             await m_CloseButton.onClick.GetAsyncEventHandler(token).OnInvokeAsync();
-            Destroy(gameObject);
+            await Transit("Assets/Millennium/Assets/Prefabs/OutGame/UI/Title.prefab", token);
         }
 
     }
