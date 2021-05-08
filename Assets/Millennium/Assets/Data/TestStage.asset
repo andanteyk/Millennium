@@ -15,4 +15,4 @@ MonoBehaviour:
   Enemies:
   - SpawnSeconds: 0
     Position: {x: 0, y: 128}
-    Prefab: {fileID: 5944928519954227303, guid: a6273b30f67fe4b4ea88f3912be42b35, type: 3}
+    Prefab: {fileID: 3171158144685496250, guid: 1009885d9ebb8e5448d97790b7a75863, type: 3}

@@ -23,7 +23,17 @@ namespace Millennium.InGame.Entity.Enemy
         protected float m_DamageRatio = 1;
 
 
-        protected async UniTask RandomMove(float moveSeconds, CancellationToken token)
+
+        protected UniTask MoveTo(Vector3 destination, float moveSeconds, CancellationToken token)
+        {
+            return transform.DOMove(destination, moveSeconds)
+                .SetUpdate(UpdateType.Fixed)
+                .SetLink(gameObject)
+                .WithCancellation(cancellationToken: token);
+        }
+
+
+        protected UniTask RandomMove(float moveSeconds, CancellationToken token)
         {
             var region = new Rect(Mathf.Lerp(InGameConstants.FieldArea.xMin, InGameConstants.FieldArea.xMax, 0.1f), Mathf.Lerp(InGameConstants.FieldArea.yMin, InGameConstants.FieldArea.yMax, 0.625f),
                 InGameConstants.FieldArea.width * 0.8f, InGameConstants.FieldArea.height * 0.25f);
@@ -35,10 +45,7 @@ namespace Millennium.InGame.Entity.Enemy
                 region.xMin + GetRandomProportion() * region.width,
                 region.yMin + GetRandomProportion() * region.height);
 
-            await transform.DOMove(destination, moveSeconds)
-                .SetUpdate(UpdateType.Fixed)
-                .SetLink(gameObject)
-                .WithCancellation(cancellationToken: token);
+            return MoveTo(destination, moveSeconds, token);
         }
 
         protected void SetupHealthGauge(int initialSubGauge, CancellationToken token)
@@ -79,10 +86,6 @@ namespace Millennium.InGame.Entity.Enemy
             EffectManager.I.Play(EffectType.Explosion, transform.position);
             SoundManager.I.PlaySe(SeType.Explosion).Forget();
             await UniTask.Delay(TimeSpan.FromSeconds(3), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
-
-            //EffectManager.I.Play(EffectType.Concentration, transform.position);
-            //SoundManager.I.PlaySe(SeType.Concentration).Forget();
-            //await UniTask.Delay(TimeSpan.FromSeconds(2), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
         }
 
 

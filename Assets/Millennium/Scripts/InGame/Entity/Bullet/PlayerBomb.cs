@@ -29,7 +29,9 @@ namespace Millennium.InGame.Entity.Bullet
             UniTaskAsyncEnumerable.EveryUpdate()
                 .ForEachAsync(_ => { spriteRenderer.flipX = Time.time % 0.5f < 0.25f; }, token);
 
-            transform.DOScale(4, 0.5f).WithCancellation(token);
+            transform.DOScale(4, 0.5f)
+                .SetLink(gameObject)
+                .WithCancellation(token);
 
             UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
                 .ForEachAwaitAsync(async _ =>
