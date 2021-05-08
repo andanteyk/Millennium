@@ -275,6 +275,24 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: c275e5b96707c774d867466ed70c565e
+    m_Address: Assets/Millennium/Assets/Sounds/Se/InGame/AliceUlt.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 22ae7565d53710242b8575cee31a4589
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Effect/MomoiUlt.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: e5b2abae08622b24bb1ff121421fd6bf
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Effect/MidoriUlt.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d80804b7e98dd9444a9c47da8e7a54af, type: 2}
   m_SchemaSet:

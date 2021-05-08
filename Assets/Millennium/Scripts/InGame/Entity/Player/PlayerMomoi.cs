@@ -42,6 +42,7 @@ namespace Millennium.InGame.Entity.Player
             await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
 
 
+            EffectManager.I.Play(EffectType.MomoiUlt, transform.position + Vector3.up * 24).SetParent(transform);
             await UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(0.1), PlayerLoopTiming.FixedUpdate)
                 .Take(30)
                 .ForEachAsync(_ =>
