@@ -1,6 +1,8 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
+using Millennium.InGame.Effect;
 using Millennium.InGame.Entity.Bullet;
+using Millennium.Sound;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,6 +28,23 @@ namespace Millennium.InGame.Entity.Player
             }
 
             return UniTask.CompletedTask;
+        }
+
+
+        protected override async UniTask FireBomb(CancellationToken token)
+        {
+            MoveSpeedModifier = 0.25f;
+
+            EffectManager.I.Play(EffectType.Concentration, transform.position).SetParent(transform);
+            SoundManager.I.PlaySe(SeType.Concentration).Forget();
+            await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
+
+            BulletBase.Instantiate(m_BombPrefab, transform.position, new Vector3(0, 64));
+            SoundManager.I.PlaySe(SeType.AliceBomb).Forget();
+
+            await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+
+            MoveSpeedModifier = 1;
         }
     }
 }

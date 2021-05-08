@@ -2,16 +2,15 @@ using Cysharp.Threading.Tasks;
 
 namespace Millennium.InGame.Entity.Bullet
 {
-    public class PlayerBullet : BulletBase
+    public class PlayerMomoiBomb : BulletBase
     {
         private void Start()
         {
             var token = this.GetCancellationTokenOnDestroy();
 
             Move(token);
-            DestroyWhenFrameOut(token);
+            DestroyWhenExpired(token);
             DamageWhenEnter(token);
-            DestroyWhenEnter(token);
         }
     }
 }

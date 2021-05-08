@@ -60,6 +60,10 @@ namespace Millennium.Sound
 
                 { SeType.Concentration, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/Concentration.wav") },
                 { SeType.SpreadExplosion, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/SpreadExplosion.wav") },
+
+                { SeType.MomoiMidoriBomb, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/MomoMidoUlt.wav") },
+                { SeType.AliceBomb, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/AliceUlt.wav") },
+
             };
 
             AudioSourcePrefab = await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/Common/Sounds/AudioSource.prefab");
@@ -163,5 +167,7 @@ namespace Millennium.Sound
         PlayerBulletImmune,
         Concentration,
         SpreadExplosion,
+        MomoiMidoriBomb,
+        AliceBomb,
     }
 }

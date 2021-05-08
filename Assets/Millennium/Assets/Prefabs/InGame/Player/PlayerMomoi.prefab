@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MainShotPrefab: {fileID: 8700198620111755141, guid: 4334a00412718d04a9f9fff0f388dfc9, type: 3}
   m_SubShotPrefab: {fileID: 8326539073421489121, guid: d3dee0e248805324e9dad4eb45a369c4, type: 3}
-  m_BombPrefab: {fileID: 3492578372097320742, guid: 9bc6852464875e84e8adc2fddbd23a79, type: 3}
+  m_BombPrefab: {fileID: 5615936421325456024, guid: 80b130577b2e56b4d9935ad025047602, type: 3}
   m_MainShotInterval: 0.25
   m_SubShotInterval: 0.25
   m_MoveSpeed: 64

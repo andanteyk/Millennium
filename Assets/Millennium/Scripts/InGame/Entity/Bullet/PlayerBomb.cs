@@ -42,7 +42,5 @@ namespace Millennium.InGame.Entity.Bullet
                     await UniTask.Delay(TimeSpan.FromSeconds(m_HitInterval), cancellationToken: token);
                 }, token);
         }
-
-
     }
 }

@@ -31,6 +31,7 @@ namespace Millennium.InGame.Entity.Player
         [SerializeField]
         private float m_MoveSpeed = 64;
 
+        protected float MoveSpeedModifier = 1;
 
         protected bool IsInvincible => Time.fixedTime < m_InvincibleUntil;
         private float m_InvincibleUntil = 0;
@@ -105,10 +106,10 @@ namespace Millennium.InGame.Entity.Player
 
                     m_BombCount--;
 
-                    SetInvincible(5);
+                    SetInvincible(6);
 
-                    var bullet = Instantiate(m_BombPrefab);
-                    bullet.transform.position = transform.position;
+
+                    await FireBomb(token);
                 }, token);
 
             // input loop - move
@@ -118,7 +119,7 @@ namespace Millennium.InGame.Entity.Player
                     if (!IsControllable)
                         return;
 
-                    var movedPosition = transform.position + (Vector3)input.Player.Direction.ReadValue<Vector2>() * m_MoveSpeed * Time.deltaTime;
+                    var movedPosition = transform.position + (Vector3)input.Player.Direction.ReadValue<Vector2>() * m_MoveSpeed * MoveSpeedModifier * Time.deltaTime;
                     movedPosition = new Vector3(
                         Mathf.Clamp(movedPosition.x, InGameConstants.PlayerFieldArea.xMin, InGameConstants.PlayerFieldArea.xMax),
                         Mathf.Clamp(movedPosition.y, InGameConstants.PlayerFieldArea.yMin, InGameConstants.PlayerFieldArea.yMax));
@@ -165,6 +166,7 @@ namespace Millennium.InGame.Entity.Player
             return UniTask.CompletedTask;
         }
         protected virtual UniTask SubShot() => UniTask.CompletedTask;
+        protected virtual UniTask FireBomb(CancellationToken token) => UniTask.CompletedTask;
 
 
         public override void DealDamage(DamageSource damage)
