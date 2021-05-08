@@ -41,7 +41,8 @@ namespace Millennium.Sound
             BgmClips = new Dictionary<BgmType, AudioClip>
             {
                 { BgmType.None, null },
-                { BgmType.Test, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Bgm/Binar_intro.wav") }
+                { BgmType.Test, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Bgm/Binar_intro.wav") },
+                { BgmType.Title, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Bgm/Title.wav") },
             };
 
             SeClips = new Dictionary<SeType, AudioClip>
@@ -150,6 +151,7 @@ namespace Millennium.Sound
     {
         None,
         Test,
+        Title,
     }
 
     public enum SeType

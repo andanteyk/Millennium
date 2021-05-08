@@ -57,7 +57,8 @@ namespace Millennium
 
             var instance = Instantiate(await Addressables.LoadAssetAsync<GameObject>(firstUIAddress));
             instance.transform.SetParent(GameObject.Find("RootCanvas").GetComponent<Canvas>().transform, false);
+
+            SoundManager.I.PlayBgm(BgmType.Title).Forget();
         }
     }
-
 }
