@@ -25,6 +25,9 @@ namespace Millennium.InGame.Entity.Bullet
         public EffectType EffectOnDestroy = EffectType.CrossDecay;
 
 
+        public Entity Owner;
+
+
         protected UniTask Move(CancellationToken token)
         {
             return UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
@@ -51,7 +54,7 @@ namespace Millennium.InGame.Entity.Bullet
                 {
                     if (collision.gameObject.GetComponent<Entity>() is EntityLiving entity)
                     {
-                        entity.DealDamage(new DamageSource(this, Power));
+                        entity.DealDamage(new DamageSource(Owner != null ? Owner : this, Power));
                     }
                 }, token);
         }

@@ -91,33 +91,38 @@ namespace Millennium.InGame.Entity.Enemy
 
         protected async UniTask PlayDeathEffect(CancellationToken token)
         {
-            if (token.IsCancellationRequested)
-                return;
-
             try
             {
+                if (token.IsCancellationRequested)
+                    return;
+
                 Time.timeScale = 1 / 3f;
 
                 Instantiate(m_BulletRemoverPrefab).transform.position = transform.position;
                 InGameUI.I.BossHealthGauge.DecrementSubGauge();
 
-                for (int i = 0; i < 8 && !token.IsCancellationRequested; i++)
-                {
-                    EffectManager.I.Play(EffectType.Explosion, transform.position + Seiran.Shared.InsideUnitCircle());
-                    SoundManager.I.PlaySe(SeType.Explosion).Forget();
-                    await UniTask.Delay(TimeSpan.FromSeconds(0.125f), cancellationToken: token);
-                }
+                await UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(0.125f))
+                    .Take(6)
+                    .ForEachAsync(_ =>
+                    {
+                        EffectManager.I.Play(EffectType.Explosion, transform.position + Seiran.Shared.InsideUnitCircle());
+                        SoundManager.I.PlaySe(SeType.Explosion).Forget();
 
-                // TODO: ここでモデルを非表示にする
-                GetComponent<SpriteRenderer>().color = Color.clear;
+                    }, token);
 
                 EffectManager.I.Play(EffectType.Explosion, transform.position);
                 EffectManager.I.Play(EffectType.SpreadExplosion, transform.position);
                 SoundManager.I.PlaySe(SeType.SpreadExplosion).Forget();
 
+                transform.position = new Vector3(0, 1024);          // 雑に非表示にする
+
                 Time.timeScale = 1f;
 
-                await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
+                await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+
+                EffectManager.I.Play(EffectType.StageClear, Vector3.zero);
+
+                await UniTask.Delay(TimeSpan.FromSeconds(3), cancellationToken: token);
             }
             catch (OperationCanceledException)
             {
@@ -125,7 +130,18 @@ namespace Millennium.InGame.Entity.Enemy
             finally
             {
                 Time.timeScale = 1f;
+                GotoNextStage();
             }
+        }
+
+
+        protected void GotoNextStage()
+        {
+            var stageManager = FindObjectOfType<Stage.StageManager>();
+            if (stageManager != null)
+                stageManager.PlayNextStage().Forget();
+
+            // null のときはゲームオーバー (でシーンアンロード中) …のはず
         }
 
 
@@ -136,6 +152,11 @@ namespace Millennium.InGame.Entity.Enemy
 
 
             Health -= Mathf.FloorToInt(damage.Damage * m_DamageRatio);
+
+            var player = damage.Attacker as Player.Player;
+            if (player != null)
+                player.AddScore(damage.Damage);
+
 
             if (Health / Math.Max(HealthMax, 0.0) <= 0.1)
             {

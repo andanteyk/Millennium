@@ -22,12 +22,10 @@ namespace Millennium.InGame.Entity.Player
                 float angle = 15f * i;
                 var quaternion = Quaternion.AngleAxis(angle, Vector3.forward);
 
-                var shot = Instantiate(m_SubShotPrefab);
-                shot.transform.position = transform.position;
-                shot.transform.rotation = quaternion;
-
-                var bullet = shot.GetComponent<BulletBase>();
-                bullet.Speed = quaternion * bullet.Speed;
+                var bullet = BulletBase.Instantiate(m_SubShotPrefab, transform.position);
+                bullet.transform.rotation = quaternion;
+                bullet.Speed = quaternion * bullet.Speed;       // set by prefab
+                bullet.Owner = this;
             }
             return UniTask.CompletedTask;
         }
@@ -51,6 +49,7 @@ namespace Millennium.InGame.Entity.Player
                     {
                         var bullet = BulletBase.Instantiate(m_BombPrefab, transform.position, BallisticMath.FromPolar(256, r));
                         bullet.transform.rotation = Quaternion.AngleAxis(r * Mathf.Rad2Deg - 90, Vector3.forward);
+                        bullet.Owner = this;
                     }
 
                     EffectManager.I.Play(EffectType.PlusDecayRed, transform.position);

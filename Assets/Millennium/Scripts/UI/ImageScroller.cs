@@ -15,6 +15,9 @@ namespace Millennium.UI
         [SerializeField]
         private float m_Duration = 1;
 
+        [SerializeField]
+        private LoopType m_LoopType = LoopType.Restart;
+
         private void Start()
         {
             var image = GetComponent<Image>();
@@ -22,7 +25,7 @@ namespace Millennium.UI
             DOTween.To(() => image.rectTransform.anchoredPosition, value => image.rectTransform.anchoredPosition = value,
                 m_TileSize, m_Duration)
                 .SetEase(Ease.Linear)
-                .SetLoops(-1, LoopType.Restart)
+                .SetLoops(-1, m_LoopType)
                 .SetLink(gameObject);
         }
     }

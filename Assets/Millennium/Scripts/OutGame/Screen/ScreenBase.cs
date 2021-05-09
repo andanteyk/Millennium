@@ -32,7 +32,7 @@ namespace Millennium.OutGame.Screen
         {
             // TODO: cancellable
             var fader = await Fader.CreateFade();
-            fader.SetColor(Color.cyan);             // TODO: そもそもデザインがよくないので　埋まらない色/形にする
+            fader.SetColor(Color.cyan);
             await fader.Show();
 
 
@@ -45,6 +45,10 @@ namespace Millennium.OutGame.Screen
             await fader.Hide();
             Destroy(fader.gameObject);
             Destroy(gameObject);
+        }
+
+        public virtual void ReceiveOutGameParameter(EntryPoint.OutGameParams param)
+        {
         }
     }
 }

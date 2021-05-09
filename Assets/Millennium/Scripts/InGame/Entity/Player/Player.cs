@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using Millennium.InGame.Effect;
+using Millennium.InGame.Entity.Bullet;
 using Millennium.IO;
 using Millennium.Sound;
 using Millennium.UI;
@@ -39,11 +40,13 @@ namespace Millennium.InGame.Entity.Player
         protected bool IsInvincible => Time.fixedTime < m_InvincibleUntil;
         private float m_InvincibleUntil = 0;
 
-        private int m_BombCount = 3;
+        public int BombCount { get; private set; } = 3;
+        private int m_SkillPoint = 0;
+        private int m_SkillPointMax = 50000;
 
         protected bool IsControllable => Health > 0;
 
-        protected long m_Score = 0;
+        public long Score { get; protected set; } = 0;
 
         protected bool m_IsDead = false;
 
@@ -51,8 +54,9 @@ namespace Millennium.InGame.Entity.Player
         // Start is called before the first frame update
         private void Start()
         {
-            HealthMax = 300;       // TODO
-            Health = HealthMax;
+            // 100 HP == 1 残機
+            HealthMax = 800;
+            Health = 300;
 
             var input = new InputControls();
             input.Enable();
@@ -103,13 +107,13 @@ namespace Millennium.InGame.Entity.Player
 
                     if (IsInvincible)
                         return;
-                    if (m_BombCount <= 0)
+                    if (BombCount <= 0)
                     {
                         await SoundManager.I.PlaySe(SeType.Disabled);
                         return;
                     }
 
-                    m_BombCount--;
+                    BombCount--;
 
                     SetInvincible(6);
 
@@ -145,6 +149,12 @@ namespace Millennium.InGame.Entity.Player
                     }
 
                     m_CollisionRenderer.enabled = input.Player.Fire.IsPressed();
+
+
+                    // DEBUG: ブルアカらしくて残しておいてもいいかもしれない
+                    if (UnityEngine.InputSystem.Keyboard.current.f8Key.wasPressedThisFrame)
+                        Time.timeScale = Time.timeScale != 1 ? 1 : 3;
+
                 }, token);
 
 
@@ -158,18 +168,23 @@ namespace Millennium.InGame.Entity.Player
                 .ForEachAsync(_ =>
                 {
                     var ui = InGameUI.I;
-                    ui.SetScore(m_Score);
+                    ui.SetScore(Score);
                     ui.PlayerHealthGauge.SetGauge(Health, HealthMax);
                     ui.PlayerHealthGauge.SetSubGauge(Health / 100);
-                    ui.SkillGauge.SetSubGauge(m_BombCount);
+                    ui.SkillGauge.SetSubGauge(BombCount);
+                    ui.SkillGauge.SetGauge(m_SkillPoint, m_SkillPointMax);
                 }, token);
         }
 
 
         protected virtual UniTask MainShot()
         {
-            var bullet = Instantiate(m_MainShotPrefab);
-            bullet.transform.position = transform.position;
+            for (int i = -1; i <= 1; i += 2)
+            {
+                var bullet = BulletBase.Instantiate(m_MainShotPrefab, transform.position + 8 * i * Vector3.right);
+                bullet.Owner = this;
+            }
+
             return UniTask.CompletedTask;
         }
         protected virtual UniTask SubShot() => UniTask.CompletedTask;
@@ -178,13 +193,14 @@ namespace Millennium.InGame.Entity.Player
 
         public override void DealDamage(DamageSource damage)
         {
-            if (IsInvincible)
+            if (IsInvincible || m_IsDead)
             {
                 return;
             }
 
 
             Health -= damage.Damage;
+            BombCount += 1;
 
             if (Health > 0)
             {
@@ -203,7 +219,27 @@ namespace Millennium.InGame.Entity.Player
             m_InvincibleUntil = Time.fixedTime + seconds;
         }
 
-        public void AddScore(long score) => m_Score += score;
+
+        public void AddScore(long score)
+        {
+            Score += score;
+
+            m_SkillPoint += (int)score;
+            if (m_SkillPoint >= m_SkillPointMax)
+            {
+                BombCount += m_SkillPoint / m_SkillPointMax;
+                m_SkillPoint %= m_SkillPointMax;
+
+                // TODO: SE?
+                SoundManager.I.PlaySe(SeType.Accept).Forget();
+            }
+        }
+
+        public void AddStageClearReward()
+        {
+            Health = Math.Min(Health + 100, HealthMax);
+            Score += 1000000;
+        }
 
 
         // TODO: ここに置くべき?
@@ -222,7 +258,12 @@ namespace Millennium.InGame.Entity.Player
             DontDestroyOnLoad(fade);
             await fade.Show();
 
-            await EntryPoint.StartOutGame("Assets/Millennium/Assets/Prefabs/OutGame/UI/Result.prefab");
+            await EntryPoint.StartOutGame(new EntryPoint.OutGameParams
+            {
+                FirstUIAddress = "Assets/Millennium/Assets/Prefabs/OutGame/UI/Result.prefab",
+                Score = Score,
+                IsCleared = false,
+            });
 
             Time.timeScale = 1;
             await fade.Hide();

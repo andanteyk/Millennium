@@ -51,6 +51,8 @@ namespace Millennium.InGame.Effect
                 { EffectType.Hit, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/Hit.prefab") },
 
                 { EffectType.Warning, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/Warning.prefab") },
+                { EffectType.StageStart, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/StageStart.prefab") },
+                { EffectType.StageClear, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/StageClear.prefab") },
 
             };
         }
@@ -89,5 +91,7 @@ namespace Millennium.InGame.Effect
         MidoriUlt,
         Hit,
         Warning,
+        StageStart,
+        StageClear,
     }
 }

@@ -27,10 +27,13 @@ namespace Millennium.InGame.Entity.Enemy
             var destroyToken = this.GetCancellationTokenOnDestroy();
 
             SetupHealthGauge(4, destroyToken);
+            EffectManager.I.Play(EffectType.Warning, Vector3.zero);
+            SoundManager.I.PlaySe(SeType.Warning).Forget();
 
-            await RandomMove(1, destroyToken);
+            await RandomMove(4, destroyToken);
 
-            /*
+
+            //*
             Health = HealthMax = 5000;
             await RunPhase(async token =>
             {

@@ -19,8 +19,8 @@ namespace Millennium.InGame.Entity.Player
             {
                 var relative = new Vector3(32 * (i - 0.5f), 0);
 
-                var bullet = Instantiate(m_SubShotPrefab);
-                bullet.transform.position = transform.position + relative;
+                var bullet = BulletBase.Instantiate(m_SubShotPrefab, transform.position + relative);
+                bullet.Owner = this;
 
                 var laser = bullet.GetComponent<PlayerLaser>();
                 laser.OwnerTransform = transform;
@@ -39,7 +39,8 @@ namespace Millennium.InGame.Entity.Player
             SoundManager.I.PlaySe(SeType.Ultimate).Forget();
             await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
 
-            BulletBase.Instantiate(m_BombPrefab, transform.position, new Vector3(0, 64));
+            var bullet = BulletBase.Instantiate(m_BombPrefab, transform.position, new Vector3(0, 64));
+            bullet.Owner = this;
             SoundManager.I.PlaySe(SeType.AliceBomb).Forget();
 
             await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);

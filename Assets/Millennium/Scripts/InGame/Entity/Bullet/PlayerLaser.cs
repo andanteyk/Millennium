@@ -20,12 +20,13 @@ namespace Millennium.InGame.Entity.Bullet
 
             DestroyWhenFrameOut(token);
 
+            // “–‚½‚Á‚Ä‚àÁ‚¦‚È‚¢
             this.GetAsyncTriggerEnter2DTrigger()
                 .ForEachAsync(collision =>
                 {
                     if (collision.gameObject.GetComponent<Entity>() is EntityLiving entity)
                     {
-                        entity.DealDamage(new DamageSource(this, Power));
+                        entity.DealDamage(new DamageSource(Owner != null ? Owner : this, Power));
                     }
 
                     EffectManager.I.Play(EffectOnDestroy, transform.position);

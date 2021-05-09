@@ -5552,9 +5552,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthGauge
       objectReference: {fileID: 0}
+    - target: {fileID: 6741195263296826934, guid: 78f66135cf783b548bfac3a76b100e2f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6741195263296826937, guid: 78f66135cf783b548bfac3a76b100e2f, type: 3}
       propertyPath: m_SizeDelta.x
       value: 61
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741195264522354870, guid: 78f66135cf783b548bfac3a76b100e2f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6741195264522354872, guid: 78f66135cf783b548bfac3a76b100e2f, type: 3}
       propertyPath: m_IsActive

@@ -26,6 +26,12 @@ namespace Millennium.InGame.Entity.Enemy
         {
             Health -= damage.Damage;
 
+            var player = damage.Attacker as Player.Player;
+            if (player != null)
+            {
+                player.AddScore(damage.Damage);
+            }
+
             if (Health / Math.Max(HealthMax, 0.0) <= 0.1)
             {
                 SoundManager.I.PlaySe(SeType.PlayerBulletHitCritical).Forget();
@@ -37,6 +43,9 @@ namespace Millennium.InGame.Entity.Enemy
 
             if (Health <= 0)
             {
+                if (player != null)
+                    player.AddScore(HealthMax);
+
                 EffectManager.I.Play(EffectType.Explosion, transform.position);
                 SoundManager.I.PlaySe(SeType.Explosion).Forget();
                 Destroy(gameObject);
