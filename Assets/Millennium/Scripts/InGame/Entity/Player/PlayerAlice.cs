@@ -37,7 +37,7 @@ namespace Millennium.InGame.Entity.Player
 
             EffectManager.I.Play(EffectType.Concentration, transform.position).SetParent(transform);
             SoundManager.I.PlaySe(SeType.Ultimate).Forget();
-            await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
 
             BulletBase.Instantiate(m_BombPrefab, transform.position, new Vector3(0, 64));
             SoundManager.I.PlaySe(SeType.AliceBomb).Forget();

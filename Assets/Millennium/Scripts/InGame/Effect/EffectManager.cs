@@ -49,6 +49,9 @@ namespace Millennium.InGame.Effect
                 { EffectType.MomoiUlt, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/MomoiUlt.prefab") },
                 { EffectType.MidoriUlt, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/MidoriUlt.prefab") },
                 { EffectType.Hit, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/Hit.prefab") },
+
+                { EffectType.Warning, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/Warning.prefab") },
+
             };
         }
 
@@ -85,5 +88,6 @@ namespace Millennium.InGame.Effect
         MomoiUlt,
         MidoriUlt,
         Hit,
+        Warning,
     }
 }
