@@ -83,8 +83,8 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: a6c9a822a66d83040bd7830c6236f861
-    m_Address: Assets/Millennium/Assets/Sounds/Bgm/Binar_intro.wav
+  - m_GUID: 655c582f166a1c2468e925dfa6e986af
+    m_Address: Assets/Millennium/Assets/Sounds/Bgm/Binah.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

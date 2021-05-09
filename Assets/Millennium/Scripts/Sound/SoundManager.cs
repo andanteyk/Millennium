@@ -41,7 +41,7 @@ namespace Millennium.Sound
             BgmClips = new Dictionary<BgmType, AudioClip>
             {
                 { BgmType.None, null },
-                { BgmType.Test, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Bgm/Binar_intro.wav") },
+                { BgmType.Battle, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Bgm/Binah.wav") },
                 { BgmType.Title, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Bgm/Title.wav") },
             };
 
@@ -94,7 +94,7 @@ namespace Millennium.Sound
             }
 
             CurrentBgm.loop = true;
-            CurrentBgm.volume = 0.1f;       // TODO: çÏã∆ópÇ…í·Çﬂ
+            CurrentBgm.volume = 0.3f;
             CurrentBgm.Play();
         }
 
@@ -152,7 +152,7 @@ namespace Millennium.Sound
     public enum BgmType
     {
         None,
-        Test,
+        Battle,
         Title,
     }
 

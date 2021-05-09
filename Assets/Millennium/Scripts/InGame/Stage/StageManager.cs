@@ -35,7 +35,7 @@ namespace Millennium.InGame.Stage
         public async UniTask Play(StageData stage, CancellationToken token)
         {
             // TODO: test
-            SoundManager.I.PlayBgm(Sound.BgmType.Test).Forget();
+            SoundManager.I.PlayBgm(Sound.BgmType.Battle).Forget();
 
 
             float skipFrom = 0;         // for debug
@@ -83,6 +83,7 @@ namespace Millennium.InGame.Stage
             var stages = new[] {
                 "Assets/Millennium/Assets/Data/Stage1.asset",
                 "Assets/Millennium/Assets/Data/Stage2.asset",
+                "Assets/Millennium/Assets/Data/Stage3.asset",
             };
 
 
@@ -120,7 +121,7 @@ namespace Millennium.InGame.Stage
         {
             await InstantiatePlayer(param.PlayerType);
 
-            Play(await LoadStage("Assets/Millennium/Assets/Data/Stage3.asset"), this.GetCancellationTokenOnDestroy()).Forget();
+            Play(await LoadStage("Assets/Millennium/Assets/Data/Stage1.asset"), this.GetCancellationTokenOnDestroy()).Forget();
         }
     }
 }

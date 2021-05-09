@@ -200,7 +200,7 @@ namespace Millennium.InGame.Entity.Player
 
 
             Health -= damage.Damage;
-            BombCount += 1;
+            BombCount = Math.Max(BombCount, 2);
 
             if (Health > 0)
             {
@@ -230,7 +230,6 @@ namespace Millennium.InGame.Entity.Player
                 BombCount += m_SkillPoint / m_SkillPointMax;
                 m_SkillPoint %= m_SkillPointMax;
 
-                // TODO: SE?
                 SoundManager.I.PlaySe(SeType.Accept).Forget();
             }
         }

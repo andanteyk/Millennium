@@ -53,7 +53,7 @@ namespace Millennium.OutGame.Screen
 
                    string body = $"ブルアカ二次創作 STG <Millennium Assault> を{(m_IsCleared ? "クリア" : "プレイ")}しました! (スコア: {m_ScoreText.text})";
 
-                   Application.OpenURL(@$"https://twitter.com/intent/tweet?text={ body }&hashtags={ "MillenniumAssault" }&url={ @"https://andantesoft.hatenablog.com/" }");
+                   Application.OpenURL(@$"https://twitter.com/intent/tweet?text={ body }&hashtags={ "MillenniumAssault" }&url={ @"https://andanteyk.github.io/MillenniumAssault" }");
                }, token).Forget();
         }
 
