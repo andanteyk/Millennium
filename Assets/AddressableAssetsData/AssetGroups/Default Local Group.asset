@@ -273,8 +273,8 @@ MonoBehaviour:
     m_Address: Assets/Millennium/Assets/Sounds/Se/InGame/MomoMidoUlt.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: afc82672926e58c4eb97fc16ba110205, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: afc82672926e58c4eb97fc16ba110205, type: 3}
   - m_GUID: c275e5b96707c774d867466ed70c565e
     m_Address: Assets/Millennium/Assets/Sounds/Se/InGame/AliceUlt.wav
     m_ReadOnly: 0
@@ -297,10 +297,22 @@ MonoBehaviour:
     m_Address: Assets/Millennium/Assets/Prefabs/OutGame/UI/Result.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1440832453636392346, guid: 5e8c0e52d6cb08a46917a2e1fbfc262f, type: 3}
+    m_TargetAsset: {fileID: 1440832453636392346, guid: 5e8c0e52d6cb08a46917a2e1fbfc262f, type: 3}
   - m_GUID: eb444089ae77f0f4ab26d353ecfd721e
     m_Address: Assets/Millennium/Assets/Prefabs/OutGame/UI/Title.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 1417413752496751500, guid: eb444089ae77f0f4ab26d353ecfd721e, type: 3}
+    m_TargetAsset: {fileID: 1417413752496751500, guid: eb444089ae77f0f4ab26d353ecfd721e, type: 3}
+  - m_GUID: e25ebe5fbdbbf8941956ab209a3d3144
+    m_Address: Assets/Millennium/Assets/Sounds/Bgm/Title.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 1337745457a8e0644b0691f1a358aea5
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Effect/Hit.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

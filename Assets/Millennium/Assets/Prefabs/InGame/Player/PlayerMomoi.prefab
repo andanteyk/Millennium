@@ -15,6 +15,7 @@ MonoBehaviour:
   m_MainShotPrefab: {fileID: 8700198620111755141, guid: 4334a00412718d04a9f9fff0f388dfc9, type: 3}
   m_SubShotPrefab: {fileID: 8326539073421489121, guid: d3dee0e248805324e9dad4eb45a369c4, type: 3}
   m_BombPrefab: {fileID: 5615936421325456024, guid: 80b130577b2e56b4d9935ad025047602, type: 3}
+  m_CollisionRenderer: {fileID: 804998159078743886}
   m_MainShotInterval: 0.25
   m_SubShotInterval: 0.25
   m_MoveSpeed: 64
@@ -25,10 +26,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5531773415037669094, guid: 7fb66a25a85085649ad83ccba9f8c1c1, type: 3}
+      propertyPath: m_Sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: b53806eceb8788643b16d642678ef4dc, type: 3}
+    - target: {fileID: 5531773415037669094, guid: 7fb66a25a85085649ad83ccba9f8c1c1, type: 3}
+      propertyPath: m_Sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 74bc2fc1d36b35345b1e628752033d4d, type: 3}
     - target: {fileID: 6674627542616061106, guid: 7fb66a25a85085649ad83ccba9f8c1c1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: aa4138cf14b503741a09c79e67e68e9b, type: 3}
+      objectReference: {fileID: 21300000, guid: b53806eceb8788643b16d642678ef4dc, type: 3}
     - target: {fileID: 6674627542616061107, guid: 7fb66a25a85085649ad83ccba9f8c1c1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -82,5 +91,10 @@ PrefabInstance:
 --- !u!1 &412406095141342985 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6674627542616061133, guid: 7fb66a25a85085649ad83ccba9f8c1c1, type: 3}
+  m_PrefabInstance: {fileID: 6419920071458569156}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &804998159078743886 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5923305284537377930, guid: 7fb66a25a85085649ad83ccba9f8c1c1, type: 3}
   m_PrefabInstance: {fileID: 6419920071458569156}
   m_PrefabAsset: {fileID: 0}

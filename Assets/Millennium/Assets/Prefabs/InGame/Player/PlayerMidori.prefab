@@ -15,6 +15,7 @@ MonoBehaviour:
   m_MainShotPrefab: {fileID: 1062756330927728291, guid: 99047017bf5b19a46bec3a50f9706c50, type: 3}
   m_SubShotPrefab: {fileID: 2626003146065819616, guid: 261874f683ecb8e49a9708d427048359, type: 3}
   m_BombPrefab: {fileID: 4560645107277920437, guid: 10aa21952c057104ea967cb65a4c652c, type: 3}
+  m_CollisionRenderer: {fileID: 5964634683468741072}
   m_MainShotInterval: 0.25
   m_SubShotInterval: 0.5
   m_MoveSpeed: 64
@@ -25,10 +26,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5531773415037669094, guid: 7fb66a25a85085649ad83ccba9f8c1c1, type: 3}
+      propertyPath: m_Sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 564b26b1c5d253e4c96f7ec9d4e50227, type: 3}
+    - target: {fileID: 5531773415037669094, guid: 7fb66a25a85085649ad83ccba9f8c1c1, type: 3}
+      propertyPath: m_Sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 71f2d2f0be19970499c12d928d1470a8, type: 3}
     - target: {fileID: 6674627542616061106, guid: 7fb66a25a85085649ad83ccba9f8c1c1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 91383746da75ee643aeae7b3bb94c774, type: 3}
+      objectReference: {fileID: 21300000, guid: 564b26b1c5d253e4c96f7ec9d4e50227, type: 3}
     - target: {fileID: 6674627542616061107, guid: 7fb66a25a85085649ad83ccba9f8c1c1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -82,5 +91,10 @@ PrefabInstance:
 --- !u!1 &6653055814590310807 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6674627542616061133, guid: 7fb66a25a85085649ad83ccba9f8c1c1, type: 3}
+  m_PrefabInstance: {fileID: 69081634655935834}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &5964634683468741072 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5923305284537377930, guid: 7fb66a25a85085649ad83ccba9f8c1c1, type: 3}
   m_PrefabInstance: {fileID: 69081634655935834}
   m_PrefabAsset: {fileID: 0}

@@ -19,6 +19,14 @@ PrefabInstance:
       propertyPath: UVModule.sprites.Array.data[1].sprite
       value: 
       objectReference: {fileID: 8258486383280575538, guid: 71135899628113e4cba14f82b4207a98, type: 3}
+    - target: {fileID: 8182353723964582787, guid: 22ae7565d53710242b8575cee31a4589, type: 3}
+      propertyPath: m_SortingLayer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8182353723964582787, guid: 22ae7565d53710242b8575cee31a4589, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1886017505
+      objectReference: {fileID: 0}
     - target: {fileID: 8182353723964582797, guid: 22ae7565d53710242b8575cee31a4589, type: 3}
       propertyPath: m_RootOrder
       value: 0

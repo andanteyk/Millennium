@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3294687527001198034}
   - component: {fileID: 7936863042400272287}
   m_Layer: 0
-  m_Name: Glint
+  m_Name: Concentration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4782,8 +4782,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1886017505
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0

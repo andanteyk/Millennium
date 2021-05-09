@@ -24,6 +24,9 @@ namespace Millennium.InGame.Entity.Player
         protected GameObject m_BombPrefab;
 
         [SerializeField]
+        private SpriteRenderer m_CollisionRenderer;
+
+        [SerializeField]
         protected float m_MainShotInterval = 0.25f;
         [SerializeField]
         protected float m_SubShotInterval = 0.5f;
@@ -140,6 +143,8 @@ namespace Millennium.InGame.Entity.Player
                     {
                         renderer.enabled = true;
                     }
+
+                    m_CollisionRenderer.enabled = input.Player.Fire.IsPressed();
                 }, token);
 
 
