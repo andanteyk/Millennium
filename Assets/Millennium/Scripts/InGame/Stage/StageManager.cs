@@ -120,7 +120,7 @@ namespace Millennium.InGame.Stage
         {
             await InstantiatePlayer(param.PlayerType);
 
-            Play(await LoadStage("Assets/Millennium/Assets/Data/Stage2.asset"), this.GetCancellationTokenOnDestroy()).Forget();
+            Play(await LoadStage("Assets/Millennium/Assets/Data/Stage3.asset"), this.GetCancellationTokenOnDestroy()).Forget();
         }
     }
 }
