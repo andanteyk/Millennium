@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Millennium.Sound;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -33,6 +34,11 @@ namespace Millennium.OutGame.Screen
 
 
             await m_CloseButton.onClick.GetAsyncEventHandler(token).OnInvokeAsync();
+
+            if (token.IsCancellationRequested)
+                return;
+
+            SoundManager.I.PlaySe(SeType.Accept).Forget();
             await Transit("Assets/Millennium/Assets/Prefabs/OutGame/UI/Title.prefab", token);
         }
 

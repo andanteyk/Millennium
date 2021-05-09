@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using Millennium.InGame.Stage;
+using Millennium.Sound;
 using Millennium.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,9 +40,11 @@ namespace Millennium.OutGame.Screen
                 .Take(1)
                 .ForEachAwaitWithCancellationAsync(async (_, token) =>
                 {
+                    SoundManager.I.PlaySe(SeType.Accept).Forget();
+
                     var fader = await Fader.CreateFade();
                     DontDestroyOnLoad(fader);
-                    fader.SetColor(Color.cyan);             // TODO: そもそもデザインがよくないので　埋まらない色/形にする
+                    fader.SetColor(Color.cyan);
                     await fader.Show();
 
                     await EntryPoint.StartInGame(new EntryPoint.InGameParams { PlayerType = playerType });

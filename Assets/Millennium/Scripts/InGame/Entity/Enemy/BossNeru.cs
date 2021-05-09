@@ -34,7 +34,7 @@ namespace Millennium.InGame.Entity.Enemy
 
 
             //*
-            Health = HealthMax = 5000;
+            Health = HealthMax = 8000;
             await RunPhase(async token =>
             {
                 await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1), PlayerLoopTiming.FixedUpdate)
@@ -46,7 +46,7 @@ namespace Millennium.InGame.Entity.Enemy
             await OnEndPhase(destroyToken);
 
 
-            Health = HealthMax = 10000;
+            Health = HealthMax = 16000;
             await RunPhase(async token =>
             {
                 await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1), PlayerLoopTiming.FixedUpdate)
@@ -57,7 +57,7 @@ namespace Millennium.InGame.Entity.Enemy
             }, destroyToken);
             await OnEndPhase(destroyToken);
 
-            Health = HealthMax = 5000;
+            Health = HealthMax = 8000;
             await RunPhase(async token =>
             {
                 await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(0.5f), PlayerLoopTiming.FixedUpdate)
@@ -70,7 +70,7 @@ namespace Millennium.InGame.Entity.Enemy
             //*/
 
 
-            Health = HealthMax = 10000;
+            Health = HealthMax = 16000;
             await RunPhase(async token =>
             {
                 await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1), PlayerLoopTiming.FixedUpdate)
@@ -79,7 +79,7 @@ namespace Millennium.InGame.Entity.Enemy
                     await SkillBukkoro(token);
                 }
             }, destroyToken);
-            await OnEndPhase(destroyToken);
+            //await OnEndPhase(destroyToken);
 
 
 

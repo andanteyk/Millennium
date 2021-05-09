@@ -24,7 +24,15 @@ namespace Millennium.OutGame.Screen
         /// </remarks>
         protected void SelectFirstButton()
         {
+            // ×ˆ«(Å‰‚É‰¹‚ğ–Â‚ç‚³‚È‚¢‚æ‚¤‚É‚·‚é)
+            var se = m_FirstSelectedButton.GetComponent<ButtonSE>();
+            if (se != null)
+                se.enabled = false;
+
             m_FirstSelectedButton.Select();
+
+            if (se != null)
+                se.enabled = true;
         }
 
 

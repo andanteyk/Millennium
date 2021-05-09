@@ -36,7 +36,7 @@ namespace Millennium.InGame.Entity.Enemy
             await RandomMove(4, destroyToken);
 
             //*
-            Health = HealthMax = 5000;
+            Health = HealthMax = 8000;
             await RunPhase(async token =>
             {
                 await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1), PlayerLoopTiming.FixedUpdate)
@@ -49,7 +49,7 @@ namespace Millennium.InGame.Entity.Enemy
 
 
 
-            Health = HealthMax = 10000;
+            Health = HealthMax = 12000;
             await RunPhase(async token =>
             {
                 await MoveTo(new Vector3(64 * (Seiran.Shared.Next(0, 2) * 2 - 1), 64), 1, token);
@@ -64,7 +64,7 @@ namespace Millennium.InGame.Entity.Enemy
 
 
 
-            Health = HealthMax = 5000;
+            Health = HealthMax = 8000;
             await RunPhase(async token =>
             {
                 await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1), PlayerLoopTiming.FixedUpdate)
@@ -77,7 +77,7 @@ namespace Millennium.InGame.Entity.Enemy
 
 
 
-            Health = HealthMax = 10000;
+            Health = HealthMax = 16000;
             await RunPhase(async token =>
             {
                 await MoveTo(new Vector3(64 * (Seiran.Shared.Next(0, 2) * 2 - 1), 64), 1, token);
@@ -134,10 +134,10 @@ namespace Millennium.InGame.Entity.Enemy
 
         private async UniTask PlayerAimshot2(CancellationToken token)
         {
+            await RandomMove(1, token);
+
             if (token.IsCancellationRequested)
                 return;
-
-            await RandomMove(1, token);
 
             float playerDirection = BallisticMath.AimToPlayer(transform.position);
             var bullet = BulletBase.Instantiate(m_HugeShotPrefab, transform.position, BallisticMath.FromPolar(96, playerDirection));

@@ -17,7 +17,9 @@ namespace Millennium.InGame.Entity.Player
         {
             // –ˆƒtƒŒ[ƒ€‚¶‚á‚È‚¢‚©‚ç‹–‚µ‚Ä
             var enemies = GameObject.FindGameObjectsWithTag(InGameConstants.EnemyTag);
-            return enemies.Aggregate((GameObject)null, (current, next) => ((current != null ? Vector3.Distance(transform.position, current.transform.position) : float.PositiveInfinity) > Vector3.Distance(transform.position, next.transform.position) ? next : current));
+            return enemies
+                .Where(e => InGameConstants.FieldArea.Contains(e.transform.position))
+                .Aggregate((GameObject)null, (current, next) => ((current != null ? Vector3.Distance(transform.position, current.transform.position) : float.PositiveInfinity) > Vector3.Distance(transform.position, next.transform.position) ? next : current));
         }
 
 

@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
+using Millennium.Sound;
 using Millennium.UI;
 using System;
 using System.Collections;
@@ -38,12 +39,16 @@ namespace Millennium.OutGame.Screen
                 .Take(1)
                 .ForEachAwaitWithCancellationAsync(async (_, token) =>
                 {
+                    SoundManager.I.PlaySe(SeType.Accept).Forget();
+
                     await Transit("Assets/Millennium/Assets/Prefabs/OutGame/UI/Title.prefab", token);
                 }, token).Forget();
 
             m_TweetButton.OnClickAsAsyncEnumerable(token)
                 .ForEachAsync(_ =>
                {
+                   SoundManager.I.PlaySe(SeType.Accept).Forget();
+
                    // note: 一応インジェクションされないように注意
 
                    string body = $"ブルアカ二次創作 STG <Millennium Assault> を{(m_IsCleared ? "クリア" : "プレイ")}しました! (スコア: {m_ScoreText.text})";

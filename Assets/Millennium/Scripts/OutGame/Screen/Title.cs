@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using Cysharp.Threading.Tasks.Triggers;
+using Millennium.Sound;
 using Millennium.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,12 +30,16 @@ namespace Millennium.OutGame.Screen
                 .Take(1)
                 .ForEachAwaitWithCancellationAsync(async (_, token) =>
                 {
+                    SoundManager.I.PlaySe(SeType.Accept).Forget();
+
                     await Transit("Assets/Millennium/Assets/Prefabs/OutGame/UI/PlayerSelect.prefab", token);
                 }, token);
 
             m_InformationButton.OnClickAsAsyncEnumerable(token)
                 .ForEachAwaitWithCancellationAsync(async (_, token) =>
                 {
+                    SoundManager.I.PlaySe(SeType.Accept).Forget();
+
                     await Transit("Assets/Millennium/Assets/Prefabs/OutGame/UI/DialogInformation.prefab", token);
                 }, token);
         }

@@ -38,7 +38,7 @@ namespace Millennium.InGame.Entity.Enemy
             await RandomMove(4, destroyToken);
 
 
-            Health = HealthMax = 5000;
+            Health = HealthMax = 8000;
             await RunPhase(async token =>
             {
                 await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(2), PlayerLoopTiming.FixedUpdate)
@@ -60,13 +60,13 @@ namespace Millennium.InGame.Entity.Enemy
             await OnEndPhase(destroyToken);
 
 
-            Health = HealthMax = 10000;
+            Health = HealthMax = 12000;
             await RunPhase(SkillIFF, destroyToken);
             await OnEndPhase(destroyToken);
 
 
 
-            Health = HealthMax = 5000;
+            Health = HealthMax = 8000;
             await RunPhase(async token =>
             {
                 await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(2), PlayerLoopTiming.FixedUpdate)
@@ -86,7 +86,7 @@ namespace Millennium.InGame.Entity.Enemy
             await OnEndPhase(destroyToken);
 
 
-            Health = HealthMax = 7000;
+            Health = HealthMax = 12000;
             await RunPhase(SkillQED, destroyToken);
 
 

@@ -353,6 +353,53 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 1376cbbf894296c46825163591dbf9f5
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Enemy/Stage2/EnemyDrone_Left
+      Variant.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 3cd235f9e3212c94ca6271d62f186443
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Enemy/Stage2/EnemyDrone_Right
+      Variant.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 8e2ed85b4c6c3574dad3f185a1e02673
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Enemy/Stage2/EnemyPmc_Splash
+      Variant.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: e358982e79f009e42b3e871eadf59a6d
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Enemy/Stage2/EnemyDrone_Down
+      Variant.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 7d93814e48765f24599045c98c0c5a8e
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Enemy/Stage2/EnemyDrone_Left_Scatter.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 41207d529935a7f43b74a3f506159c2c
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Enemy/Stage2/EnemyDrone_Right_Scatter.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 1e933f6d7db65a842bea63719149d703
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Enemy/Stage2/EnemyPmc_spiral
+      Variant.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d80804b7e98dd9444a9c47da8e7a54af, type: 2}
   m_SchemaSet:

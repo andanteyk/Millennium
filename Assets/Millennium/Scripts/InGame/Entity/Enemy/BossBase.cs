@@ -24,9 +24,12 @@ namespace Millennium.InGame.Entity.Enemy
 
 
 
-        protected UniTask MoveTo(Vector3 destination, float moveSeconds, CancellationToken token)
+        protected async UniTask MoveTo(Vector3 destination, float moveSeconds, CancellationToken token)
         {
-            return transform.DOMove(destination, moveSeconds)
+            if (token.IsCancellationRequested)
+                return;
+
+            await transform.DOMove(destination, moveSeconds)
                 .SetUpdate(UpdateType.Fixed)
                 .SetLink(gameObject)
                 .WithCancellation(cancellationToken: token);
