@@ -141,7 +141,7 @@ namespace Millennium.InGame.Entity.Player
                     }
                     else
                     {
-                        renderer.enabled = true;
+                        renderer.enabled = !m_IsDead;
                     }
 
                     m_CollisionRenderer.enabled = input.Player.Fire.IsPressed();
@@ -213,11 +213,12 @@ namespace Millennium.InGame.Entity.Player
             EffectManager.I.Play(EffectType.Explosion, transform.position);
             SoundManager.I.PlaySe(SeType.PlayerDamaged).Forget();
 
-            await UniTask.Delay(1000);
+            await UniTask.Delay(2000);
 
             Time.timeScale = 0;
 
             var fade = await UI.Fader.CreateFade();
+            fade.SetColor(Color.cyan);
             DontDestroyOnLoad(fade);
             await fade.Show();
 

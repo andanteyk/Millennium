@@ -51,7 +51,7 @@ namespace Millennium.InGame.Entity.Player
             MoveSpeedModifier = 0.25f;
 
             EffectManager.I.Play(EffectType.Concentration, transform.position).SetParent(transform);
-            SoundManager.I.PlaySe(SeType.Concentration).Forget();
+            SoundManager.I.PlaySe(SeType.Ultimate).Forget();
             await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
 
 
