@@ -29,6 +29,7 @@ namespace Millennium
             public string FirstUIAddress;
             public long Score;
             public bool IsCleared;
+            public float BattleSeconds;
         }
 
 

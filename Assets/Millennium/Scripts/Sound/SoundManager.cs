@@ -94,7 +94,7 @@ namespace Millennium.Sound
             }
 
             CurrentBgm.loop = true;
-            CurrentBgm.volume = 0.3f;
+            CurrentBgm.volume = 0.2f;
             CurrentBgm.Play();
         }
 

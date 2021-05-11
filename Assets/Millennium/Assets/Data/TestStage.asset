@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ee77a6802dc26429c3dfedd70e863d, type: 3}
   m_Name: TestStage
   m_EditorClassIdentifier: 
+  Background: {fileID: 6294484271978082908, guid: 081d6bcbdc170cf47bf164cc1902685f, type: 3}
   Enemies:
   - SpawnSeconds: 0
     Position: {x: 0, y: 128}

@@ -241,32 +241,14 @@ namespace Millennium.InGame.Entity.Player
         }
 
 
-        // TODO: ‚±‚±‚É’u‚­‚×‚«?
         private async UniTaskVoid GameOver()
         {
-            // TODO: game over
             EffectManager.I.Play(EffectType.Explosion, transform.position);
             SoundManager.I.PlaySe(SeType.PlayerDamaged).Forget();
 
             await UniTask.Delay(2000);
 
-            Time.timeScale = 0;
-
-            var fade = await UI.Fader.CreateFade();
-            fade.SetColor(Color.cyan);
-            DontDestroyOnLoad(fade);
-            await fade.Show();
-
-            await EntryPoint.StartOutGame(new EntryPoint.OutGameParams
-            {
-                FirstUIAddress = "Assets/Millennium/Assets/Prefabs/OutGame/UI/Result.prefab",
-                Score = Score,
-                IsCleared = false,
-            });
-
-            Time.timeScale = 1;
-            await fade.Hide();
-            Destroy(fade.gameObject);
+            FindObjectOfType<Stage.StageManager>().GameOver().Forget();
         }
     }
 }

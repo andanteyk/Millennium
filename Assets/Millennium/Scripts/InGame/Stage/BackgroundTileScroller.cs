@@ -9,10 +9,16 @@ namespace Millennium.InGame.Stage
     [RequireComponent(typeof(Tilemap))]
     public class BackgroundTileScroller : MonoBehaviour
     {
-        void Start()
+        [SerializeField]
+        private float m_Speed = 4;
+
+        private void Start()
         {
             // TODO
-            transform.DOMoveY(GetComponent<Tilemap>().size.y * -16 + InGameConstants.FieldArea.height, 60, true).SetEase(Ease.Linear);
+            transform.DOMoveY(GetComponent<Tilemap>().size.y * -16 + InGameConstants.FieldArea.height - 24, m_Speed, true)
+                .SetSpeedBased(true)
+                .SetEase(Ease.Linear)
+                .SetLink(gameObject);
         }
 
     }

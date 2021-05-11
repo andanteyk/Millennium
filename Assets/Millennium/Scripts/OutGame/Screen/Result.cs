@@ -18,6 +18,8 @@ namespace Millennium.OutGame.Screen
         private TextMeshProUGUI m_Title;
         [SerializeField]
         private TextMeshProUGUI m_ScoreText;
+        [SerializeField]
+        private TextMeshProUGUI m_Time;
 
         [SerializeField]
         private Button m_OKButton;
@@ -62,6 +64,7 @@ namespace Millennium.OutGame.Screen
             base.ReceiveOutGameParameter(param);
 
             m_ScoreText.text = param.Score.ToString();
+            m_Time.text = TimeSpan.FromSeconds(param.BattleSeconds).ToString(@"mm\:ss\.ff");
             m_IsCleared = param.IsCleared;
 
             m_Title.text = m_IsCleared ? "Battle Completed" : "Defeated";

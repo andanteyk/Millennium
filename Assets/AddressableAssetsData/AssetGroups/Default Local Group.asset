@@ -420,6 +420,18 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: ec5063c904326884396ddbb3b08dce02
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Platform/Background/Corridor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 081d6bcbdc170cf47bf164cc1902685f
+    m_Address: Assets/Millennium/Assets/Prefabs/InGame/Platform/Background/Factory.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d80804b7e98dd9444a9c47da8e7a54af, type: 2}
   m_SchemaSet:

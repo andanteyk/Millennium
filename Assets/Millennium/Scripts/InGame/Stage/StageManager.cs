@@ -20,7 +20,9 @@ namespace Millennium.InGame.Stage
         }
 
         private Player m_Player = null;
+        private GameObject m_Background = null;
         private string m_CurrentStage = null;
+        private float m_BattleStarted;
 
 
         private async UniTask<StageData> LoadStage(string stageAddress)
@@ -34,13 +36,14 @@ namespace Millennium.InGame.Stage
 
         public async UniTask Play(StageData stage, CancellationToken token)
         {
-            // TODO: test
             SoundManager.I.PlayBgm(Sound.BgmType.Battle).Forget();
+            EffectManager.I.Play(EffectType.StageStart, Vector3.zero);
+            m_Background = Instantiate(stage.Background);
+            m_BattleStarted = Time.realtimeSinceStartup;
 
 
             float skipFrom = 0;         // for debug
 
-            EffectManager.I.Play(EffectType.StageStart, Vector3.zero);
 
             await UniTask.WhenAll(stage.Enemies.Select(enemy =>
                 {
@@ -95,6 +98,9 @@ namespace Millennium.InGame.Stage
             await fade.Show();
 
 
+            if (m_Background != null)
+                Destroy(m_Background);
+
             int index = Array.IndexOf(stages, m_CurrentStage);
             if (index == -1 || index >= stages.Length - 1)
             {
@@ -104,6 +110,7 @@ namespace Millennium.InGame.Stage
                     FirstUIAddress = "Assets/Millennium/Assets/Prefabs/OutGame/UI/Result.prefab",
                     Score = m_Player.Score + m_Player.Health * 5000 + m_Player.BombCount * 100000,
                     IsCleared = true,
+                    BattleSeconds = Time.realtimeSinceStartup - m_BattleStarted
                 });
             }
             else
@@ -115,8 +122,29 @@ namespace Millennium.InGame.Stage
             await fade.Hide();
         }
 
+        public async UniTask GameOver()
+        {
+            Time.timeScale = 0;
 
-        // TODO: test
+            var fade = await UI.Fader.CreateFade();
+            fade.SetColor(Color.cyan);
+            DontDestroyOnLoad(fade);
+            await fade.Show();
+
+            await EntryPoint.StartOutGame(new EntryPoint.OutGameParams
+            {
+                FirstUIAddress = "Assets/Millennium/Assets/Prefabs/OutGame/UI/Result.prefab",
+                Score = m_Player.Score,
+                IsCleared = false,
+                BattleSeconds = Time.realtimeSinceStartup - m_BattleStarted
+            });
+
+            Time.timeScale = 1;
+            await fade.Hide();
+            Destroy(fade.gameObject);
+        }
+
+
         public async void OnStart(EntryPoint.InGameParams param)
         {
             await InstantiatePlayer(param.PlayerType);
