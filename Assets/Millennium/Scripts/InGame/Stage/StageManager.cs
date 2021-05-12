@@ -17,6 +17,7 @@ namespace Millennium.InGame.Stage
             Alice,
             Momoi,
             Midori,
+            Yuzu,
         }
 
         private Player m_Player = null;
@@ -73,6 +74,7 @@ namespace Millennium.InGame.Stage
                 PlayerType.Alice => "Assets/Millennium/Assets/Prefabs/InGame/Player/PlayerAlice.prefab",
                 PlayerType.Momoi => "Assets/Millennium/Assets/Prefabs/InGame/Player/PlayerMomoi.prefab",
                 PlayerType.Midori => "Assets/Millennium/Assets/Prefabs/InGame/Player/PlayerMidori.prefab",
+                PlayerType.Yuzu => "Assets/Millennium/Assets/Prefabs/InGame/Player/PlayerYuzu.prefab",
                 _ => throw new InvalidOperationException($"playerType `{param.PlayerType}` is not supported"),
             });
 

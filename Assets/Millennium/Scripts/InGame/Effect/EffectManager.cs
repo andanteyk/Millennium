@@ -40,7 +40,6 @@ namespace Millennium.InGame.Effect
                 { EffectType.CrossDecayRed, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayRed.prefab") },
                 { EffectType.CrossDecayGreen, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayGreen.prefab") },
                 { EffectType.CrossDecayBlue, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayBlue.prefab") },
-
                 { EffectType.Caution, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/Caution.prefab") },
                 { EffectType.MuzzleFlash, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/MuzzleFlash.prefab") },
                 { EffectType.Concentration, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/Concentration.prefab") },
@@ -54,6 +53,7 @@ namespace Millennium.InGame.Effect
                 { EffectType.StageStart, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/StageStart.prefab") },
                 { EffectType.StageClear, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/StageClear.prefab") },
 
+                { EffectType.CrossDecayYellow, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayYellow.prefab") },
             };
         }
 
@@ -93,5 +93,6 @@ namespace Millennium.InGame.Effect
         Warning,
         StageStart,
         StageClear,
+        CrossDecayYellow,
     }
 }

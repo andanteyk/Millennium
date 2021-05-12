@@ -24,6 +24,9 @@ namespace Millennium.OutGame.Screen
         [SerializeField]
         private Button m_AliceButton;
 
+        [SerializeField]
+        private Button m_YuzuButton;
+
         private bool m_IsDebugMode = false;
 
 
@@ -36,6 +39,7 @@ namespace Millennium.OutGame.Screen
             ButtonAction(m_MomoiButton, StageManager.PlayerType.Momoi, token);
             ButtonAction(m_MidoriButton, StageManager.PlayerType.Midori, token);
             ButtonAction(m_AliceButton, StageManager.PlayerType.Alice, token);
+            ButtonAction(m_YuzuButton, StageManager.PlayerType.Yuzu, token);
 
             ListenDebugCommand(this.GetCancellationTokenOnDestroy()).Forget();
         }

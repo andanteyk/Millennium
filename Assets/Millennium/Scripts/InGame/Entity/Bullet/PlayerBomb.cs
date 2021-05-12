@@ -33,13 +33,12 @@ namespace Millennium.InGame.Entity.Bullet
                 .SetLink(gameObject)
                 .WithCancellation(token);
 
-            UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
+            UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(m_HitInterval), PlayerLoopTiming.FixedUpdate)
                 .ForEachAwaitAsync(async _ =>
                 {
                     Array.ForEach(colliders, c => c.enabled = true);
                     await UniTask.Yield(token);
                     Array.ForEach(colliders, c => c.enabled = false);
-                    await UniTask.Delay(TimeSpan.FromSeconds(m_HitInterval), cancellationToken: token);
                 }, token);
         }
     }
