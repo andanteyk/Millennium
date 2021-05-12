@@ -66,18 +66,19 @@ namespace Millennium.InGame.Stage
         }
 
 
-        private async UniTask InstantiatePlayer(PlayerType playerType)
+        private async UniTask InstantiatePlayer(EntryPoint.InGameParams param)
         {
-            var playerPrefab = await Addressables.LoadAssetAsync<GameObject>(playerType switch
+            var playerPrefab = await Addressables.LoadAssetAsync<GameObject>(param.PlayerType switch
             {
                 PlayerType.Alice => "Assets/Millennium/Assets/Prefabs/InGame/Player/PlayerAlice.prefab",
                 PlayerType.Momoi => "Assets/Millennium/Assets/Prefabs/InGame/Player/PlayerMomoi.prefab",
                 PlayerType.Midori => "Assets/Millennium/Assets/Prefabs/InGame/Player/PlayerMidori.prefab",
-                _ => throw new InvalidOperationException($"playerType `{playerType}` is not supported"),
+                _ => throw new InvalidOperationException($"playerType `{param.PlayerType}` is not supported"),
             });
 
             m_Player = Instantiate(playerPrefab).GetComponent<Player>();
             m_Player.transform.position = new Vector3(0, -100, 0);
+            m_Player.IsDebugMode = param.IsDebugMode;
         }
 
 
@@ -147,9 +148,9 @@ namespace Millennium.InGame.Stage
 
         public async void OnStart(EntryPoint.InGameParams param)
         {
-            await InstantiatePlayer(param.PlayerType);
+            await InstantiatePlayer(param);
 
-            Play(await LoadStage("Assets/Millennium/Assets/Data/Stage1.asset"), this.GetCancellationTokenOnDestroy()).Forget();
+            Play(await LoadStage("Assets/Millennium/Assets/Data/TestStage.asset"), this.GetCancellationTokenOnDestroy()).Forget();
         }
     }
 }

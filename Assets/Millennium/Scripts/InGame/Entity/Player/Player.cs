@@ -49,6 +49,7 @@ namespace Millennium.InGame.Entity.Player
         public long Score { get; protected set; } = 0;
 
         protected bool m_IsDead = false;
+        public bool IsDebugMode { get; set; } = false;
 
 
         // Start is called before the first frame update
@@ -102,7 +103,10 @@ namespace Millennium.InGame.Entity.Player
                 {
                     if (!IsControllable)
                         return;
-                    if (!input.Player.Bomb.WasPressedThisFrame())
+
+                    // WasPressedThisFrame だと低 FPS 時に絶望的に反応が悪くなるので;
+                    // 押しっぱなしで連続発動してしまうが、あまり問題にならないと思うので IsPressed で
+                    if (!input.Player.Bomb.IsPressed())
                         return;
 
                     if (IsInvincible)
@@ -113,7 +117,8 @@ namespace Millennium.InGame.Entity.Player
                         return;
                     }
 
-                    BombCount--;
+                    if (!IsDebugMode)
+                        BombCount--;
 
                     SetInvincible(6);
 
@@ -174,6 +179,10 @@ namespace Millennium.InGame.Entity.Player
                     ui.SkillGauge.SetSubGauge(BombCount);
                     ui.SkillGauge.SetGauge(m_SkillPoint, m_SkillPointMax);
                 }, token);
+
+
+            if (IsDebugMode)
+                Score = -999999999;
         }
 
 
@@ -199,8 +208,11 @@ namespace Millennium.InGame.Entity.Player
             }
 
 
-            Health -= damage.Damage;
-            BombCount = Math.Max(BombCount, 2);
+            if (!IsDebugMode)
+            {
+                Health -= damage.Damage;
+                BombCount = Math.Max(BombCount, 2);
+            }
 
             if (Health > 0)
             {
@@ -224,7 +236,20 @@ namespace Millennium.InGame.Entity.Player
         {
             Score += score;
 
-            m_SkillPoint += (int)score;
+            AddSkillPoint((int)score);
+        }
+
+        public void Extend()
+        {
+            Health = Math.Min(Health + 100, HealthMax);
+            SoundManager.I.PlaySe(SeType.Accept).Forget();
+
+            EffectManager.I.Play(EffectType.PlusDecayRed, transform.position);
+        }
+
+        public void AddSkillPoint(int value)
+        {
+            m_SkillPoint += (int)value;
             if (m_SkillPoint >= m_SkillPointMax)
             {
                 BombCount += m_SkillPoint / m_SkillPointMax;
@@ -236,7 +261,6 @@ namespace Millennium.InGame.Entity.Player
 
         public void AddStageClearReward()
         {
-            Health = Math.Min(Health + 100, HealthMax);
             Score += 1000000;
         }
 

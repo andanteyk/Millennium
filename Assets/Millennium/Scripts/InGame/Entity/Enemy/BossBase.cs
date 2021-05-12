@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using DG.Tweening;
 using Millennium.InGame.Effect;
+using Millennium.InGame.Entity.Item;
 using Millennium.Mathematics;
 using Millennium.Sound;
 using Millennium.UI;
@@ -10,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Millennium.InGame.Entity.Enemy
 {
@@ -96,8 +98,7 @@ namespace Millennium.InGame.Entity.Enemy
         {
             try
             {
-                if (token.IsCancellationRequested)
-                    return;
+                token.ThrowIfCancellationRequested();
 
                 Time.timeScale = 1 / 3f;
 
@@ -113,9 +114,17 @@ namespace Millennium.InGame.Entity.Enemy
 
                     }, token);
 
+                token.ThrowIfCancellationRequested();
+
                 EffectManager.I.Play(EffectType.Explosion, transform.position);
                 EffectManager.I.Play(EffectType.SpreadExplosion, transform.position);
                 SoundManager.I.PlaySe(SeType.SpreadExplosion).Forget();
+
+                {
+                    var medkit = Instantiate(await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Item/ItemMedkit.prefab")).GetComponent<ItemMedkit>();
+                    medkit.transform.position = transform.position;
+                    medkit.SetAutoCollect();
+                }
 
                 transform.position = new Vector3(0, 1024);          // ŽG‚É”ñ•\Ž¦‚É‚·‚é
 
@@ -125,7 +134,7 @@ namespace Millennium.InGame.Entity.Enemy
 
                 EffectManager.I.Play(EffectType.StageClear, Vector3.zero);
 
-                await UniTask.Delay(TimeSpan.FromSeconds(3), cancellationToken: token);
+                await UniTask.Delay(TimeSpan.FromSeconds(6), cancellationToken: token);
             }
             catch (OperationCanceledException)
             {
