@@ -1,6 +1,8 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using Millennium.InGame.Effect;
+using Millennium.InGame.Entity.Bullet;
+using Millennium.Mathematics;
 using Millennium.Sound;
 using System;
 using System.Threading;
@@ -54,6 +56,33 @@ namespace Millennium.InGame.Entity.Enemy
         {
             if (token.IsCancellationRequested)
                 return;
+
+            await RandomMove(1, token);
+
+            EffectManager.I.Play(EffectType.Concentration, transform.position);
+            SoundManager.I.PlaySe(SeType.Concentration).Forget();
+
+
+            await UniTaskAsyncEnumerable.Timer(TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(0.05), PlayerLoopTiming.FixedUpdate)
+                .Select((_, i) => i)
+                .Take(30)
+                .ForEachAsync(i =>
+                {
+                    var bullet = BulletBase.Instantiate(m_NormalShotPrefab, transform.position, BallisticMath.FromPolar(32, BallisticMath.AimToPlayer(transform.position)));
+
+                    async UniTaskVoid BulletMove(BulletBase bullet, int index)
+                    {
+                        var token = bullet.GetCancellationTokenOnDestroy();
+
+                        float baseAngle = BallisticMath.AimToPlayer(bullet.transform.position);
+                        await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+                        await bullet.DOSpeedAngle(64, baseAngle, baseAngle + ((index & 1) * 2 - 1) * Mathf.PI * 2, 3).ToUniTask(cancellationToken: token);
+
+                        bullet.Speed += Seiran.Shared.InsideUnitCircle() * 32;
+                    }
+
+                    BulletMove(bullet, i).Forget();
+                }, token);
         }
 
     }

@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks.Linq;
 using Cysharp.Threading.Tasks.Triggers;
 using DG.Tweening;
 using Millennium.InGame.Effect;
+using Millennium.Mathematics;
 using System;
 using System.Threading;
 using UnityEngine;
@@ -75,6 +76,12 @@ namespace Millennium.InGame.Entity.Bullet
             => DOTween.To(() => Speed, value => Speed = value, endValue, duration)
                 .SetEase(Ease.Linear)
                 .SetLink(gameObject);
+
+        // DOAngularVelocity ÇæÇ∆ angular velocity ÇïœçXÇ∑ÇÈÇÊÇ§Ç…å©Ç¶ÇÈÇÃÇ≈Åc
+        public DG.Tweening.Core.TweenerCore<float, float, DG.Tweening.Plugins.Options.FloatOptions> DOSpeedAngle(float baseSpeed, float startValue, float endValue, float duration)
+           => DOTween.To(() => startValue, value => Speed = BallisticMath.FromPolar(baseSpeed, value), endValue, duration)
+               .SetEase(Ease.Linear)
+               .SetLink(gameObject);
 
 
         public static BulletBase Instantiate(GameObject prefab, Vector3 position, Vector3 speed)

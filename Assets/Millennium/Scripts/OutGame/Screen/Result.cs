@@ -1,5 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
+using Cysharp.Threading.Tasks.Triggers;
+using Millennium.IO;
 using Millennium.Sound;
 using Millennium.UI;
 using System;
@@ -8,6 +10,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
+
+
 
 namespace Millennium.OutGame.Screen
 {
@@ -29,11 +33,6 @@ namespace Millennium.OutGame.Screen
         private bool m_IsCleared;
 
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-        [DllImport("__Internal")]
-        private static extern void ShowPopup(string url);
-#endif
-
 
         private void Start()
         {
@@ -52,26 +51,7 @@ namespace Millennium.OutGame.Screen
                 }, token).Forget();
 
             m_TweetButton.OnClickAsAsyncEnumerable(token)
-                .ForEachAwaitWithCancellationAsync(async (_, token) =>
-                {
-                    SoundManager.I.PlaySe(SeType.Accept).Forget();
-
-                    // note: 一応インジェクションされないように注意
-
-                    string body = $"ブルアカ二次創作 STG <Millennium Assault> を{(m_IsCleared ? "クリア" : "プレイ")}しました! (スコア: {m_ScoreText.text})";
-                    string url = @$"https://twitter.com/intent/tweet?text={ body }&hashtags={ "MillenniumAssault" }&url={ @"https://andanteyk.github.io/MillenniumAssault" }";
-
-#if UNITY_WEBGL && !UNITY_EDITOR
-                    ShowPopup(url);
-                    await ShowTweetDialog(token);
-#else
-                    Application.OpenURL(url);
-                    await ShowTweetDialog(token);
-#endif
-
-
-
-                }, token).Forget();
+                .ForEachAwaitWithCancellationAsync((_, token) => ShowTweetDialog(token), token);
         }
 
         public override void ReceiveOutGameParameter(EntryPoint.OutGameParams param)
@@ -97,6 +77,7 @@ namespace Millennium.OutGame.Screen
             var instance = Instantiate(await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/OutGame/UI/DialogTweet.prefab"));
             instance.transform.SetParent(GetComponentInParent<Canvas>().transform, false);
             instance.transform.SetAsLastSibling();
+            instance.GetComponent<DialogTweet>().TweetMessage = CreateMessage();
 
 
             await fader.Hide();
@@ -104,10 +85,20 @@ namespace Millennium.OutGame.Screen
 
             token.ThrowIfCancellationRequested();
 
-            await instance.GetCancellationTokenOnDestroy().ToUniTask().Item1;
+            await instance.OnDestroyAsync();
 
             await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
+
+            token.ThrowIfCancellationRequested();
             SelectFirstButton();
+        }
+
+
+        private string CreateMessage()
+        {
+            string body = $"ブルアカ二次創作 STG <Millennium Assault> を{(m_IsCleared ? "クリア" : "プレイ")}しました! (スコア: {m_ScoreText.text})";
+            string url = @$"https://twitter.com/intent/tweet?text={ body }&hashtags={ "MillenniumAssault" }&url={ @"https://andanteyk.github.io/MillenniumAssault" }";
+            return url;
         }
     }
 }

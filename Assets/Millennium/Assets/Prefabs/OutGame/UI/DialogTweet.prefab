@@ -65,8 +65,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Thank you for playing!\n\n\u306A\u306B\u304B\u30AD\u30FC\u3092\u304A\u3059\u3068\nTwitter
-    \u306E\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7\u304C\n\u3072\u3089\u304D\u307E\u3059"
+  m_text: "Thank you for playing!\n\n\u3053\u3053\u3092\u30AF\u30EA\u30C3\u30AF\u3059\u308B\u3068\nTwitter
+    \u306E\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7\u304C\n\u3072\u3089\u304D\u307E\u3059\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c960ae80113acf946aaaaeefff079e0b, type: 2}
   m_sharedMaterial: {fileID: -1660784911440582422, guid: c960ae80113acf946aaaaeefff079e0b, type: 2}
