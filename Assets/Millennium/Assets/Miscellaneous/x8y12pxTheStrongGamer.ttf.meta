@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ed900d1b1694360408dc57d86b7033f4
+guid: ae9fce75d36b6f14a8ad19ce3bc8861e
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - PixelMplus12
+  - x8y12pxTheStrongGamer
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

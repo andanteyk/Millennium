@@ -182,7 +182,7 @@ namespace Millennium.InGame.Entity.Player
 
 
             if (IsDebugMode)
-                Score = -999999999;
+                Score = -99999999;
         }
 
 
