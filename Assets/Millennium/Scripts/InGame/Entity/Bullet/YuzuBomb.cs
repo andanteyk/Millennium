@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
+using DG.Tweening;
 using Millennium.InGame.Effect;
 using Millennium.Sound;
 using System;
@@ -28,7 +29,12 @@ namespace Millennium.InGame.Entity.Bullet
                 .ForEachAsync(_ =>
                 {
                     spriteRenderer.sprite = null;
-                    Array.ForEach(colliders, c => c.enabled = true);
+                    Array.ForEach(colliders, c =>
+                    {
+                        c.enabled = true;
+                        // to activate colliders
+                        c.transform.DOShakePosition(1f).SetLink(c.gameObject).WithCancellation(token);
+                    });
 
                     EffectManager.I.Play(EffectType.Explosion, transform.position);
                     SoundManager.I.PlaySe(SeType.Explosion).Forget();
