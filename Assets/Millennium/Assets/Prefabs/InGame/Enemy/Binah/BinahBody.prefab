@@ -137,3 +137,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InitialHealth: 1000
   m_Parent: {fileID: 0}
+  m_FrontSprite: {fileID: 21300000, guid: 0e19fc19bd07d8f47a0b63837f32f53b, type: 3}
+  m_SideSprite: {fileID: 21300000, guid: 0e19fc19bd07d8f47a0b63837f32f53b, type: 3}

@@ -67,6 +67,7 @@ namespace Millennium.Sound
                 { SeType.Ultimate, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/Ultimate.wav") },
 
                 { SeType.Warning, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/Warning.wav") },
+                { SeType.Fall, await Addressables.LoadAssetAsync<AudioClip>("Assets/Millennium/Assets/Sounds/Se/InGame/Fall.wav") },
             };
 
             AudioSourcePrefab = await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/Common/Sounds/AudioSource.prefab");
@@ -120,11 +121,11 @@ namespace Millennium.Sound
             await UniTask.WaitWhile(() => source.isPlaying, cancellationToken: source.GetCancellationTokenOnDestroy());
         }
 
-        public async UniTask StopBgm()
+        public async UniTask StopBgm(float fadeOutSeconds = 1)
         {
             if (CurrentBgm != null)
             {
-                await DOTween.To(() => CurrentBgm.volume, value => CurrentBgm.volume = value, 0, 1).ToUniTask();
+                await DOTween.To(() => CurrentBgm.volume, value => CurrentBgm.volume = value, 0, fadeOutSeconds).ToUniTask();
                 CurrentBgm.Stop();
             }
         }
@@ -175,5 +176,6 @@ namespace Millennium.Sound
         AliceBomb,
         Ultimate,
         Warning,
+        Fall,
     }
 }

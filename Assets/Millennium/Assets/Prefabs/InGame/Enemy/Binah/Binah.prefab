@@ -57,6 +57,8 @@ MonoBehaviour:
   m_InitialHealth: 1000
   m_BulletRemoverPrefab: {fileID: 1886261628011126686, guid: f41442ce3539d4645b52ddfd73ca8fcc, type: 3}
   m_NormalShotPrefab: {fileID: 2848903793658768549, guid: 8317b95c97cdcc44d93ec95931553650, type: 3}
+  m_LargeShotPrefab: {fileID: 6781688046723104190, guid: d4d1c18406a8c7748bd9d8513cb98c9f, type: 3}
+  m_HugeShotPrefab: {fileID: 7995113509400450655, guid: 82323dd0a7471aa4ca61ad1148e229c5, type: 3}
   m_Bodies:
   - {fileID: 6367488198220300881}
   - {fileID: 5211437356159735205}
