@@ -90,6 +90,9 @@ namespace Millennium.InGame.Stage
                 "Assets/Millennium/Assets/Data/Stage1.asset",
                 "Assets/Millennium/Assets/Data/Stage2.asset",
                 "Assets/Millennium/Assets/Data/Stage3.asset",
+                "Assets/Millennium/Assets/Data/Stage4.asset",
+                "Assets/Millennium/Assets/Data/Stage5.asset",
+                "Assets/Millennium/Assets/Data/Stage6.asset",
             };
 
 
