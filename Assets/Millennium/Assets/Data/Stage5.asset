@@ -13,4 +13,55 @@ MonoBehaviour:
   m_Name: Stage5
   m_EditorClassIdentifier: 
   Background: {fileID: 0}
-  Enemies: []
+  Enemies:
+  - SpawnSeconds: 3
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 5720175659112609045, guid: a8563797d52766742aaf384f225a2049, type: 3}
+  - SpawnSeconds: 8
+    Position: {x: 64, y: 128}
+    Prefab: {fileID: 5720175659112609045, guid: a8563797d52766742aaf384f225a2049, type: 3}
+  - SpawnSeconds: 13
+    Position: {x: -64, y: 128}
+    Prefab: {fileID: 5720175659112609045, guid: a8563797d52766742aaf384f225a2049, type: 3}
+  - SpawnSeconds: 20
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 3739714457947112730, guid: e8fbb6e934874d046b27e6655c88f0d5, type: 3}
+  - SpawnSeconds: 25
+    Position: {x: -64, y: 128}
+    Prefab: {fileID: 3739714457947112730, guid: e8fbb6e934874d046b27e6655c88f0d5, type: 3}
+  - SpawnSeconds: 30
+    Position: {x: 64, y: 128}
+    Prefab: {fileID: 3739714457947112730, guid: e8fbb6e934874d046b27e6655c88f0d5, type: 3}
+  - SpawnSeconds: 38
+    Position: {x: -64, y: 128}
+    Prefab: {fileID: 5720175659112609045, guid: a8563797d52766742aaf384f225a2049, type: 3}
+  - SpawnSeconds: 40
+    Position: {x: 64, y: 128}
+    Prefab: {fileID: 3739714457947112730, guid: e8fbb6e934874d046b27e6655c88f0d5, type: 3}
+  - SpawnSeconds: 50
+    Position: {x: 64, y: 128}
+    Prefab: {fileID: 5720175659112609045, guid: a8563797d52766742aaf384f225a2049, type: 3}
+  - SpawnSeconds: 52
+    Position: {x: -64, y: 128}
+    Prefab: {fileID: 3739714457947112730, guid: e8fbb6e934874d046b27e6655c88f0d5, type: 3}
+  - SpawnSeconds: 60
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 5720175659112609045, guid: a8563797d52766742aaf384f225a2049, type: 3}
+  - SpawnSeconds: 62
+    Position: {x: 64, y: 128}
+    Prefab: {fileID: 3739714457947112730, guid: e8fbb6e934874d046b27e6655c88f0d5, type: 3}
+  - SpawnSeconds: 64
+    Position: {x: -64, y: 128}
+    Prefab: {fileID: 3739714457947112730, guid: e8fbb6e934874d046b27e6655c88f0d5, type: 3}
+  - SpawnSeconds: 75
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 3739714457947112730, guid: e8fbb6e934874d046b27e6655c88f0d5, type: 3}
+  - SpawnSeconds: 77
+    Position: {x: 64, y: 128}
+    Prefab: {fileID: 5720175659112609045, guid: a8563797d52766742aaf384f225a2049, type: 3}
+  - SpawnSeconds: 79
+    Position: {x: -64, y: 128}
+    Prefab: {fileID: 5720175659112609045, guid: a8563797d52766742aaf384f225a2049, type: 3}
+  - SpawnSeconds: 90
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 5944928519954227303, guid: a6273b30f67fe4b4ea88f3912be42b35, type: 3}

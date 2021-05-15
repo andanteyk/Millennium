@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: Stage6
   m_EditorClassIdentifier: 
   Background: {fileID: 0}
-  Enemies: []
+  Enemies:
+  - SpawnSeconds: 5
+    Position: {x: 0, y: 0}
+    Prefab: {fileID: 6065889845584043233, guid: 6cef20d1c6d912242b11c99cfd606df3, type: 3}
