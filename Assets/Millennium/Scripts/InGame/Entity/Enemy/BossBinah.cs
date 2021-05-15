@@ -774,6 +774,7 @@ namespace Millennium.InGame.Entity.Enemy
             EffectManager.I.Play(EffectType.Concentration, m_Bodies[0].transform.position);
 
             // TODO
+            await UniTask.CompletedTask;
         }
 
 
