@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks.Linq;
 using DG.Tweening;
 using Millennium.InGame.Effect;
 using Millennium.InGame.Entity.Item;
+using Millennium.InGame.Stage;
 using Millennium.Mathematics;
 using Millennium.Sound;
 using Millennium.UI;
@@ -191,6 +192,33 @@ namespace Millennium.InGame.Entity.Enemy
 
             await UniTask.Delay(TimeSpan.FromSeconds(1.5), cancellationToken: token);
         }
+
+
+        // for mid boss
+        protected async UniTask EscapeEvent(GameObject rewardItem, CancellationToken token)
+        {
+            token.ThrowIfCancellationRequested();
+
+            m_DamageRatio = 0;
+
+            if (Health <= 0)
+            {
+                var item = Instantiate(rewardItem);
+                item.transform.position = transform.position;
+            }
+
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
+
+            await MoveTo(new Vector3(128, 128), 2, token);
+        }
+
+        protected void SuppressEnemySpawn(CancellationToken destroyToken)
+        {
+            var stageManager = FindObjectOfType<StageManager>();
+            stageManager.SuppressEnemySpawn();
+            destroyToken.Register(() => stageManager.ResumeEnemySpawn());
+        }
+
 
 
         protected void GotoNextStage()

@@ -13,4 +13,337 @@ MonoBehaviour:
   m_Name: Stage2
   m_EditorClassIdentifier: 
   Background: {fileID: 4080346228986147942, guid: ec5063c904326884396ddbb3b08dce02, type: 3}
-  Enemies: []
+  Enemies:
+  - SpawnSeconds: 5
+    Position: {x: -64, y: 128}
+    Prefab: {fileID: 8163358851689673947, guid: 9e8dc59693213a34988f590e44ac2c7c, type: 3}
+  - SpawnSeconds: 5
+    Position: {x: -32, y: 128}
+    Prefab: {fileID: 8163358851689673947, guid: 9e8dc59693213a34988f590e44ac2c7c, type: 3}
+  - SpawnSeconds: 5
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 8163358851689673947, guid: 9e8dc59693213a34988f590e44ac2c7c, type: 3}
+  - SpawnSeconds: 5
+    Position: {x: 32, y: 128}
+    Prefab: {fileID: 8163358851689673947, guid: 9e8dc59693213a34988f590e44ac2c7c, type: 3}
+  - SpawnSeconds: 5
+    Position: {x: 64, y: 128}
+    Prefab: {fileID: 8163358851689673947, guid: 9e8dc59693213a34988f590e44ac2c7c, type: 3}
+  - SpawnSeconds: 8
+    Position: {x: -96, y: 96}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 8
+    Position: {x: -96, y: 80}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 8
+    Position: {x: -96, y: 64}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 8
+    Position: {x: -96, y: 48}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 8
+    Position: {x: -96, y: 32}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 11
+    Position: {x: 96, y: 96}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 11
+    Position: {x: 96, y: 80}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 11
+    Position: {x: 96, y: 64}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 11
+    Position: {x: 96, y: 48}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 11
+    Position: {x: 96, y: 32}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 15
+    Position: {x: -64, y: 128}
+    Prefab: {fileID: 8163358851689673947, guid: 9e8dc59693213a34988f590e44ac2c7c, type: 3}
+  - SpawnSeconds: 15
+    Position: {x: -32, y: 128}
+    Prefab: {fileID: 8163358851689673947, guid: 9e8dc59693213a34988f590e44ac2c7c, type: 3}
+  - SpawnSeconds: 15
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 8163358851689673947, guid: 9e8dc59693213a34988f590e44ac2c7c, type: 3}
+  - SpawnSeconds: 15
+    Position: {x: 32, y: 128}
+    Prefab: {fileID: 8163358851689673947, guid: 9e8dc59693213a34988f590e44ac2c7c, type: 3}
+  - SpawnSeconds: 15
+    Position: {x: 64, y: 128}
+    Prefab: {fileID: 8163358851689673947, guid: 9e8dc59693213a34988f590e44ac2c7c, type: 3}
+  - SpawnSeconds: 15
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 5294775115034132509, guid: 818695931a5cafa4380f879ceeade129, type: 3}
+  - SpawnSeconds: 19
+    Position: {x: -96, y: 96}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 19.5
+    Position: {x: -96, y: 80}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 20
+    Position: {x: -96, y: 64}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 20.5
+    Position: {x: -96, y: 48}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 21
+    Position: {x: -96, y: 32}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 19
+    Position: {x: 96, y: 96}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 19.5
+    Position: {x: 96, y: 80}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 20
+    Position: {x: 96, y: 64}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 20.5
+    Position: {x: 96, y: 48}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 21
+    Position: {x: 96, y: 32}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 19
+    Position: {x: -32, y: 128}
+    Prefab: {fileID: 5294775115034132509, guid: 818695931a5cafa4380f879ceeade129, type: 3}
+  - SpawnSeconds: 19
+    Position: {x: 32, y: 128}
+    Prefab: {fileID: 5294775115034132509, guid: 818695931a5cafa4380f879ceeade129, type: 3}
+  - SpawnSeconds: 25
+    Position: {x: -96, y: 96}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 25.25
+    Position: {x: -96, y: 80}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 25.5
+    Position: {x: -96, y: 64}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 25.75
+    Position: {x: -96, y: 48}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 26
+    Position: {x: -96, y: 32}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 29
+    Position: {x: 96, y: 96}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 29.25
+    Position: {x: 96, y: 80}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 29.5
+    Position: {x: 96, y: 64}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 29.75
+    Position: {x: 96, y: 48}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 30
+    Position: {x: 96, y: 32}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 34
+    Position: {x: -96, y: 96}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 34.25
+    Position: {x: -96, y: 80}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 34.5
+    Position: {x: -96, y: 64}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 34.75
+    Position: {x: -96, y: 48}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 35
+    Position: {x: -96, y: 32}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 34
+    Position: {x: 96, y: 96}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 34.25
+    Position: {x: 96, y: 80}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 34.5
+    Position: {x: 96, y: 64}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 34.75
+    Position: {x: 96, y: 48}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 35
+    Position: {x: 96, y: 32}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 40
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 5066620868228644466, guid: ec7e8af2af3ec2f4e91df68aca8643dc, type: 3}
+  - SpawnSeconds: 50
+    Position: {x: -96, y: 96}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 50.25
+    Position: {x: -96, y: 80}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 50.5
+    Position: {x: -96, y: 64}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 50.75
+    Position: {x: -96, y: 48}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 51
+    Position: {x: -96, y: 32}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 54
+    Position: {x: 96, y: 96}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 54.25
+    Position: {x: 96, y: 80}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 54.5
+    Position: {x: 96, y: 64}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 54.75
+    Position: {x: 96, y: 48}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 55
+    Position: {x: 96, y: 32}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 58
+    Position: {x: 96, y: 96}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 58.25
+    Position: {x: 96, y: 80}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 58.5
+    Position: {x: 96, y: 64}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 58.75
+    Position: {x: 96, y: 48}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 59
+    Position: {x: 96, y: 32}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 59
+    Position: {x: 96, y: 96}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 59.25
+    Position: {x: 96, y: 80}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 59.5
+    Position: {x: 96, y: 64}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 59.75
+    Position: {x: 96, y: 48}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 60
+    Position: {x: 96, y: 32}
+    Prefab: {fileID: 5718780362770646014, guid: d5202c6290c0bc94ba0a2ff714aee76d, type: 3}
+  - SpawnSeconds: 62
+    Position: {x: -96, y: 96}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 62.25
+    Position: {x: -96, y: 80}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 62.5
+    Position: {x: -96, y: 64}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 62.75
+    Position: {x: -96, y: 48}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 63
+    Position: {x: -96, y: 32}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 63
+    Position: {x: -96, y: 96}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 63.25
+    Position: {x: -96, y: 80}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 63.5
+    Position: {x: -96, y: 64}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 63.75
+    Position: {x: -96, y: 48}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 64
+    Position: {x: -96, y: 32}
+    Prefab: {fileID: 7525974224180781773, guid: 94ff48e754d3424408937c26c2c911c6, type: 3}
+  - SpawnSeconds: 61
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 5294775115034132509, guid: 818695931a5cafa4380f879ceeade129, type: 3}
+  - SpawnSeconds: 67
+    Position: {x: -96, y: 96}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 67.5
+    Position: {x: -96, y: 96}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 68
+    Position: {x: -96, y: 96}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 68.5
+    Position: {x: -96, y: 96}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 69
+    Position: {x: -96, y: 96}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 69
+    Position: {x: 96, y: 64}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 69.5
+    Position: {x: 96, y: 64}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 70
+    Position: {x: 96, y: 64}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 70.5
+    Position: {x: 96, y: 64}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 71
+    Position: {x: 96, y: 64}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 71
+    Position: {x: -96, y: 32}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 71.5
+    Position: {x: -96, y: 32}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 72
+    Position: {x: -96, y: 32}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 72.5
+    Position: {x: -96, y: 32}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 73
+    Position: {x: -96, y: 32}
+    Prefab: {fileID: 2070600377157140195, guid: ff131d476ced2084898b119420d8e294, type: 3}
+  - SpawnSeconds: 73
+    Position: {x: 96, y: 0}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 73.5
+    Position: {x: 96, y: 0}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 74
+    Position: {x: 96, y: 0}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 74.5
+    Position: {x: 96, y: 0}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 75
+    Position: {x: 96, y: 0}
+    Prefab: {fileID: 3765979224948196610, guid: 4687f9f5729b3334aba08be4a4a0d289, type: 3}
+  - SpawnSeconds: 78
+    Position: {x: -32, y: 128}
+    Prefab: {fileID: 5294775115034132509, guid: 818695931a5cafa4380f879ceeade129, type: 3}
+  - SpawnSeconds: 78
+    Position: {x: 32, y: 128}
+    Prefab: {fileID: 5294775115034132509, guid: 818695931a5cafa4380f879ceeade129, type: 3}
+  - SpawnSeconds: 83
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 5294775115034132509, guid: 818695931a5cafa4380f879ceeade129, type: 3}
+  - SpawnSeconds: 83
+    Position: {x: -64, y: 128}
+    Prefab: {fileID: 5294775115034132509, guid: 818695931a5cafa4380f879ceeade129, type: 3}
+  - SpawnSeconds: 83
+    Position: {x: 64, y: 128}
+    Prefab: {fileID: 5294775115034132509, guid: 818695931a5cafa4380f879ceeade129, type: 3}
+  - SpawnSeconds: 90
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 9058107274445694142, guid: c78cb26483f77664c92166bfa49b79fd, type: 3}

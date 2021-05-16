@@ -15,6 +15,7 @@ MonoBehaviour:
   m_MainShotPrefab: {fileID: 8700198620111755141, guid: 4334a00412718d04a9f9fff0f388dfc9, type: 3}
   m_SubShotPrefab: {fileID: 8326539073421489121, guid: d3dee0e248805324e9dad4eb45a369c4, type: 3}
   m_BombPrefab: {fileID: 5615936421325456024, guid: 80b130577b2e56b4d9935ad025047602, type: 3}
+  m_BulletRemoverPrefab: {fileID: 1886261628011126686, guid: f41442ce3539d4645b52ddfd73ca8fcc, type: 3}
   m_CollisionRenderer: {fileID: 804998159078743886}
   m_MainShotInterval: 0.25
   m_SubShotInterval: 0.25

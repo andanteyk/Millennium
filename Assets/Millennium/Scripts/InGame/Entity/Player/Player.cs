@@ -23,6 +23,8 @@ namespace Millennium.InGame.Entity.Player
         protected GameObject m_SubShotPrefab;
         [SerializeField]
         protected GameObject m_BombPrefab;
+        [SerializeField]
+        protected GameObject m_BulletRemoverPrefab;
 
         [SerializeField]
         private SpriteRenderer m_CollisionRenderer;
@@ -49,6 +51,8 @@ namespace Millennium.InGame.Entity.Player
         public long Score { get; protected set; } = 0;
 
         protected bool m_IsDead = false;
+        protected DamageSource m_DelayedDamage = null;
+
         public bool IsDebugMode { get; set; } = false;
 
 
@@ -121,7 +125,7 @@ namespace Millennium.InGame.Entity.Player
                         BombCount--;
 
                     SetInvincible(6);
-
+                    m_DelayedDamage = null;
 
                     await FireBomb(token);
                 }, token);
@@ -202,28 +206,47 @@ namespace Millennium.InGame.Entity.Player
 
         public override void DealDamage(DamageSource damage)
         {
-            if (IsInvincible || m_IsDead)
+            if (IsInvincible || m_IsDead || m_DelayedDamage != null)
             {
                 return;
             }
 
+            m_DelayedDamage = damage;
+            SoundManager.I.PlaySe(SeType.PlayerDamaged).Forget();
 
-            if (!IsDebugMode)
-            {
-                Health -= damage.Damage;
-                BombCount = Math.Max(BombCount, 2);
-            }
 
-            if (Health > 0)
+            UniTask.Create(async () =>
             {
-                SetInvincible(5);
-                SoundManager.I.PlaySe(SeType.PlayerDamaged).Forget();
-            }
-            else if (!m_IsDead)
-            {
-                m_IsDead = true;
-                GameOver().Forget();
-            }
+                var token = this.GetCancellationTokenOnDestroy();
+
+                await UniTask.Delay(TimeSpan.FromSeconds(0.25), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
+
+                token.ThrowIfCancellationRequested();
+                if (m_DelayedDamage != null)
+                {
+                    // hit
+                    if (!IsDebugMode)
+                    {
+                        Health -= m_DelayedDamage.Damage;
+                        BombCount = Math.Max(BombCount, 2);
+                    }
+
+                    if (Health > 0)
+                    {
+                        SetInvincible(5);
+
+                        var remover = Instantiate(m_BulletRemoverPrefab);
+                        remover.transform.position = transform.position;
+                    }
+                    else if (!m_IsDead)
+                    {
+                        m_IsDead = true;
+                        GameOver().Forget();
+                    }
+
+                    m_DelayedDamage = null;
+                }
+            });
         }
 
         private void SetInvincible(float seconds)
@@ -268,7 +291,6 @@ namespace Millennium.InGame.Entity.Player
         private async UniTaskVoid GameOver()
         {
             EffectManager.I.Play(EffectType.Explosion, transform.position);
-            SoundManager.I.PlaySe(SeType.PlayerDamaged).Forget();
 
             await UniTask.Delay(2000);
 

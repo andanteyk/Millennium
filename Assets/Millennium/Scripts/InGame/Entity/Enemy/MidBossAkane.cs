@@ -11,14 +11,14 @@ using UnityEngine;
 
 namespace Millennium.InGame.Entity.Enemy
 {
-
-    public class MidBossAsuna : BossBase
+    public class MidBossAkane : BossBase
     {
         [SerializeField]
         private GameObject m_NormalShotPrefab;
 
         [SerializeField]
         private GameObject m_RewardItemPrefab;
+
 
 
         private void Start()
@@ -38,14 +38,14 @@ namespace Millennium.InGame.Entity.Enemy
             await RandomMove(2, destroyToken);
 
 
-            Health = HealthMax = 12000;
+            Health = HealthMax = 8000;
             await RunPhase(async token =>
             {
                 await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1), PlayerLoopTiming.FixedUpdate)
                     .Take(4)
                     .WithCancellation(token))
                 {
-                    await CurveShot(token);
+                    await ReflectionShot(token);
                 }
 
                 await UniTask.Delay(TimeSpan.FromSeconds(4), cancellationToken: token);
@@ -53,49 +53,54 @@ namespace Millennium.InGame.Entity.Enemy
             await OnEndPhaseShort(destroyToken);
 
 
-
-
             await EscapeEvent(m_RewardItemPrefab, destroyToken);
-
-            if (destroyToken.IsCancellationRequested)
-                return;
-
+            destroyToken.ThrowIfCancellationRequested();
             Destroy(gameObject);
         }
 
 
 
-        private async UniTask CurveShot(CancellationToken token)
+
+        private async UniTask ReflectionShot(CancellationToken token)
         {
             if (token.IsCancellationRequested)
                 return;
 
-            await RandomMove(1, token);
-
-            EffectManager.I.Play(EffectType.Concentration, transform.position);
-            SoundManager.I.PlaySe(SeType.Concentration).Forget();
-
-
-            UniTask Spiral(float directionMultiplier, CancellationToken token)
+            async UniTask Phase(float direction, float leftRight, CancellationToken token)
             {
-                int density = 20;
-                return UniTaskAsyncEnumerable.Timer(TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(0.05), PlayerLoopTiming.FixedUpdate)
+                int ways = 25;
+                float wayRadian = 6 * Mathf.Deg2Rad;
+                await UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(0.05), PlayerLoopTiming.FixedUpdate)
                     .Select((_, i) => i)
-                    .Take(density * 2)
+                    .Take(ways)
                     .ForEachAsync(i =>
                     {
-                        var r = Mathf.PI / 2 + i * 360f / density * Mathf.Deg2Rad * directionMultiplier;
-                        var bullet = BulletBase.Instantiate(m_NormalShotPrefab, transform.position + BallisticMath.FromPolar(16, r), BallisticMath.FromPolar(32, r));
+                        var bullet = BulletBase.Instantiate(m_NormalShotPrefab, transform.position, BallisticMath.FromPolar((i & 1) != 0 ? 48 : 32, direction + i * wayRadian * leftRight));
+                        ReflectionBullet(bullet, bullet.GetCancellationTokenOnDestroy()).Forget();
 
-                        bullet.DOSpeedAngle(48, r, r + Mathf.PI * directionMultiplier, 2);
-
-                        EffectManager.I.Play(EffectType.MuzzleFlash, bullet.transform.position);
                         SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
+                        EffectManager.I.Play(EffectType.MuzzleFlash, transform.position);
+
                     }, token);
+
+
+                await RandomMove(2, token);
             }
 
-            await (Spiral(1, token), Spiral(-1, token));
+            await Phase(-Mathf.PI / 2, -1, token);
+            await Phase(-Mathf.PI / 2, +1, token);
         }
 
+
+        private async UniTaskVoid ReflectionBullet(BulletBase bullet, CancellationToken token)
+        {
+            await UniTask.WaitUntil(() => bullet.transform.position.x < InGameConstants.FieldArea.xMin || bullet.transform.position.x > InGameConstants.FieldArea.xMax,
+                PlayerLoopTiming.FixedUpdate, cancellationToken: token);
+
+            if (token.IsCancellationRequested)
+                return;
+            bullet.Speed = new Vector3(-bullet.Speed.x, bullet.Speed.y);
+            SoundManager.I.PlaySe(SeType.PlayerBulletImmune).Forget();
+        }
     }
 }

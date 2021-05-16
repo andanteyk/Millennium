@@ -1,24 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &635928556385505621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9092409199737880449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1e43cdfca609ad458b8c6871605e043, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MainShotPrefab: {fileID: 9074421283846920706, guid: 512d9ed9e96282b4ebb039923b2a5ae1, type: 3}
-  m_SubShotPrefab: {fileID: 5021247987144353896, guid: 3d92a41af2278544ebb3811339886c74, type: 3}
-  m_BombPrefab: {fileID: 3492578372097320742, guid: 9bc6852464875e84e8adc2fddbd23a79, type: 3}
-  m_CollisionRenderer: {fileID: 8123505650257817542}
-  m_MainShotInterval: 0.25
-  m_SubShotInterval: 0.2
-  m_MoveSpeed: 64
 --- !u!1 &3186137342156706498
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,6 +166,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &635928556385505621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9092409199737880449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e43cdfca609ad458b8c6871605e043, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MainShotPrefab: {fileID: 9074421283846920706, guid: 512d9ed9e96282b4ebb039923b2a5ae1, type: 3}
+  m_SubShotPrefab: {fileID: 5021247987144353896, guid: 3d92a41af2278544ebb3811339886c74, type: 3}
+  m_BombPrefab: {fileID: 3492578372097320742, guid: 9bc6852464875e84e8adc2fddbd23a79, type: 3}
+  m_BulletRemoverPrefab: {fileID: 1886261628011126686, guid: f41442ce3539d4645b52ddfd73ca8fcc, type: 3}
+  m_CollisionRenderer: {fileID: 8123505650257817542}
+  m_MainShotInterval: 0.25
+  m_SubShotInterval: 0.2
+  m_MoveSpeed: 64
 --- !u!1001 &2490406604566268748
 PrefabInstance:
   m_ObjectHideFlags: 0
