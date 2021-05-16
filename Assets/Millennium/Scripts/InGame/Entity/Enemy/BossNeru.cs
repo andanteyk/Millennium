@@ -58,6 +58,7 @@ namespace Millennium.InGame.Entity.Enemy
                     await SkillFuzakenna(token);
                 }
             }, destroyToken);
+            await DropUltimateAccelerant(false, destroyToken);
             await OnEndPhase(destroyToken);
 
             Health = HealthMax = 8000;

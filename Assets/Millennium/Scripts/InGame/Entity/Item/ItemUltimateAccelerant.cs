@@ -7,7 +7,7 @@ namespace Millennium.InGame.Entity.Item
     public class ItemUltimateAccelerant : ItemBase
     {
         [SerializeField]
-        private int m_ChargeValue = 50000;
+        private int m_ChargeValue = 100000;
 
         protected override void ApplyItemEffect(Player.Player player)
         {

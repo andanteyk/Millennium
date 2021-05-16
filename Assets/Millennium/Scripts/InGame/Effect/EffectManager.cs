@@ -61,6 +61,9 @@ namespace Millennium.InGame.Effect
 
         public Transform Play(EffectType effect, Vector3 position)
         {
+            if (effect == EffectType.None)
+                return null;
+
             Assert.IsTrue(Prefabs[effect] != null, $"{effect} is null");
 
             var instance = Instantiate(Prefabs[effect]);
@@ -83,6 +86,7 @@ namespace Millennium.InGame.Effect
 
     public enum EffectType
     {
+        None = -1,
         Explosion,
         PlusDecay,
         PlusDecayRed,

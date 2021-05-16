@@ -25,7 +25,7 @@ namespace Millennium.InGame.Entity.Bullet
 
             Array.ForEach(colliders, c => c.enabled = false);
 
-            UniTaskAsyncEnumerable.Timer(TimeSpan.FromSeconds(1), PlayerLoopTiming.FixedUpdate)
+            UniTaskAsyncEnumerable.Timer(TimeSpan.FromSeconds(0.25), PlayerLoopTiming.FixedUpdate)
                 .ForEachAsync(_ =>
                 {
                     spriteRenderer.sprite = null;

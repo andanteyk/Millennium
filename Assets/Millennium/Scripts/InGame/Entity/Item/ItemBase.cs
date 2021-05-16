@@ -24,7 +24,7 @@ namespace Millennium.InGame.Entity.Item
                     var position = transform.position +
                         (m_IsAutoCollecting ?
                             BallisticMath.FromPolar(128, BallisticMath.AimToPlayer(transform.position)) :
-                            new Vector3(0, -16))
+                            new Vector3(0, -32))
                         * Time.deltaTime;
                     rigidbody.MovePosition(position);
 

@@ -44,7 +44,7 @@ namespace Millennium.InGame.Entity.Player
 
         public int BombCount { get; private set; } = 3;
         private int m_SkillPoint = 0;
-        private int m_SkillPointMax = 50000;
+        private int m_SkillPointMax = 100000;
 
         protected bool IsControllable => Health > 0;
 

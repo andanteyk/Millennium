@@ -25,12 +25,15 @@ namespace Millennium.InGame.Entity.Bullet
             this.GetAsyncTriggerEnter2DTrigger()
                 .ForEachAsync(collision =>
                 {
-                    EffectManager.I.Play(EffectOnDestroy, transform.position);
+                    if (collision.gameObject.GetComponent<Entity>() is EntityLiving entity)
+                    {
+                        entity.DealDamage(new DamageSource(Owner != null ? Owner : this, Power));
+                    }
 
-                    var blast = Instantiate(m_BlastPrefab).GetComponent<BulletBase>();
-                    blast.transform.position = transform.position + Seiran.Shared.InsideUnitCircle() * 8;
+                    var blast = Instantiate(m_BlastPrefab, transform.position + new Vector3(0, 4) + Seiran.Shared.InsideUnitCircle() * 8);
                     blast.Owner = Owner;
 
+                    EffectManager.I.Play(EffectOnDestroy, transform.position);
                     Destroy(gameObject);
                 }, token);
         }

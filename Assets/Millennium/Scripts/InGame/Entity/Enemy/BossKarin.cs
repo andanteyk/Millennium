@@ -62,6 +62,7 @@ namespace Millennium.InGame.Entity.Enemy
                     await SkillFireSupport(token);
                 }
             }, destroyToken);
+            await DropUltimateAccelerant(false, destroyToken);
             await OnEndPhase(destroyToken);
 
 

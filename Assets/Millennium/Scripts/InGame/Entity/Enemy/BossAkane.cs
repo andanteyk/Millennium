@@ -61,6 +61,7 @@ namespace Millennium.InGame.Entity.Enemy
                     await SkillElegantPenetration(token);
                 }
             }, destroyToken);
+            await DropUltimateAccelerant(false, destroyToken);
             await OnEndPhase(destroyToken);
 
 
@@ -88,6 +89,7 @@ namespace Millennium.InGame.Entity.Enemy
                     await SkillAccuratelySupremacy(token);
                 }
             }, destroyToken);
+            await DropUltimateAccelerant(false, destroyToken);
             await OnEndPhaseShort(destroyToken);
 
 
@@ -98,7 +100,7 @@ namespace Millennium.InGame.Entity.Enemy
 
                 await SkillGracefullyTerminate(token);
             }, destroyToken);
-            await OnEndPhase(destroyToken);
+            //await OnEndPhase(destroyToken);
 
 
             await PlayDeathEffect(destroyToken);
@@ -194,15 +196,18 @@ namespace Millennium.InGame.Entity.Enemy
                     }, token);
             }
 
-            async UniTask Lined(CancellationToken token)
+            UniTask Lined(CancellationToken token)
             {
-                while (!token.IsCancellationRequested)
-                {
-                    await RandomMove(2, token);
-                    foreach (var r in BallisticMath.CalculateWayRadians(BallisticMath.AimToPlayer(transform.position), 5, 60 * Mathf.Deg2Rad))
-                        Ray(r, token).Forget();
-                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
-                }
+                return UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(2), PlayerLoopTiming.FixedUpdate)
+                    .ForEachAwaitWithCancellationAsync(async (_, token) =>
+                    {
+                        await RandomMove(2, token);
+                        token.ThrowIfCancellationRequested();
+                        foreach (var r in BallisticMath.CalculateWayRadians(BallisticMath.AimToPlayer(transform.position), 5, 60 * Mathf.Deg2Rad))
+                        {
+                            Ray(r, token).Forget();
+                        }
+                    }, token);
             }
 
 

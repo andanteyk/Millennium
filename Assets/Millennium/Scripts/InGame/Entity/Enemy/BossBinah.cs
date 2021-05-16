@@ -50,7 +50,7 @@ namespace Millennium.InGame.Entity.Enemy
 
             // TODO: 多段ヒットするのでアリス大正義すぎる
 
-            /*
+            //*
 
             Health = HealthMax = 50000;
             await RunPhase(async token =>
@@ -87,6 +87,7 @@ namespace Millennium.InGame.Entity.Enemy
                     await Tackle(token);
                 }
             }, destroyToken);
+            await DropUltimateAccelerant(false, destroyToken);
             await OnEndPhase(destroyToken);
 
 
@@ -110,6 +111,7 @@ namespace Millennium.InGame.Entity.Enemy
                     await Breath(token);
                 }
             }, destroyToken);
+            await DropUltimateAccelerant(false, destroyToken);
             await OnEndPhase(destroyToken);
 
 
@@ -146,7 +148,7 @@ namespace Millennium.InGame.Entity.Enemy
             await OnEndPhase(destroyToken);
 
 
-             Health = HealthMax = 50000;
+            Health = HealthMax = 50000;
             await RunPhase(async token =>
             {
                 await MoveStraight(new Vector3(0, 64), 2, token);
@@ -157,6 +159,7 @@ namespace Millennium.InGame.Entity.Enemy
                     await Missile(token);
                 }
             }, destroyToken);
+            await DropMedkit(false, destroyToken);
             await OnEndPhase(destroyToken);
 
             Health = HealthMax = 50000;
@@ -553,7 +556,6 @@ namespace Millennium.InGame.Entity.Enemy
                 }
 
 
-                Health = 9;
 
                 UniTask TopWall(float startSeconds, float intervalSeconds, CancellationToken token)
                 {

@@ -1,25 +1,35 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using Cysharp.Threading.Tasks.Triggers;
-using DG.Tweening;
 using Millennium.InGame.Effect;
-using System;
+using Millennium.Mathematics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
 namespace Millennium.InGame.Entity.Bullet
 {
-
-    public class YuzuBlast : BulletBase
+    public class YuzuMissile : BulletBase
     {
+        [SerializeField]
+        private GameObject m_BlastPrefab;
+
+
         private void Start()
         {
             var token = this.GetCancellationTokenOnDestroy();
 
             Move(token);
             DestroyWhenExpired(token);
-            DamageWhenStay(0.1f, token);
+
+            this.OnDestroyAsync().ContinueWith(() =>
+            {
+                EffectManager.I.Play(EffectOnDestroy, transform.position);
+
+                var blast = BulletBase.Instantiate(m_BlastPrefab, transform.position);
+                blast.Owner = Owner;
+            });
         }
     }
-
 }

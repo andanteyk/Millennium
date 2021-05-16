@@ -17,7 +17,7 @@ namespace Millennium.InGame.Entity.Player
         {
             for (int i = 0; i < 2; i++)
             {
-                var relative = new Vector3(32 * (i - 0.5f), 0);
+                var relative = new Vector3(32 * (i - 0.5f), 120);
 
                 var bullet = BulletBase.Instantiate(m_SubShotPrefab, transform.position + relative);
                 bullet.Owner = this;

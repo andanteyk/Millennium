@@ -63,6 +63,7 @@ namespace Millennium.InGame.Entity.Enemy
 
             Health = HealthMax = 12000;
             await RunPhase(SkillIFF, destroyToken);
+            await DropUltimateAccelerant(false, destroyToken);
             await OnEndPhase(destroyToken);
 
 

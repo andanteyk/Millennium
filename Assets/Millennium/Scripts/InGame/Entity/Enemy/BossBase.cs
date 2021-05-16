@@ -71,6 +71,10 @@ namespace Millennium.InGame.Entity.Enemy
         protected async UniTask RunPhase(Func<CancellationToken, UniTask> action, CancellationToken destroyToken)
         {
             UnityEngine.Assertions.Assert.IsNull(m_PhaseToken);
+
+            // TEST
+            float startedAt = Time.time;
+
             m_PhaseToken = new CancellationTokenSource();
             using (var combinedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(destroyToken, m_PhaseToken.Token))
             {
@@ -78,6 +82,10 @@ namespace Millennium.InGame.Entity.Enemy
 
                 await action(combinedToken).SuppressCancellationThrow();
             }
+
+            float endedAt = Time.time;
+
+            Debug.Log($"Phase Time: {endedAt - startedAt:f2} s");
         }
 
 
@@ -186,6 +194,8 @@ namespace Millennium.InGame.Entity.Enemy
 
         protected async UniTask PlaySkillBalloon(string name, string text, CancellationToken token)
         {
+            token.ThrowIfCancellationRequested();
+
             PlayBalloon(name, text);
             EffectManager.I.Play(EffectType.Concentration, transform.position);
             SoundManager.I.PlaySe(SeType.Concentration).Forget();

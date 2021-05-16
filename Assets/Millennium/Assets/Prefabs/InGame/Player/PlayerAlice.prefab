@@ -184,7 +184,7 @@ MonoBehaviour:
   m_BulletRemoverPrefab: {fileID: 1886261628011126686, guid: f41442ce3539d4645b52ddfd73ca8fcc, type: 3}
   m_CollisionRenderer: {fileID: 8123505650257817542}
   m_MainShotInterval: 0.25
-  m_SubShotInterval: 0.2
+  m_SubShotInterval: 0.25
   m_MoveSpeed: 64
 --- !u!1001 &2490406604566268748
 PrefabInstance:

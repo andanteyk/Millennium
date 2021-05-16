@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
+using DG.Tweening;
 using Millennium.InGame.Effect;
 using Millennium.InGame.Entity.Bullet;
 using Millennium.Mathematics;
@@ -36,18 +37,19 @@ namespace Millennium.InGame.Entity.Player
             SoundManager.I.PlaySe(SeType.Ultimate).Forget();
             await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
 
-            for (int way = 2; way <= 5 && !token.IsCancellationRequested; way++)
-            {
-                await UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(0.2), PlayerLoopTiming.FixedUpdate)
-                    .Zip(BallisticMath.CalculateWayRadians(Mathf.PI / 2, way, ((way & 1) * 2 - 1) * 60 / way * Mathf.Deg2Rad).ToUniTaskAsyncEnumerable(), (_, r) => r)
-                    .ForEachAsync(r =>
-                    {
-                        var bullet = BulletBase.Instantiate(m_BombPrefab, transform.position + BallisticMath.FromPolar(32 * way, r));
-                        bullet.Owner = this;
 
-                        SoundManager.I.PlaySe(SeType.Explosion).Forget();
-                    }, token);
-            }
+            await UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(0.25), PlayerLoopTiming.FixedUpdate)
+                .Take(12)
+                .ForEachAsync(_ =>
+                {
+                    var initialDirection = Seiran.Shared.NextSingle(-Mathf.PI, 0);
+                    var bullet = BulletBase.Instantiate(m_BombPrefab, transform.position, BallisticMath.FromPolar(64, initialDirection));
+                    bullet.Owner = this;
+                    bullet.DOSpeed(new Vector3(Mathf.Cos(initialDirection) * 16, 256 - Mathf.Sin(initialDirection) * 64), 1).SetEase(Ease.InQuart);
+
+                    SoundManager.I.PlaySe(SeType.Fall).Forget();
+                }, token);
+
 
             await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
 
