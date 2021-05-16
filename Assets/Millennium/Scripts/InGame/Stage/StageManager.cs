@@ -40,7 +40,6 @@ namespace Millennium.InGame.Stage
             SoundManager.I.PlayBgm(Sound.BgmType.Battle).Forget();
             EffectManager.I.Play(EffectType.StageStart, Vector3.zero);
             m_Background = Instantiate(stage.Background);
-            m_BattleStarted = Time.realtimeSinceStartup;
 
 
             float skipFrom = 0;         // for debug
@@ -110,6 +109,10 @@ namespace Millennium.InGame.Stage
             if (m_Background != null)
                 Destroy(m_Background);
 
+
+            GC.Collect();
+
+
             int index = Array.IndexOf(stages, m_CurrentStage);
             if (index == -1 || index >= stages.Length - 1)
             {
@@ -160,6 +163,8 @@ namespace Millennium.InGame.Stage
 
         public async void OnStart(EntryPoint.InGameParams param)
         {
+            m_BattleStarted = Time.realtimeSinceStartup;
+
             await InstantiatePlayer(param);
 
             Play(await LoadStage("Assets/Millennium/Assets/Data/Stage1.asset"), this.GetCancellationTokenOnDestroy()).Forget();

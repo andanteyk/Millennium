@@ -17,6 +17,9 @@ namespace Millennium.InGame.Entity.Enemy
         private GameObject m_NormalShotPrefab;
 
         [SerializeField]
+        private GameObject m_LargeShotPrefab;
+
+        [SerializeField]
         private GameObject m_ShieldPrefab;
 
 
@@ -259,11 +262,9 @@ namespace Millennium.InGame.Entity.Enemy
                 {
                     EffectManager.I.Play(EffectType.Concentration, transform.position);
                     SoundManager.I.PlaySe(SeType.Concentration).Forget();
-                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+                    await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
 
                     await Baramaki(token);
-
-                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
 
                     await RandomMove(1, token);
                     await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
@@ -369,24 +370,43 @@ namespace Millennium.InGame.Entity.Enemy
         }
 
 
-        private async UniTask Baramaki(CancellationToken token)
+        private UniTask Baramaki(CancellationToken token)
         {
-            if (token.IsCancellationRequested)
-                return;
+            token.ThrowIfCancellationRequested();
 
-            float speed = 128;
+            int bullets = 128;
+            int chunk = 32;
 
-            for (int loop = 0; loop < 32 && !token.IsCancellationRequested; loop++)
-            {
-                foreach (var radian in BallisticMath.CalculateWayRadians(Seiran.Shared.NextRadian(), 12))
+            return UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(0.05), PlayerLoopTiming.FixedUpdate)
+                .Select((_, i) => i)
+                .Take(bullets)
+                .ForEachAsync(i =>
                 {
-                    var bullet = BulletBase.Instantiate(m_NormalShotPrefab, transform.position + BallisticMath.FromPolar(16, radian), BallisticMath.FromPolar(speed, radian));
-                    EffectManager.I.Play(EffectType.MuzzleFlash, bullet.transform.position);
-                }
-                SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
+                    for (int k = 0; k < 2; k++)
+                    {
+                        var r = i * 7 * Mathf.Deg2Rad + k * Mathf.PI;
+                        var bullet = BulletBase.Instantiate(m_LargeShotPrefab, transform.position + BallisticMath.FromPolar(16, r), BallisticMath.FromPolar(32, r));
 
-                await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: token);
-            }
+                        static async UniTaskVoid MoveBullet(BulletBase bullet, float radian, int index, int chunk, CancellationToken token)
+                        {
+                            token.ThrowIfCancellationRequested();
+                            await bullet.DOSpeed(Vector3.zero, 1);
+
+                            await UniTask.Delay(TimeSpan.FromSeconds((chunk - index % chunk) * 0.05), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
+
+                            token.ThrowIfCancellationRequested();
+                            await bullet.DOSpeed(BallisticMath.FromPolar(32, radian), 1f);
+
+                            token.ThrowIfCancellationRequested();
+                            await bullet.DOSpeed(BallisticMath.FromPolar(192, radian), 1);
+                        }
+
+                        MoveBullet(bullet, r, i, chunk, bullet.GetCancellationTokenOnDestroy()).Forget();
+                        EffectManager.I.Play(EffectType.MuzzleFlash, bullet.transform.position);
+                    }
+                    SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
+
+                }, token);
         }
 
     }

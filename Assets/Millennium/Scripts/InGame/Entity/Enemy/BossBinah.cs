@@ -95,12 +95,14 @@ namespace Millennium.InGame.Entity.Enemy
             {
                 await Around(token);
             }, destroyToken);
-            await OnEndPhase(destroyToken);
+            await OnEndPhaseShort(destroyToken);
 
 
             Health = HealthMax = 50000;
             await RunPhase(async token =>
             {
+                await PlaySkillBalloon("ビナー", "アツィルトの ひかり", token);
+
                 await MoveStraight(new Vector3(0, 64), 2, token);
 
                 await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1), PlayerLoopTiming.FixedUpdate)
@@ -143,12 +145,14 @@ namespace Millennium.InGame.Entity.Enemy
                         }, token)
                     );
             }, destroyToken);
-            await OnEndPhase(destroyToken);
+            await OnEndPhaseShort(destroyToken);
 
 
             Health = HealthMax = 50000;
             await RunPhase(async token =>
             {
+                await PlaySkillBalloon("ビナー", "だいどうの ごうか", token);
+
                 await MoveStraight(new Vector3(0, 64), 2, token);
 
                 await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1), PlayerLoopTiming.FixedUpdate)
@@ -190,13 +194,15 @@ namespace Millennium.InGame.Entity.Enemy
                         }, token)
                     );
             }, destroyToken);
-            await OnEndPhase(destroyToken);
+            await OnEndPhaseShort(destroyToken);
 
 
 
             Health = HealthMax = 100000;
             await RunPhase(async token =>
             {
+                await PlaySkillBalloon("ビナー", "じょうかの あらし", token);
+
                 await MoveStraight(new Vector3(0, 64), 2, token);
 
                 await Sandstorm(token);
@@ -775,7 +781,7 @@ namespace Millennium.InGame.Entity.Enemy
         private async UniTask Rage(CancellationToken token)
         {
             EffectManager.I.Play(EffectType.Concentration, m_Bodies[0].transform.position);
-
+            SoundManager.I.PlaySe(SeType.Concentration).Forget();
 
             // 0 ~ 4
             int GetLevel() => 4 - Health * 4 / HealthMax;

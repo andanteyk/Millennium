@@ -144,14 +144,13 @@ namespace Millennium.InGame.Entity.Enemy
                 return;
 
             float playerDirection = BallisticMath.AimToPlayer(transform.position);
-            var bullet = BulletBase.Instantiate(m_HugeShotPrefab, transform.position, BallisticMath.FromPolar(96, playerDirection));
+            var bullet = BulletBase.Instantiate(m_HugeShotPrefab, transform.position, BallisticMath.FromPolar(128, playerDirection));
             async UniTaskVoid explode(BulletBase bullet, CancellationToken token)
             {
-                await UniTask.Delay(TimeSpan.FromSeconds(0.75), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
+                token.ThrowIfCancellationRequested();
+                await bullet.DOSpeed(Vector3.zero, 0.75f).WithCancellation(token);
 
-                if (token.IsCancellationRequested || bullet == null)
-                    return;
-
+                token.ThrowIfCancellationRequested();
                 foreach (var r in BallisticMath.CalculateWayRadians(Seiran.Shared.NextRadian(), 24))
                 {
                     BulletBase.Instantiate(m_NormalShotPrefab, bullet.transform.position, BallisticMath.FromPolar(Seiran.Shared.NextSingle(16, 64), r));

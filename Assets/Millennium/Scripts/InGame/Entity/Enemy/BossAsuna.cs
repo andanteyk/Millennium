@@ -76,7 +76,7 @@ namespace Millennium.InGame.Entity.Enemy
             Health = HealthMax = 16000;
             await RunPhase(async token =>
             {
-                await PlaySkillBalloon("アスナ", "これはいたいよ?", token);
+                await PlaySkillBalloon("アスナ", "これは いたいよ?", token);
 
                 await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1), PlayerLoopTiming.FixedUpdate)
                     .WithCancellation(token))
@@ -91,7 +91,7 @@ namespace Millennium.InGame.Entity.Enemy
             Health = HealthMax = 16000;
             await RunPhase(async token =>
             {
-                await PlaySkillBalloon("アスナ", "スピードあげるね?", token);
+                await PlaySkillBalloon("アスナ", "スピード あげるね?", token);
 
                 await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1), PlayerLoopTiming.FixedUpdate)
                     .WithCancellation(token))
@@ -128,14 +128,14 @@ namespace Millennium.InGame.Entity.Enemy
                 .Take(30)
                 .ForEachAsync(i =>
                 {
-                    var bullet = BulletBase.Instantiate(m_NormalShotPrefab, transform.position, BallisticMath.FromPolar(32, BallisticMath.AimToPlayer(transform.position)));
+                    var bullet = BulletBase.Instantiate(m_NormalShotPrefab, transform.position, BallisticMath.FromPolar(64, BallisticMath.AimToPlayer(transform.position)));
 
                     static async UniTaskVoid BulletMove(BulletBase bullet, int index)
                     {
                         var token = bullet.GetCancellationTokenOnDestroy();
 
                         float baseAngle = BallisticMath.AimToPlayer(bullet.transform.position);
-                        await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+                        await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
                         token.ThrowIfCancellationRequested();
                         await bullet.DOSpeedAngle(64, baseAngle, baseAngle + ((index & 1) * 2 - 1) * Mathf.PI * 2, 3).ToUniTask(cancellationToken: token);
 

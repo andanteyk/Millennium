@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 376000881
-  m_SortingLayer: 4
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 64e8b2ad2dbbb684bb822aee1bdd0390, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -165,4 +165,5 @@ MonoBehaviour:
   m_InitialHealth: 1000
   m_BulletRemoverPrefab: {fileID: 1886261628011126686, guid: f41442ce3539d4645b52ddfd73ca8fcc, type: 3}
   m_NormalShotPrefab: {fileID: 1657035952445159192, guid: ec533b8c80a6bde4f8bc19d7f0696985, type: 3}
+  m_LargeShotPrefab: {fileID: 1933119846595487832, guid: efb95bab7e44b2e4d93395ba66b3bb1d, type: 3}
   m_ShieldPrefab: {fileID: 1190607229414058846, guid: b7dbe39507205e5499b7b021e492cf46, type: 3}

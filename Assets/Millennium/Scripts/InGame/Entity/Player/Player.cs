@@ -137,7 +137,9 @@ namespace Millennium.InGame.Entity.Player
                     if (!IsControllable)
                         return;
 
-                    var movedPosition = transform.position + (Vector3)input.Player.Direction.ReadValue<Vector2>() * m_MoveSpeed * MoveSpeedModifier * Time.deltaTime;
+                    float nonShotModifier = input.Player.Fire.IsPressed() ? 1 : 1.5f;
+
+                    var movedPosition = transform.position + (Vector3)input.Player.Direction.ReadValue<Vector2>() * (m_MoveSpeed * nonShotModifier * MoveSpeedModifier * Time.deltaTime);
                     movedPosition = new Vector3(
                         Mathf.Clamp(movedPosition.x, InGameConstants.PlayerFieldArea.xMin, InGameConstants.PlayerFieldArea.xMax),
                         Mathf.Clamp(movedPosition.y, InGameConstants.PlayerFieldArea.yMin, InGameConstants.PlayerFieldArea.yMax));
