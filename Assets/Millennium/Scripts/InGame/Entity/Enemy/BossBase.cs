@@ -80,7 +80,13 @@ namespace Millennium.InGame.Entity.Enemy
         }
 
 
-        protected async UniTask OnEndPhase(CancellationToken token)
+        protected UniTask OnEndPhase(CancellationToken token)
+            => OnEndPhase(3, token);
+
+        protected UniTask OnEndPhaseShort(CancellationToken token)
+            => OnEndPhase(1.5f, token);
+
+        protected async UniTask OnEndPhase(float waitSeconds, CancellationToken token)
         {
             if (token.IsCancellationRequested)
                 return;
@@ -90,7 +96,8 @@ namespace Millennium.InGame.Entity.Enemy
 
             EffectManager.I.Play(EffectType.Explosion, transform.position);
             SoundManager.I.PlaySe(SeType.Explosion).Forget();
-            await UniTask.Delay(TimeSpan.FromSeconds(3), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
+            await UniTask.Delay(TimeSpan.FromSeconds(waitSeconds), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
+
         }
 
 
@@ -120,11 +127,7 @@ namespace Millennium.InGame.Entity.Enemy
                 EffectManager.I.Play(EffectType.SpreadExplosion, transform.position);
                 SoundManager.I.PlaySe(SeType.SpreadExplosion).Forget();
 
-                {
-                    var medkit = Instantiate(await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Item/ItemMedkit.prefab")).GetComponent<ItemMedkit>();
-                    medkit.transform.position = transform.position;
-                    medkit.SetAutoCollect();
-                }
+                await DropMedkit(true, token);
 
                 transform.position = new Vector3(0, 1024);          // ŽG‚É”ñ•\Ž¦‚É‚·‚é
 
@@ -144,6 +147,49 @@ namespace Millennium.InGame.Entity.Enemy
                 Time.timeScale = 1f;
                 GotoNextStage();
             }
+        }
+
+
+        protected async UniTask DropMedkit(bool isAutoCollect, CancellationToken token)
+        {
+            token.ThrowIfCancellationRequested();
+
+            var medkit = Instantiate(await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Item/ItemMedkit.prefab")).GetComponent<ItemMedkit>();
+            medkit.transform.position = transform.position;
+
+            if (isAutoCollect)
+                medkit.SetAutoCollect();
+        }
+
+        protected async UniTask DropUltimateAccelerant(bool isAutoCollect, CancellationToken token)
+        {
+            token.ThrowIfCancellationRequested();
+
+            var ultimate = Instantiate(await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Item/ItemUltimateAccelerant.prefab")).GetComponent<ItemUltimateAccelerant>();
+            ultimate.transform.position = transform.position;
+
+            if (isAutoCollect)
+                ultimate.SetAutoCollect();
+        }
+
+        protected void PlayBalloon(string name, string text)
+        {
+            var balloon = EffectManager.I.PlayBalloonOnTop();
+            balloon.Text = text;
+
+            if (string.IsNullOrEmpty(name))
+                balloon.ShowsName = false;
+            else
+                balloon.NameText = name;
+        }
+
+        protected async UniTask PlaySkillBalloon(string name, string text, CancellationToken token)
+        {
+            PlayBalloon(name, text);
+            EffectManager.I.Play(EffectType.Concentration, transform.position);
+            SoundManager.I.PlaySe(SeType.Concentration).Forget();
+
+            await UniTask.Delay(TimeSpan.FromSeconds(1.5), cancellationToken: token);
         }
 
 

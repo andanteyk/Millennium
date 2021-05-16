@@ -173,4 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8735eb771c9ae864fb29bb228078b9ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Waypoints: []
+  m_Waypoints:
+  - Point: {x: 0, y: 256}
+    Duration: 64
+    Ease: 1

@@ -54,6 +54,7 @@ namespace Millennium.InGame.Effect
                 { EffectType.StageClear, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/StageClear.prefab") },
 
                 { EffectType.CrossDecayYellow, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/CrossDecayYellow.prefab") },
+                { EffectType.Balloon, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/Balloon.prefab") },
             };
         }
 
@@ -66,24 +67,32 @@ namespace Millennium.InGame.Effect
             instance.transform.position = position;
             return instance.transform;
         }
+
+        public Balloon PlayBalloon(Vector3 position)
+        {
+            Assert.IsTrue(Prefabs[EffectType.Balloon] != null, $"{EffectType.Balloon} is null");
+
+            var instance = Instantiate(Prefabs[EffectType.Balloon]);
+            instance.transform.position = position;
+
+            return instance.GetComponent<Balloon>();
+        }
+
+        public Balloon PlayBalloonOnTop() => PlayBalloon(new Vector3(0, InGameConstants.FieldArea.yMax - 24));
     }
 
     public enum EffectType
     {
         Explosion,
-
         PlusDecay,
         PlusDecayRed,
         PlusDecayGreen,
         PlusDecayBlue,
-
         CrossDecay,
         CrossDecayRed,
         CrossDecayGreen,
         CrossDecayBlue,
-
         Caution,
-
         MuzzleFlash,
         Concentration,
         SpreadExplosion,
@@ -94,5 +103,6 @@ namespace Millennium.InGame.Effect
         StageStart,
         StageClear,
         CrossDecayYellow,
+        Balloon,
     }
 }

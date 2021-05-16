@@ -12,10 +12,11 @@ namespace Millennium.InGame.AI
     public class WaypointMove : MonoBehaviour
     {
         [Serializable]
-        public struct Waypoint
+        public class Waypoint
         {
             public Vector2 Point;
             public float Duration;
+            public Ease Ease = Ease.InOutQuad;
         }
 
         [SerializeField]
@@ -31,7 +32,7 @@ namespace Millennium.InGame.AI
             foreach (var waypoint in m_Waypoints)
             {
                 sequence.Append(transform.DOLocalMove(waypoint.Point, waypoint.Duration)
-                   .SetEase(Ease.InOutQuad)
+                   .SetEase(waypoint.Ease)
                    .SetRelative());
             }
             sequence.AppendCallback(() => Destroy(gameObject));

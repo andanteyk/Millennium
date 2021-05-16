@@ -1,4 +1,6 @@
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Linq;
+using Cysharp.Threading.Tasks.Triggers;
 using Millennium.InGame.Effect;
 using Millennium.Sound;
 using System;
@@ -19,6 +21,8 @@ namespace Millennium.InGame.Entity.Enemy
         private void Start()
         {
             Health = HealthMax = m_InitialHealth;
+
+            DamageWhenEnter(this.GetCancellationTokenOnDestroy());
         }
 
 
@@ -50,6 +54,19 @@ namespace Millennium.InGame.Entity.Enemy
                 SoundManager.I.PlaySe(SeType.Explosion).Forget();
                 Destroy(gameObject);
             }
+        }
+
+
+        protected UniTask DamageWhenEnter(CancellationToken token)
+        {
+            return this.GetAsyncTriggerEnter2DTrigger()
+                .ForEachAsync(collision =>
+                {
+                    if (collision.gameObject.GetComponent<Entity>() is EntityLiving entity)
+                    {
+                        entity.DealDamage(new DamageSource(this, 100));
+                    }
+                }, token);
         }
     }
 }

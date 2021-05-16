@@ -24,7 +24,7 @@ namespace Millennium.InGame.Stage
         private GameObject m_Background = null;
         private string m_CurrentStage = null;
         private float m_BattleStarted;
-
+        private bool m_AllowSpawn = true;
 
         private async UniTask<StageData> LoadStage(string stageAddress)
         {
@@ -59,8 +59,11 @@ namespace Millennium.InGame.Stage
                         if (token.IsCancellationRequested)
                             return;
 
-                        var instance = Instantiate(enemy.Prefab);
-                        instance.transform.position = enemy.Position;
+                        if (m_AllowSpawn)
+                        {
+                            var instance = Instantiate(enemy.Prefab);
+                            instance.transform.position = enemy.Position;
+                        }
                     }
                     return instantiate(enemy, token);
                 }));
@@ -151,11 +154,15 @@ namespace Millennium.InGame.Stage
         }
 
 
+        public void SuppressEnemySpawn() => m_AllowSpawn = false;
+        public void ResumeEnemySpawn() => m_AllowSpawn = true;
+
+
         public async void OnStart(EntryPoint.InGameParams param)
         {
             await InstantiatePlayer(param);
 
-            Play(await LoadStage("Assets/Millennium/Assets/Data/TestStage.asset"), this.GetCancellationTokenOnDestroy()).Forget();
+            Play(await LoadStage("Assets/Millennium/Assets/Data/Stage1.asset"), this.GetCancellationTokenOnDestroy()).Forget();
         }
     }
 }

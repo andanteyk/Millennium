@@ -32,6 +32,7 @@ namespace Millennium.InGame.Entity.Enemy
 
 
             SetupHealthGauge(4, destroyToken);
+            DamageWhenEnter(destroyToken).Forget();
             EffectManager.I.Play(EffectType.Warning, Vector3.zero);
             SoundManager.I.PlaySe(SeType.Warning).Forget();
 
@@ -57,7 +58,7 @@ namespace Millennium.InGame.Entity.Enemy
                     await PlayerAimShot2(token);
                 }
             }, destroyToken);
-            await OnEndPhase(destroyToken);
+            await OnEndPhaseShort(destroyToken);
 
 
             Health = HealthMax = 12000;
@@ -83,7 +84,7 @@ namespace Millennium.InGame.Entity.Enemy
                     await PlayerAimShot4(token);
                 }
             }, destroyToken);
-            await OnEndPhase(destroyToken);
+            await OnEndPhaseShort(destroyToken);
 
 
             Health = HealthMax = 12000;
@@ -206,8 +207,9 @@ namespace Millennium.InGame.Entity.Enemy
 
         private async UniTask SkillIFF(CancellationToken token)
         {
-            if (token.IsCancellationRequested)
-                return;
+            token.ThrowIfCancellationRequested();
+
+            await PlaySkillBalloon("ユウカ", "I.F.F", token);
 
             try
             {
@@ -277,8 +279,8 @@ namespace Millennium.InGame.Entity.Enemy
 
         private async UniTask SkillQED(CancellationToken token)
         {
-            if (token.IsCancellationRequested)
-                return;
+            token.ThrowIfCancellationRequested();
+            await PlaySkillBalloon("ユウカ", "Q.E.D", token);
 
             int rectSize = 48;
 
@@ -375,13 +377,12 @@ namespace Millennium.InGame.Entity.Enemy
 
             for (int loop = 0; loop < 32 && !token.IsCancellationRequested; loop++)
             {
-                EffectManager.I.Play(EffectType.MuzzleFlash, transform.position);
-                SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
-
-                foreach (var radian in BallisticMath.CalculateWayRadians(Seiran.Shared.NextSingle(0, Mathf.PI * 2), 12))
+                foreach (var radian in BallisticMath.CalculateWayRadians(Seiran.Shared.NextRadian(), 12))
                 {
-                    BulletBase.Instantiate(m_NormalShotPrefab, transform.position, BallisticMath.FromPolar(speed, radian));
+                    var bullet = BulletBase.Instantiate(m_NormalShotPrefab, transform.position + BallisticMath.FromPolar(16, radian), BallisticMath.FromPolar(speed, radian));
+                    EffectManager.I.Play(EffectType.MuzzleFlash, bullet.transform.position);
                 }
+                SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
 
                 await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: token);
             }

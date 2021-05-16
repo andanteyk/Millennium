@@ -28,6 +28,8 @@ namespace Millennium.InGame.Entity.Enemy
         {
             var token = this.GetCancellationTokenOnDestroy();
 
+            DamageWhenEnter(token).Forget();
+
             var previousPosition = transform.position;
             var spriteRenderer = GetComponent<SpriteRenderer>();
             UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(0.5))

@@ -31,12 +31,13 @@ namespace Millennium.InGame.Entity.Enemy
             var destroyToken = this.GetCancellationTokenOnDestroy();
 
             SetupHealthGauge(5, destroyToken);
+            DamageWhenEnter(destroyToken).Forget();
             EffectManager.I.Play(EffectType.Warning, Vector3.zero);
             SoundManager.I.PlaySe(SeType.Warning).Forget();
 
             await RandomMove(4, destroyToken);
 
-            /*
+            //*
             Health = HealthMax = 8000;
             await RunPhase(async token =>
             {
@@ -46,12 +47,14 @@ namespace Millennium.InGame.Entity.Enemy
                     await ReflectionShot(token);
                 }
             }, destroyToken);
-            await OnEndPhase(destroyToken);
+            await OnEndPhaseShort(destroyToken);
 
 
-           Health = HealthMax = 16000;
+            Health = HealthMax = 16000;
             await RunPhase(async token =>
             {
+                await PlaySkillBalloon("ƒAƒJƒl", "‚¶‚å‚¤‚Ð‚ñ‚É ‚Â‚ç‚Ê‚«‚Ü‚·", token);
+
                 await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1), PlayerLoopTiming.FixedUpdate)
                     .WithCancellation(token))
                 {
@@ -59,7 +62,7 @@ namespace Millennium.InGame.Entity.Enemy
                 }
             }, destroyToken);
             await OnEndPhase(destroyToken);
-            
+
 
             Health = HealthMax = 8000;
             await RunPhase(async token =>
@@ -71,7 +74,7 @@ namespace Millennium.InGame.Entity.Enemy
                 }
             }, destroyToken);
             await OnEndPhase(destroyToken);
-             
+
 
             Health = HealthMax = 16000;
             await RunPhase(async token =>
@@ -83,7 +86,7 @@ namespace Millennium.InGame.Entity.Enemy
                 }
             }, destroyToken);
             await OnEndPhase(destroyToken);
-//*/
+            //*/
 
 
             Health = HealthMax = 16000;

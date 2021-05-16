@@ -30,6 +30,7 @@ namespace Millennium.InGame.Entity.Enemy
             var destroyToken = this.GetCancellationTokenOnDestroy();
 
             SetupHealthGauge(4, destroyToken);
+            DamageWhenEnter(destroyToken).Forget();
             EffectManager.I.Play(EffectType.Warning, Vector3.zero);
             SoundManager.I.PlaySe(SeType.Warning).Forget();
 
@@ -45,13 +46,14 @@ namespace Millennium.InGame.Entity.Enemy
                     await PlayerAimshot1(token);
                 }
             }, destroyToken);
-            await OnEndPhase(destroyToken);
+            await OnEndPhaseShort(destroyToken);
 
 
 
             Health = HealthMax = 12000;
             await RunPhase(async token =>
             {
+                await PlaySkillBalloon("カリン", "かりょくしえん、かいし", token);
                 await MoveTo(new Vector3(64 * (Seiran.Shared.Next(0, 2) * 2 - 1), 64), 1, token);
 
                 await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1), PlayerLoopTiming.FixedUpdate)
@@ -73,13 +75,14 @@ namespace Millennium.InGame.Entity.Enemy
                     await PlayerAimshot2(token);
                 }
             }, destroyToken);
-            await OnEndPhase(destroyToken);
+            await OnEndPhaseShort(destroyToken);
 
 
 
             Health = HealthMax = 16000;
             await RunPhase(async token =>
             {
+                await PlaySkillBalloon("カリン", "ターゲット、はいじょする", token);
                 await MoveTo(new Vector3(64 * (Seiran.Shared.Next(0, 2) * 2 - 1), 64), 1, token);
 
                 await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(2), PlayerLoopTiming.FixedUpdate)
