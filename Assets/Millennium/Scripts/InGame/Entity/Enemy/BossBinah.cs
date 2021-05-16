@@ -43,12 +43,10 @@ namespace Millennium.InGame.Entity.Enemy
         {
             var destroyToken = this.GetCancellationTokenOnDestroy();
 
-            SetupHealthGauge(12, destroyToken);
+            SetupHealthGauge(9, destroyToken);
             EffectManager.I.Play(EffectType.Warning, Vector3.zero);
             SoundManager.I.PlaySe(SeType.Warning).Forget();
 
-
-            // TODO: 多段ヒットするのでアリス大正義すぎる
 
             //*
 
@@ -194,7 +192,6 @@ namespace Millennium.InGame.Entity.Enemy
             }, destroyToken);
             await OnEndPhase(destroyToken);
 
-            //*/
 
 
             Health = HealthMax = 100000;
@@ -205,6 +202,10 @@ namespace Millennium.InGame.Entity.Enemy
                 await Sandstorm(token);
             }, destroyToken);
             await OnEndPhase(destroyToken);
+
+
+
+            //*/
 
 
             Health = HealthMax = 100000;
@@ -775,8 +776,87 @@ namespace Millennium.InGame.Entity.Enemy
         {
             EffectManager.I.Play(EffectType.Concentration, m_Bodies[0].transform.position);
 
-            // TODO
-            await UniTask.CompletedTask;
+
+            // 0 ~ 4
+            int GetLevel() => 4 - Health * 4 / HealthMax;
+
+            await (
+                MoveEight(token),
+                UniTaskAsyncEnumerable.Timer(TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(0.5), PlayerLoopTiming.FixedUpdate)
+                .Select((_, i) => i)
+                .ForEachAsync(i =>
+                {
+                    token.ThrowIfCancellationRequested();
+
+
+                    if ((i & 3) == 0)
+                    {
+                        var bodyTransform = m_Bodies[0].transform;
+                        foreach (var r in BallisticMath.CalculateWayRadians(Seiran.Shared.NextRadian(), 6 + GetLevel() * 2))
+                        {
+                            var bullet = BulletBase.Instantiate(m_LargeShotPrefab, bodyTransform.position + BallisticMath.FromPolar(16, r), BallisticMath.FromPolar(48, r + Mathf.PI * 7 / 8));
+                            EffectManager.I.Play(EffectType.MuzzleFlash, bullet.transform.position);
+                        }
+                        SoundManager.I.PlaySe(SeType.Explosion).Forget();
+                    }
+
+
+                    if (GetLevel() >= 2 && (i & 3) == 2)
+                    {
+                        var bodyTransform = m_Bodies[6].transform;
+                        foreach (var r in BallisticMath.CalculateWayRadians(BallisticMath.AimToPlayer(bodyTransform.position), 2 + GetLevel(), 60 / GetLevel() * Mathf.Deg2Rad))
+                        {
+                            var bullet = BulletBase.Instantiate(m_NormalShotPrefab, bodyTransform.position + BallisticMath.FromPolar(16, r), BallisticMath.FromPolar(64, r));
+                            BulletBase.Instantiate(m_NormalShotPrefab, bodyTransform.position + BallisticMath.FromPolar(16, r), BallisticMath.FromPolar(32, r));
+                            EffectManager.I.Play(EffectType.MuzzleFlash, bullet.transform.position);
+                        }
+                        SoundManager.I.PlaySe(SeType.Explosion).Forget();
+                    }
+
+
+                    if (GetLevel() >= 3 && (i & 3) == 1)
+                    {
+                        var bodyTransform = m_Bodies[m_Bodies.Length - 1].transform;
+
+                        Enumerable.Repeat(Seiran.Shared.NextRadian(), 4)
+                            .Select((baseRadian, i) => baseRadian + i * 8 * Mathf.Deg2Rad)
+                            .ToUniTaskAsyncEnumerable()
+                            .ForEachAwaitWithCancellationAsync(async (baseRadian, token) =>
+                            {
+                                token.ThrowIfCancellationRequested();
+
+                                foreach (var r in BallisticMath.CalculateWayRadians(baseRadian, GetLevel()))
+                                {
+                                    var bullet = BulletBase.Instantiate(m_NormalShotPrefab, bodyTransform.position + BallisticMath.FromPolar(16, r), BallisticMath.FromPolar(48, r));
+                                    EffectManager.I.Play(EffectType.MuzzleFlash, bullet.transform.position);
+                                }
+                                SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
+
+                                await UniTask.Delay(TimeSpan.FromSeconds(0.05), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
+                            }, token);
+                    }
+
+
+                    if (GetLevel() >= 4 && (i & 3) == 3)
+                    {
+                        float baseRadian = Seiran.Shared.NextRadian();
+                        UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(0.05), PlayerLoopTiming.FixedUpdate)
+                            .Select((_, i) => i)
+                            .Take(6)
+                            .ForEachAsync(i =>
+                            {
+                                var r = baseRadian + i * Mathf.PI / 3;
+                                var bodyTransform = m_Bodies[0].transform;
+                                for (int k = 0; k < 4; k++)
+                                {
+                                    var bullet = BulletBase.Instantiate(m_NormalShotPrefab, bodyTransform.position + BallisticMath.FromPolar(k * 8, r), BallisticMath.FromPolar(64, r));
+                                    EffectManager.I.Play(EffectType.MuzzleFlash, bullet.transform.position);
+                                }
+                                SoundManager.I.PlaySe(SeType.Explosion).Forget();
+                            }, token);
+                    }
+
+                }, token));
         }
 
 
