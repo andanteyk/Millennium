@@ -16,7 +16,7 @@ namespace Millennium.InGame.Entity.Bullet
             DestroyWhenExpired(token);
             DamageWhenEnter(token);
 
-            transform.DOScale(10, 1f).SetEase(Ease.Linear).WithCancellation(token);
+            transform.DOScale(10, 1f).SetEase(Ease.Linear).SetLink(gameObject).WithCancellation(token);
         }
     }
 }

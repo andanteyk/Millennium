@@ -14,8 +14,7 @@ namespace Millennium.InGame.Stage
 
         private void Start()
         {
-            // TODO
-            transform.DOMoveY(GetComponent<Tilemap>().size.y * -16 + InGameConstants.FieldArea.height - 24, m_Speed, true)
+            transform.DOMoveY(GetComponent<Tilemap>().size.y * -16 + InGameConstants.FieldArea.height + 24, m_Speed, true)
                 .SetSpeedBased(true)
                 .SetEase(Ease.Linear)
                 .SetLink(gameObject);
