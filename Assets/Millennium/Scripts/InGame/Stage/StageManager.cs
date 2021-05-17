@@ -42,7 +42,7 @@ namespace Millennium.InGame.Stage
             m_Background = Instantiate(stage.Background);
 
 
-            float skipFrom = 0;         // for debug
+            float skipFrom = 90;         // for debug
 
 
             await UniTask.WhenAll(stage.Enemies.Select(enemy =>
@@ -167,7 +167,7 @@ namespace Millennium.InGame.Stage
 
             await InstantiatePlayer(param);
 
-            Play(await LoadStage("Assets/Millennium/Assets/Data/Stage1.asset"), this.GetCancellationTokenOnDestroy()).Forget();
+            Play(await LoadStage("Assets/Millennium/Assets/Data/Stage3.asset"), this.GetCancellationTokenOnDestroy()).Forget();
         }
     }
 }

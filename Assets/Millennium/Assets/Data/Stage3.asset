@@ -338,3 +338,48 @@ MonoBehaviour:
   - SpawnSeconds: 41
     Position: {x: 0, y: 128}
     Prefab: {fileID: 8983488942826507408, guid: df0303ff662f4e44080e42fba5b9e2d8, type: 3}
+  - SpawnSeconds: 60
+    Position: {x: -64, y: 128}
+    Prefab: {fileID: 6640521932749853551, guid: c1cd7136094e0af4e8069a472a93a811, type: 3}
+  - SpawnSeconds: 65
+    Position: {x: 64, y: 128}
+    Prefab: {fileID: 6640521932749853551, guid: c1cd7136094e0af4e8069a472a93a811, type: 3}
+  - SpawnSeconds: 70
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 6640521932749853551, guid: c1cd7136094e0af4e8069a472a93a811, type: 3}
+  - SpawnSeconds: 75
+    Position: {x: 32, y: 128}
+    Prefab: {fileID: 6640521932749853551, guid: c1cd7136094e0af4e8069a472a93a811, type: 3}
+  - SpawnSeconds: 80
+    Position: {x: -32, y: 128}
+    Prefab: {fileID: 6640521932749853551, guid: c1cd7136094e0af4e8069a472a93a811, type: 3}
+  - SpawnSeconds: 85
+    Position: {x: 96, y: 128}
+    Prefab: {fileID: 7475725299072156831, guid: fc179c257e5bc60428c30e11bb59df85, type: 3}
+  - SpawnSeconds: 90
+    Position: {x: -96, y: 128}
+    Prefab: {fileID: 7475725299072156831, guid: fc179c257e5bc60428c30e11bb59df85, type: 3}
+  - SpawnSeconds: 95
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 7475725299072156831, guid: fc179c257e5bc60428c30e11bb59df85, type: 3}
+  - SpawnSeconds: 100
+    Position: {x: 64, y: 128}
+    Prefab: {fileID: 7475725299072156831, guid: fc179c257e5bc60428c30e11bb59df85, type: 3}
+  - SpawnSeconds: 105
+    Position: {x: -64, y: 128}
+    Prefab: {fileID: 7475725299072156831, guid: fc179c257e5bc60428c30e11bb59df85, type: 3}
+  - SpawnSeconds: 110
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 7475725299072156831, guid: fc179c257e5bc60428c30e11bb59df85, type: 3}
+  - SpawnSeconds: 115
+    Position: {x: 96, y: 128}
+    Prefab: {fileID: 7475725299072156831, guid: fc179c257e5bc60428c30e11bb59df85, type: 3}
+  - SpawnSeconds: 120
+    Position: {x: -96, y: 128}
+    Prefab: {fileID: 7475725299072156831, guid: fc179c257e5bc60428c30e11bb59df85, type: 3}
+  - SpawnSeconds: 125
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 7475725299072156831, guid: fc179c257e5bc60428c30e11bb59df85, type: 3}
+  - SpawnSeconds: 130
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 7475725299072156831, guid: fc179c257e5bc60428c30e11bb59df85, type: 3}

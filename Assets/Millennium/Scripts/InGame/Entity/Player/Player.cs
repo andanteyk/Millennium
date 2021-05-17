@@ -263,9 +263,9 @@ namespace Millennium.InGame.Entity.Player
         public void Extend()
         {
             Health = Math.Min(Health + 100, HealthMax);
-            SoundManager.I.PlaySe(SeType.Accept).Forget();
 
             EffectManager.I.Play(EffectType.PlusDecayRed, transform.position);
+            SoundManager.I.PlaySe(SeType.Accept).Forget();
         }
 
         public void AddSkillPoint(int value)
@@ -276,6 +276,7 @@ namespace Millennium.InGame.Entity.Player
                 BombCount += m_SkillPoint / m_SkillPointMax;
                 m_SkillPoint %= m_SkillPointMax;
 
+                EffectManager.I.Play(EffectType.PlusDecayBlue, transform.position);
                 SoundManager.I.PlaySe(SeType.Accept).Forget();
             }
         }
