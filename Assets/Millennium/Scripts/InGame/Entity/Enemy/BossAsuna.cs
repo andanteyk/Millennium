@@ -117,13 +117,11 @@ namespace Millennium.InGame.Entity.Enemy
             if (token.IsCancellationRequested)
                 return;
 
-            await RandomMove(1, token);
-
             EffectManager.I.Play(EffectType.Concentration, transform.position);
             SoundManager.I.PlaySe(SeType.Concentration).Forget();
 
 
-            await UniTaskAsyncEnumerable.Timer(TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(0.05), PlayerLoopTiming.FixedUpdate)
+            await UniTaskAsyncEnumerable.Timer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(0.05), PlayerLoopTiming.FixedUpdate)
                 .Select((_, i) => i)
                 .Take(30)
                 .ForEachAsync(i =>
@@ -134,10 +132,12 @@ namespace Millennium.InGame.Entity.Enemy
                     {
                         var token = bullet.GetCancellationTokenOnDestroy();
 
+                        token.ThrowIfCancellationRequested();
                         float baseAngle = BallisticMath.AimToPlayer(bullet.transform.position);
                         await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
+
                         token.ThrowIfCancellationRequested();
-                        await bullet.DOSpeedAngle(64, baseAngle, baseAngle + ((index & 1) * 2 - 1) * Mathf.PI * 2, 3).ToUniTask(cancellationToken: token);
+                        await bullet.DOSpeedAngle(64, baseAngle, baseAngle + ((index & 1) * 2 - 1) * Mathf.PI * 2, 1).ToUniTask(cancellationToken: token);
 
                         bullet.Speed += Seiran.Shared.InsideUnitCircle() * 32;
                     }
@@ -147,6 +147,9 @@ namespace Millennium.InGame.Entity.Enemy
                     EffectManager.I.Play(EffectType.MuzzleFlash, bullet.transform.position);
                     SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
                 }, token);
+
+
+            await RandomMove(1, token);
         }
 
 

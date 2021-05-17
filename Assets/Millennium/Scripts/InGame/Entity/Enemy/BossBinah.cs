@@ -43,10 +43,14 @@ namespace Millennium.InGame.Entity.Enemy
         {
             var destroyToken = this.GetCancellationTokenOnDestroy();
 
+            foreach (var b in m_Bodies)
+                b.transform.position = new Vector3(0, 512);
+
             SetupHealthGauge(9, destroyToken);
             EffectManager.I.Play(EffectType.Warning, Vector3.zero);
             SoundManager.I.PlaySe(SeType.Warning).Forget();
 
+            await UniTask.Delay(TimeSpan.FromSeconds(3), cancellationToken: destroyToken);
 
             //*
 

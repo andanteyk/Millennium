@@ -47,7 +47,7 @@ namespace Millennium.InGame.Entity.Enemy
             await OnEndPhaseShort(destroyToken);
 
 
-            Health = HealthMax = 16000;
+            Health = HealthMax = 12000;
             await RunPhase(async token =>
             {
                 await PlaySkillBalloon("ÉlÉã", "Ç†Çü? Ç”Ç¥ÇØÇÒÇ»!", token);
@@ -281,6 +281,7 @@ namespace Millennium.InGame.Entity.Enemy
                         {
                             await UniTask.Delay(TimeSpan.FromSeconds((density - index) * 0.05), cancellationToken: token);
                             token.ThrowIfCancellationRequested();
+                            SoundManager.I.PlaySe(SeType.Fall).Forget();
                             await bullet.DOSpeed(BallisticMath.FromPolar(64, aimRadian) + BallisticMath.FromPolar(48, placeRadian + Mathf.PI * 7 / 8 * rotateDirection), 1);
                         }
                         MoveBullet(bullet, i, aimRadian, r, rotateDirection, bullet.GetCancellationTokenOnDestroy()).Forget();
@@ -332,7 +333,7 @@ namespace Millennium.InGame.Entity.Enemy
             await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
 
             token.ThrowIfCancellationRequested();
-            foreach (var r in BallisticMath.CalculateWayRadians(baseRadian, 12))
+            foreach (var r in BallisticMath.CalculateWayRadians(baseRadian, 18))
             {
                 var bullet = BulletBase.Instantiate(m_NormalShotPrefab, BallisticMath.FromPolar(16, r), BallisticMath.FromPolar(-64, r));
                 EffectManager.I.Play(EffectType.MuzzleFlash, bullet.transform.position);
@@ -343,9 +344,10 @@ namespace Millennium.InGame.Entity.Enemy
 
 
 
-        // TODO: ÇøÇÂÇ¡Ç∆ìÔà’ìxçÇÇ¢Ç©Ç‡ÇµÇÍÇ»Ç¢
         private async UniTask SkillBukkoro(CancellationToken token)
         {
+            token.ThrowIfCancellationRequested();
+
             float playerDirection = BallisticMath.AimToPlayer(transform.position);
             var targetPosition = BallisticMath.FromPolar(64, playerDirection);
 
@@ -373,8 +375,13 @@ namespace Millennium.InGame.Entity.Enemy
                         EffectManager.I.Play(EffectType.MuzzleFlash, transform.position);
                     }, token));
 
+            token.ThrowIfCancellationRequested();
             EffectManager.I.Play(EffectType.Concentration, transform.position);
             SoundManager.I.PlaySe(SeType.Concentration).Forget();
+            foreach (var r in BallisticMath.CalculateWayRadians(-Mathf.PI / 2, 3))
+            {
+                EffectManager.I.Play(EffectType.Caution, transform.position + BallisticMath.FromPolar(64, r));
+            }
             await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
 
 
@@ -385,9 +392,8 @@ namespace Millennium.InGame.Entity.Enemy
                 {
                     foreach (var r in BallisticMath.CalculateWayRadians(playerDirection + DOVirtual.EasedValue(0, Mathf.PI * 6, i / 60f, Ease.InQuad), 3))
                     {
-                        var bullet = BulletBase.Instantiate(m_NormalShotPrefab, transform.position, BallisticMath.FromPolar(16, r));
-                        bullet.DOSpeed(BallisticMath.FromPolar(128, r), 1f)
-                            .SetDelay(0.5f);
+                        var bullet = BulletBase.Instantiate(m_NormalShotPrefab, transform.position, BallisticMath.FromPolar(128, r));
+                        bullet.DOSpeed(BallisticMath.FromPolar(32, r), 1f);
                     }
 
                     SoundManager.I.PlaySe(SeType.EnemyShot).Forget();

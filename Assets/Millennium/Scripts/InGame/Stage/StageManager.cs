@@ -42,7 +42,7 @@ namespace Millennium.InGame.Stage
             m_Background = Instantiate(stage.Background);
 
 
-            float skipFrom = 90;         // for debug
+            float skipFrom = 0;         // for debug
 
 
             await UniTask.WhenAll(stage.Enemies.Select(enemy =>
@@ -120,9 +120,9 @@ namespace Millennium.InGame.Stage
                 await EntryPoint.StartOutGame(new EntryPoint.OutGameParams
                 {
                     FirstUIAddress = "Assets/Millennium/Assets/Prefabs/OutGame/UI/Result.prefab",
-                    Score = m_Player.Score + m_Player.Health * 5000 + m_Player.BombCount * 100000,
+                    Score = m_Player.Score + m_Player.Health * 500000 + m_Player.BombCount * 100000,
                     IsCleared = true,
-                    BattleSeconds = Time.realtimeSinceStartup - m_BattleStarted
+                    BattleSeconds = Time.time - m_BattleStarted
                 });
             }
             else
@@ -148,7 +148,7 @@ namespace Millennium.InGame.Stage
                 FirstUIAddress = "Assets/Millennium/Assets/Prefabs/OutGame/UI/Result.prefab",
                 Score = m_Player.Score,
                 IsCleared = false,
-                BattleSeconds = Time.realtimeSinceStartup - m_BattleStarted
+                BattleSeconds = Time.time - m_BattleStarted
             });
 
             Time.timeScale = 1;
@@ -163,11 +163,11 @@ namespace Millennium.InGame.Stage
 
         public async void OnStart(EntryPoint.InGameParams param)
         {
-            m_BattleStarted = Time.realtimeSinceStartup;
+            m_BattleStarted = Time.time;
 
             await InstantiatePlayer(param);
 
-            Play(await LoadStage("Assets/Millennium/Assets/Data/Stage3.asset"), this.GetCancellationTokenOnDestroy()).Forget();
+            Play(await LoadStage("Assets/Millennium/Assets/Data/Stage6.asset"), this.GetCancellationTokenOnDestroy()).Forget();
         }
     }
 }
