@@ -18,7 +18,8 @@ namespace Millennium.InGame.Entity.Bullet
 
             Move(token);
             DestroyWhenExpired(token);
-            DamageWhenStay(0.1f, token);
+            DamageWhenStay(token);
+            CollisionSwitcher(0.2f, token);
         }
     }
 

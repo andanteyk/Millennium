@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1912049432265667524, guid: 2afbf1e6fd57f2a45bd91ad07f8a3928, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2aea1f3639cdaab49b03b0fabf2124f0, type: 3}
     - target: {fileID: 1912049432265667525, guid: 2afbf1e6fd57f2a45bd91ad07f8a3928, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -55,6 +59,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyBox_Right
       objectReference: {fileID: 0}
+    - target: {fileID: 6732961281600844630, guid: 2afbf1e6fd57f2a45bd91ad07f8a3928, type: 3}
+      propertyPath: m_Sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 2aea1f3639cdaab49b03b0fabf2124f0, type: 3}
+    - target: {fileID: 6732961281600844630, guid: 2afbf1e6fd57f2a45bd91ad07f8a3928, type: 3}
+      propertyPath: m_Sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: ae7720408d475634f97ef5bd685201a6, type: 3}
     - target: {fileID: 7494494211543047233, guid: 2afbf1e6fd57f2a45bd91ad07f8a3928, type: 3}
       propertyPath: m_Waypoints.Array.data[0].Point.x
       value: -256

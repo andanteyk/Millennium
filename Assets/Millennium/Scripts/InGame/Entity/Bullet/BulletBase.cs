@@ -60,21 +60,31 @@ namespace Millennium.InGame.Entity.Bullet
                 }, token);
         }
 
-        protected UniTask DamageWhenStay(float intervalSeconds, CancellationToken token)
+        protected UniTask DamageWhenStay(CancellationToken token)
         {
             return this.GetAsyncTriggerStay2DTrigger()
-                .ForEachAwaitWithCancellationAsync(async (collision, token) =>
+                .ForEachAsync(collision =>
                 {
                     if (collision.gameObject.GetComponent<Entity>() is EntityLiving entity)
                     {
                         entity.DealDamage(new DamageSource(Owner != null ? Owner : this, Power));
                     }
 
-                    // TODO: need to check
                     EffectManager.I.Play(EffectOnDestroy, collision.transform.position);
+                }, token);
+        }
 
-                    await UniTask.Delay(TimeSpan.FromSeconds(intervalSeconds), cancellationToken: token);
+        protected UniTask CollisionSwitcher(float intervalSeconds, CancellationToken token)
+        {
+            var colliders = GetComponentsInChildren<Collider2D>();
+            return UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(intervalSeconds), PlayerLoopTiming.FixedUpdate)
+                .ForEachAwaitWithCancellationAsync(async (_, token) =>
+                {
+                    token.ThrowIfCancellationRequested();
+                    Array.ForEach(colliders, c => c.enabled = true);
 
+                    await UniTask.DelayFrame(1, PlayerLoopTiming.FixedUpdate, cancellationToken: token);
+                    Array.ForEach(colliders, c => c.enabled = false);
                 }, token);
         }
 

@@ -19,6 +19,10 @@ PrefabInstance:
       propertyPath: m_Interval
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3322470297347819868, guid: 3495225d5a540f04383e73e6666fd742, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 548989ffd54b51248b35149d01ec7317, type: 3}
     - target: {fileID: 3322470297347819869, guid: 3495225d5a540f04383e73e6666fd742, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -91,5 +95,13 @@ PrefabInstance:
       propertyPath: m_Waypoints.Array.data[1].Duration
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7630073487580481998, guid: 3495225d5a540f04383e73e6666fd742, type: 3}
+      propertyPath: m_Sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 548989ffd54b51248b35149d01ec7317, type: 3}
+    - target: {fileID: 7630073487580481998, guid: 3495225d5a540f04383e73e6666fd742, type: 3}
+      propertyPath: m_Sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 28c3b454d0ac35d428a82d57812c0743, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3495225d5a540f04383e73e6666fd742, type: 3}

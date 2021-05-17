@@ -20,7 +20,8 @@ namespace Millennium.InGame.Entity.Bullet
             var token = this.GetCancellationTokenOnDestroy();
 
             DestroyWhenExpired(token);
-            DamageWhenStay(0.5f, token);
+            DamageWhenStay(token);
+            CollisionSwitcher(0.5f, token);
 
             UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
                 .ForEachAsync(_ =>

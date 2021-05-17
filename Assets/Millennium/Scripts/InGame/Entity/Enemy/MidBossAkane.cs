@@ -2,7 +2,6 @@ using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using Millennium.InGame.Effect;
 using Millennium.InGame.Entity.Bullet;
-using Millennium.InGame.Stage;
 using Millennium.Mathematics;
 using Millennium.Sound;
 using System;

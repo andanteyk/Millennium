@@ -7,6 +7,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 417658410202453122, guid: 4d9d796c20828ca45bc3938d848df2e9, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.w
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 417658410202453122, guid: 4d9d796c20828ca45bc3938d848df2e9, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6112776344313891395, guid: 4d9d796c20828ca45bc3938d848df2e9, type: 3}
+      propertyPath: m_Speed.y
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 6112776344313891396, guid: 4d9d796c20828ca45bc3938d848df2e9, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -57,7 +69,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6112776344313891399, guid: 4d9d796c20828ca45bc3938d848df2e9, type: 3}
       propertyPath: m_Name
-      value: PlayerBullet
+      value: AliceMainShot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d9d796c20828ca45bc3938d848df2e9, type: 3}

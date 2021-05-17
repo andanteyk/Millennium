@@ -5,8 +5,6 @@ using Millennium.InGame.Entity.Bullet;
 using Millennium.Mathematics;
 using Millennium.Sound;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 

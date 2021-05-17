@@ -6,12 +6,8 @@ using Millennium.IO;
 using Millennium.Sound;
 using Millennium.UI;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.Serialization;
 
 namespace Millennium.InGame.Entity.Player
 {

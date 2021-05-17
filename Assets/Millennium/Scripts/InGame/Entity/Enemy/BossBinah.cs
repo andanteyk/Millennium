@@ -388,7 +388,7 @@ namespace Millennium.InGame.Entity.Enemy
 
 
             token.ThrowIfCancellationRequested();
-            EffectManager.I.Play(EffectType.Concentration, m_Bodies[0].transform.position);
+            EffectManager.I.Play(EffectType.Concentration, m_Bodies[0].transform.position).SetParent(m_Bodies[0].transform);
             SoundManager.I.PlaySe(SeType.Concentration).Forget();
 
             var playerPosition = BallisticMath.PlayerPosition;
@@ -644,9 +644,16 @@ namespace Millennium.InGame.Entity.Enemy
                            {
                                EffectManager.I.Play(EffectType.Caution, origin);
                                await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
-                               foreach (var r in BallisticMath.CalculateWayRadians(Seiran.Shared.NextRadian(), 24))
+
+                               token.ThrowIfCancellationRequested();
+                               float direction = Seiran.Shared.NextRadian();
+                               foreach (var r in BallisticMath.CalculateWayRadians(direction, 16))
                                {
                                    BulletBase.Instantiate(m_NormalShotPrefab, origin + BallisticMath.FromPolar(-16, r), BallisticMath.FromPolar(32, r));
+                               }
+                               foreach (var r in BallisticMath.CalculateWayRadians(direction + Mathf.PI / 16, 16))
+                               {
+                                   BulletBase.Instantiate(m_NormalShotPrefab, origin + BallisticMath.FromPolar(-16, r), BallisticMath.FromPolar(24, r));
                                }
 
                                SoundManager.I.PlaySe(SeType.Explosion).Forget();

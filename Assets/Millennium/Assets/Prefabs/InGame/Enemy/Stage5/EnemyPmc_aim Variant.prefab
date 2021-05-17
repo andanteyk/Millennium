@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1066194050559016067, guid: 312d9a19dd54f3544b8148287d52034b, type: 3}
       propertyPath: m_Name
-      value: EnemyPmc_aim
+      value: EnemyPmc_aim Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1066194050559016125, guid: 312d9a19dd54f3544b8148287d52034b, type: 3}
       propertyPath: m_RootOrder
@@ -78,6 +78,10 @@ PrefabInstance:
     - target: {fileID: 1277698617699782644, guid: 312d9a19dd54f3544b8148287d52034b, type: 3}
       propertyPath: m_Waypoints.Array.data[2].Duration
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7870240363084804052, guid: 312d9a19dd54f3544b8148287d52034b, type: 3}
+      propertyPath: m_Way
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7870240363084804052, guid: 312d9a19dd54f3544b8148287d52034b, type: 3}
       propertyPath: m_Speed

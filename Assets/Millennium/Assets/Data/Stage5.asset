@@ -65,3 +65,6 @@ MonoBehaviour:
   - SpawnSeconds: 90
     Position: {x: 0, y: 128}
     Prefab: {fileID: 5944928519954227303, guid: a6273b30f67fe4b4ea88f3912be42b35, type: 3}
+  - SpawnSeconds: 19
+    Position: {x: 0, y: 128}
+    Prefab: {fileID: 4608169414983645669, guid: f637426d1415c864ba737f7d2f4ed745, type: 3}
