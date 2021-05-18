@@ -235,7 +235,7 @@ namespace Millennium.InGame.Entity.Enemy
                 .Take(ways)
                 .ForEachAsync(i =>
                 {
-                    foreach (var r in BallisticMath.CalculateWayRadians(playerDirection, 2, (15 + Math.Abs(i - ways / 2) * 9) * Mathf.Deg2Rad))
+                    foreach (var r in BallisticMath.CalculateWayRadians(playerDirection, 2, (20 + Math.Abs(i - ways / 2) * 15) * Mathf.Deg2Rad))
                     {
                         var bullet = BulletBase.Instantiate(m_NormalShotPrefab, transform.position + BallisticMath.FromPolar(16, r), BallisticMath.FromPolar(32, r));
                         EffectManager.I.Play(EffectType.MuzzleFlash, bullet.transform.position);

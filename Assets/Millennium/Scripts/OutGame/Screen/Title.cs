@@ -1,12 +1,9 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
-using Cysharp.Threading.Tasks.Triggers;
+using DG.Tweening;
+using Millennium.Mathematics;
 using Millennium.Sound;
-using Millennium.UI;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 namespace Millennium.OutGame.Screen
@@ -18,6 +15,9 @@ namespace Millennium.OutGame.Screen
 
         [SerializeField]
         private Button m_InformationButton;
+
+        [SerializeField]
+        private RectTransform[] m_Characters;
 
 
         private void Start()
@@ -42,8 +42,23 @@ namespace Millennium.OutGame.Screen
 
                     await Transit("Assets/Millennium/Assets/Prefabs/OutGame/UI/DialogInformation.prefab", token);
                 }, token);
+
+
+
+            foreach (var character in m_Characters)
+                MoveCharacterSprite(character);
         }
 
 
+
+        private void MoveCharacterSprite(RectTransform rectTransform)
+        {
+            int activeIndex = Seiran.Shared.Next(rectTransform.childCount);
+            for (int i = 0; i < rectTransform.childCount; i++)
+                rectTransform.GetChild(i).gameObject.SetActive(i == activeIndex);
+
+            rectTransform.DOAnchorPosX(240 - 32, (240 - 32) / 16, true).SetEase(Ease.Linear).SetLink(rectTransform.gameObject).SetLoops(-1, LoopType.Yoyo).Goto(Seiran.Shared.NextSingle(0, (240 - 32) / 16 * 2), true);
+            rectTransform.DOAnchorPosY(192 - 32, (192 - 32) / 16, true).SetEase(Ease.Linear).SetLink(rectTransform.gameObject).SetLoops(-1, LoopType.Yoyo).Goto(Seiran.Shared.NextSingle(0, (192 - 32) / 16 * 2), true);
+        }
     }
 }

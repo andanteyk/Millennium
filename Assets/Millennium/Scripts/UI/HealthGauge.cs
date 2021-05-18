@@ -34,7 +34,7 @@ namespace Millennium.UI
         public void SetGauge(int current, int max)
         {
             m_Gauge.rectTransform.sizeDelta = new Vector2(
-                m_GaugeWidth * current / max,
+                Mathf.CeilToInt(m_GaugeWidth * current / max),
                 m_Gauge.rectTransform.sizeDelta.y);
         }
 

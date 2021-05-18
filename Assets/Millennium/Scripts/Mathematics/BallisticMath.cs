@@ -18,6 +18,9 @@ namespace Millennium.Mathematics
         public static float AimToPlayer(Vector3 position)
             => Mathf.Atan2(PlayerTransform.position.y - position.y, PlayerTransform.position.x - position.x);
 
+        public static float AimTo(Vector3 targetPosition, Vector3 selfPosition)
+            => Mathf.Atan2(targetPosition.y - selfPosition.y, targetPosition.x - selfPosition.x);
+
         public static IEnumerable<float> CalculateWayRadians(float baseRadian, int ways, float intervalRadian)
         {
             for (int i = 0; i < ways; i++)

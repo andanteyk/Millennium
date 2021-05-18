@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ee77a6802dc26429c3dfedd70e863d, type: 3}
   m_Name: Stage1
   m_EditorClassIdentifier: 
+  Name: Stage 1
   Background: {fileID: 1166351414957513933, guid: a7dfa36779112a94fb2e7406873ef8ed, type: 3}
   Enemies:
   - SpawnSeconds: 5

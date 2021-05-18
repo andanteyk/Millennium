@@ -8,6 +8,7 @@ namespace Millennium.InGame.Stage
     [CreateAssetMenu(fileName = "Stage", menuName = "ScriptableObjects/StageData")]
     public class StageData : ScriptableObject
     {
+        public string Name;
         public GameObject Background;
         public EnemyData[] Enemies;
     }

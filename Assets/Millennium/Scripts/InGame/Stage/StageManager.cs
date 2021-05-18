@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using Millennium.InGame.Effect;
 using Millennium.InGame.Entity.Player;
 using Millennium.Sound;
+using Millennium.UI;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -40,7 +41,7 @@ namespace Millennium.InGame.Stage
             SoundManager.I.PlayBgm(Sound.BgmType.Battle).Forget();
             EffectManager.I.Play(EffectType.StageStart, Vector3.zero);
             m_Background = Instantiate(stage.Background);
-
+            InGameUI.I.SetStage(stage.Name);
 
             float skipFrom = 0;         // for debug
 
@@ -120,7 +121,7 @@ namespace Millennium.InGame.Stage
                 await EntryPoint.StartOutGame(new EntryPoint.OutGameParams
                 {
                     FirstUIAddress = "Assets/Millennium/Assets/Prefabs/OutGame/UI/Result.prefab",
-                    Score = m_Player.Score + m_Player.Health * 500000 + m_Player.BombCount * 100000,
+                    Score = m_Player.Score + m_Player.Health * 500000 / 100 + m_Player.BombCount * 100000,
                     IsCleared = true,
                     BattleSeconds = Time.time - m_BattleStarted
                 });
@@ -167,7 +168,7 @@ namespace Millennium.InGame.Stage
 
             await InstantiatePlayer(param);
 
-            Play(await LoadStage("Assets/Millennium/Assets/Data/Stage6.asset"), this.GetCancellationTokenOnDestroy()).Forget();
+            Play(await LoadStage("Assets/Millennium/Assets/Data/Stage3.asset"), this.GetCancellationTokenOnDestroy()).Forget();
         }
     }
 }

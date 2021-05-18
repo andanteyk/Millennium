@@ -231,7 +231,7 @@ namespace Millennium.InGame.Entity.Enemy
 
                         foreach (var point in targets)
                         {
-                            var r = Mathf.Atan2(point.y - transform.position.y, point.x - transform.position.x);
+                            var r = BallisticMath.AimTo(point, transform.position);
 
                             var bullet = BulletBase.Instantiate(m_NormalShotPrefab, transform.position + BallisticMath.FromPolar(16, r), BallisticMath.FromPolar(256, r));
                             ReflectionBullet(bullet, bullet.GetCancellationTokenOnDestroy()).Forget();
@@ -311,8 +311,8 @@ namespace Millennium.InGame.Entity.Enemy
                     var rightPoint = new Vector3(-(player.x - field.xMax) + field.xMax, player.y);
 
                     await (
-                        Ray(8, Mathf.Atan2(leftPoint.y - transform.position.y, leftPoint.x - transform.position.x), token),
-                        Ray(8, Mathf.Atan2(rightPoint.y - transform.position.y, rightPoint.x - transform.position.x), token));
+                        Ray(8, BallisticMath.AimTo(leftPoint, transform.position), token),
+                        Ray(8, BallisticMath.AimTo(rightPoint, transform.position), token));
 
                     await RandomMove(2, token);
                 }, token)

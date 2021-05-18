@@ -297,7 +297,7 @@ namespace Millennium.InGame.Entity.Enemy
 
                 for (int y = -1; y <= 1; y += 2)
                     for (int x = -1; x <= 1; x += 2)
-                        EffectManager.I.Play(EffectType.Caution, transform.position + new Vector3(rectSize * 2 / 3 * x, rectSize * 2 / 3 * y));
+                        EffectManager.I.Play(EffectType.Caution, transform.position + new Vector3(rectSize * x, rectSize * y));
 
                 await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
 
@@ -335,10 +335,11 @@ namespace Millennium.InGame.Entity.Enemy
                             .SetEase(Ease.Linear)
                             .SetDelay(2 - 0.05f * i)
                             .SetLink(bullet.gameObject);
+
+                        EffectManager.I.Play(EffectType.MuzzleFlash, bullet.transform.position);
                     }
 
                     SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
-                    //EffectManager.I.Play(EffectType.MuzzleFlash, transform.position);
                 }
 
 

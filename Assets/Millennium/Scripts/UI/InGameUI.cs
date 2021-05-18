@@ -38,6 +38,9 @@ namespace Millennium.UI
         private HealthGauge m_SkillGauge;
         public HealthGauge SkillGauge => m_SkillGauge;
 
+        [SerializeField]
+        private TextMeshProUGUI m_StageText;
+        public void SetStage(string name) => m_StageText.text = name;
 
     }
 }

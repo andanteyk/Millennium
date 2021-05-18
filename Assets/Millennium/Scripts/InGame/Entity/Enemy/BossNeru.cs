@@ -378,7 +378,7 @@ namespace Millennium.InGame.Entity.Enemy
             token.ThrowIfCancellationRequested();
             EffectManager.I.Play(EffectType.Concentration, transform.position);
             SoundManager.I.PlaySe(SeType.Concentration).Forget();
-            foreach (var r in BallisticMath.CalculateWayRadians(-Mathf.PI / 2, 3))
+            foreach (var r in BallisticMath.CalculateWayRadians(-Mathf.PI / 2, 6))
             {
                 EffectManager.I.Play(EffectType.Caution, transform.position + BallisticMath.FromPolar(64, r));
             }

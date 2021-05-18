@@ -32,7 +32,7 @@ namespace Millennium.InGame.Entity.Player
                 var position = transform.position + new Vector3(32 * (i - 0.5f), 0);
                 var quaternion = Quaternion.AngleAxis(
                         nearest != null ?
-                        Mathf.Atan2(nearest.transform.position.y - position.y, nearest.transform.position.x - position.x) * Mathf.Rad2Deg - 90f :
+                        BallisticMath.AimTo(nearest.transform.position, position) * Mathf.Rad2Deg - 90f :
                         0f, Vector3.forward);
 
                 var bullet = BulletBase.Instantiate(m_SubShotPrefab, position);
@@ -59,7 +59,7 @@ namespace Millennium.InGame.Entity.Player
                 .ForEachAsync(_ =>
                 {
                     var nearest = GetNearestEnemy();
-                    float baseRadian = nearest != null ? Mathf.Atan2(nearest.transform.position.y - transform.position.y, nearest.transform.position.x - transform.position.x) : (Mathf.PI / 2);
+                    float baseRadian = nearest != null ? BallisticMath.AimTo(nearest.transform.position, transform.position) : (Mathf.PI / 2);
 
                     foreach (var r in BallisticMath.CalculateWayRadians(baseRadian + Seiran.Shared.NextSingle(-5, 5) * Mathf.Deg2Rad, 3, 15 * Mathf.Deg2Rad))
                     {

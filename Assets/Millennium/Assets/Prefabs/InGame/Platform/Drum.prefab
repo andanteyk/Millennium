@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 6118193889849649697}
   - component: {fileID: 9035918904265035983}
   - component: {fileID: 7966419159675658966}
-  - component: {fileID: 6754463183351053610}
-  - component: {fileID: 1856727576110492120}
   - component: {fileID: -6265505210729675744}
+  - component: {fileID: 3369203637871245672}
   m_Layer: 10
   m_Name: Drum
   m_TagString: Untagged
@@ -135,32 +134,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 16, y: 16}
   m_EdgeRadius: 0
---- !u!114 &6754463183351053610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4741534090760107990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6064820b76f7184b833e70cbfb6c690, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InitialHealth: 200
---- !u!114 &1856727576110492120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4741534090760107990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 944cc1dd91c3f6549b6b3f719c54faec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Item: {fileID: 6866299931531495349, guid: 9854fa31d8b42f745b41e689c262f028, type: 3}
 --- !u!114 &-6265505210729675744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,3 +150,17 @@ MonoBehaviour:
   - Point: {x: 0, y: -256}
     Duration: 64
     Ease: 1
+--- !u!114 &3369203637871245672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4741534090760107990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53b6d35ad22c5884896efb3dff9a7b6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InitialHealth: 1000
+  m_BlastPrefab: {fileID: 6866299931531495349, guid: 9854fa31d8b42f745b41e689c262f028, type: 3}
