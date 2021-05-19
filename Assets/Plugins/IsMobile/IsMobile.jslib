@@ -1,5 +1,5 @@
 mergeInto(LibraryManager.library, {
     IsMobile: function() {
-        return UnityLoader.SystemInfo.mobile;
+        return Module.SystemInfo.mobile;
     }
 });
