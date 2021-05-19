@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 
@@ -41,6 +42,33 @@ namespace Millennium.UI
         [SerializeField]
         private TextMeshProUGUI m_StageText;
         public void SetStage(string name) => m_StageText.text = name;
+
+
+        [SerializeField]
+        private GameObject[] m_ShowInConsoleOnly;
+        [SerializeField]
+        private GameObject[] m_ShowInMobileOnly;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        [DllImport("__Internal")]
+        private static extern bool IsMobile();
+#endif
+
+
+        private void Start()
+        {
+            bool isMobile =
+#if UNITY_WEBGL && !UNITY_EDITOR
+                IsMobile();
+#else
+                false;
+#endif
+
+            foreach (var r in m_ShowInConsoleOnly)
+                r.SetActive(!isMobile);
+            foreach (var r in m_ShowInMobileOnly)
+                r.SetActive(isMobile);
+        }
 
     }
 }

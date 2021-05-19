@@ -21,6 +21,7 @@ namespace Millennium
         public class InGameParams
         {
             public StageManager.PlayerType PlayerType;
+            public int StageIndex;
             public bool IsDebugMode;
         }
 

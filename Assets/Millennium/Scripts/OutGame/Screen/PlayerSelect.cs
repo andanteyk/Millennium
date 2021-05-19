@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Millennium.OutGame.Screen
@@ -60,6 +61,7 @@ namespace Millennium.OutGame.Screen
                     await EntryPoint.StartInGame(new EntryPoint.InGameParams
                     {
                         PlayerType = playerType,
+                        StageIndex = GetStageIndex(),
                         IsDebugMode = m_IsDebugMode
                     });
 
@@ -119,6 +121,28 @@ namespace Millennium.OutGame.Screen
                 m_IsDebugMode = true;
                 return;
             }
+        }
+
+        private int GetStageIndex()
+        {
+            // DEBUG
+            if (Keyboard.current != null)
+            {
+                if (Keyboard.current.digit1Key.isPressed)
+                    return 0;
+                if (Keyboard.current.digit2Key.isPressed)
+                    return 1;
+                if (Keyboard.current.digit3Key.isPressed)
+                    return 2;
+                if (Keyboard.current.digit4Key.isPressed)
+                    return 3;
+                if (Keyboard.current.digit5Key.isPressed)
+                    return 4;
+                if (Keyboard.current.digit6Key.isPressed)
+                    return 5;
+            }
+
+            return 0;
         }
     }
 }

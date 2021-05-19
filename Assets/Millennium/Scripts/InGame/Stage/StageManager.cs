@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.InputSystem;
 
 namespace Millennium.InGame.Stage
 {
@@ -20,6 +21,16 @@ namespace Millennium.InGame.Stage
             Midori,
             Yuzu,
         }
+
+        private readonly string[] m_Stages = new[] {
+            "Assets/Millennium/Assets/Data/Stage1.asset",
+            "Assets/Millennium/Assets/Data/Stage2.asset",
+            "Assets/Millennium/Assets/Data/Stage3.asset",
+            "Assets/Millennium/Assets/Data/Stage4.asset",
+            "Assets/Millennium/Assets/Data/Stage5.asset",
+            "Assets/Millennium/Assets/Data/Stage6.asset",
+        };
+
 
         private Player m_Player = null;
         private GameObject m_Background = null;
@@ -89,14 +100,7 @@ namespace Millennium.InGame.Stage
 
         public async UniTask PlayNextStage()
         {
-            var stages = new[] {
-                "Assets/Millennium/Assets/Data/Stage1.asset",
-                "Assets/Millennium/Assets/Data/Stage2.asset",
-                "Assets/Millennium/Assets/Data/Stage3.asset",
-                "Assets/Millennium/Assets/Data/Stage4.asset",
-                "Assets/Millennium/Assets/Data/Stage5.asset",
-                "Assets/Millennium/Assets/Data/Stage6.asset",
-            };
+
 
 
             m_Player?.AddStageClearReward();
@@ -114,8 +118,8 @@ namespace Millennium.InGame.Stage
             GC.Collect();
 
 
-            int index = Array.IndexOf(stages, m_CurrentStage);
-            if (index == -1 || index >= stages.Length - 1)
+            int index = Array.IndexOf(m_Stages, m_CurrentStage);
+            if (index == -1 || index >= m_Stages.Length - 1)
             {
                 // goto result
                 await EntryPoint.StartOutGame(new EntryPoint.OutGameParams
@@ -128,7 +132,7 @@ namespace Millennium.InGame.Stage
             }
             else
             {
-                var stage = await LoadStage(stages[index + 1]);
+                var stage = await LoadStage(m_Stages[index + 1]);
                 Play(stage, this.GetCancellationTokenOnDestroy()).Forget();
             }
 
@@ -168,7 +172,7 @@ namespace Millennium.InGame.Stage
 
             await InstantiatePlayer(param);
 
-            Play(await LoadStage("Assets/Millennium/Assets/Data/Stage1.asset"), this.GetCancellationTokenOnDestroy()).Forget();
+            Play(await LoadStage(m_Stages[param.StageIndex]), this.GetCancellationTokenOnDestroy()).Forget();
         }
     }
 }

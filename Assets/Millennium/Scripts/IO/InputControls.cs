@@ -52,14 +52,6 @@ namespace Millennium.IO
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
-                },
-                {
-                    ""name"": ""Slow"",
-                    ""type"": ""Value"",
-                    ""id"": ""52aa5a05-c759-4153-8141-a7c219d8b787"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -76,8 +68,30 @@ namespace Millennium.IO
                 },
                 {
                     ""name"": """",
+                    ""id"": ""7ead9a3a-062a-4a86-a620-917299fe0729"",
+                    ""path"": ""*/{Submit}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""d04d3054-6e01-46bd-b6db-89990747befd"",
                     ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Bomb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0caaa03b-4a1b-45a4-a1fa-ac5a94605195"",
+                    ""path"": ""*/{Cancel}"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -196,15 +210,169 @@ namespace Millennium.IO
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""a51cbdd3-f8eb-4a91-8698-27f458c8d0a4"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""name"": ""Gamepad"",
+                    ""id"": ""6b90dd53-98de-42c0-a8ca-1b86c0e9e717"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Slow"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""e4717159-6544-4c2a-9681-72cdcfa587b6"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""edf3990b-6075-4f64-affd-93434f64ffad"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""9dc9e008-720f-4175-9362-e16e23407735"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""3c7bf61a-ed11-4b7a-861a-a73840f6fae7"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""080a1512-73d3-49c1-922f-d1e136c73193"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""b82af3f9-8f99-4d7c-9ad1-2d706143432b"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""80e87310-a828-43a5-8a33-89d4c51ad727"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""6bf87244-323a-432d-b9e3-bb14cc746e19"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a2f7c06-bf1b-4718-a5d4-a49b1f060448"",
+                    ""path"": ""<Gamepad>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Direction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Joystick"",
+                    ""id"": ""0feabff6-28e6-4035-b1d4-e31c6cecbb9d"",
+                    ""path"": ""2DVector(mode=2)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Direction"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""f57a4046-cf41-4e8b-9bbe-c3f199614f89"",
+                    ""path"": ""<Joystick>/stick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""b7add2df-5d37-4302-b684-eb5a9259adad"",
+                    ""path"": ""<Joystick>/stick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""d3844814-dc9b-4ab5-a3c9-365df1e42baf"",
+                    ""path"": ""<Joystick>/stick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""1ec251e5-7ffc-4e11-ba6f-c0f8f810b8da"",
+                    ""path"": ""<Joystick>/stick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -744,7 +912,6 @@ namespace Millennium.IO
             m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
             m_Player_Bomb = m_Player.FindAction("Bomb", throwIfNotFound: true);
             m_Player_Direction = m_Player.FindAction("Direction", throwIfNotFound: true);
-            m_Player_Slow = m_Player.FindAction("Slow", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -819,7 +986,6 @@ namespace Millennium.IO
         private readonly InputAction m_Player_Fire;
         private readonly InputAction m_Player_Bomb;
         private readonly InputAction m_Player_Direction;
-        private readonly InputAction m_Player_Slow;
         public struct PlayerActions
         {
             private @InputControls m_Wrapper;
@@ -827,7 +993,6 @@ namespace Millennium.IO
             public InputAction @Fire => m_Wrapper.m_Player_Fire;
             public InputAction @Bomb => m_Wrapper.m_Player_Bomb;
             public InputAction @Direction => m_Wrapper.m_Player_Direction;
-            public InputAction @Slow => m_Wrapper.m_Player_Slow;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -846,9 +1011,6 @@ namespace Millennium.IO
                     @Direction.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDirection;
                     @Direction.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDirection;
                     @Direction.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDirection;
-                    @Slow.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSlow;
-                    @Slow.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSlow;
-                    @Slow.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSlow;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -862,9 +1024,6 @@ namespace Millennium.IO
                     @Direction.started += instance.OnDirection;
                     @Direction.performed += instance.OnDirection;
                     @Direction.canceled += instance.OnDirection;
-                    @Slow.started += instance.OnSlow;
-                    @Slow.performed += instance.OnSlow;
-                    @Slow.canceled += instance.OnSlow;
                 }
             }
         }
@@ -979,7 +1138,6 @@ namespace Millennium.IO
             void OnFire(InputAction.CallbackContext context);
             void OnBomb(InputAction.CallbackContext context);
             void OnDirection(InputAction.CallbackContext context);
-            void OnSlow(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
