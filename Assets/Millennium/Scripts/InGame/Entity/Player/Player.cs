@@ -159,7 +159,7 @@ namespace Millennium.InGame.Entity.Player
 
 
                     // DEBUG: ブルアカらしくて残しておいてもいいかもしれない
-                    if (UnityEngine.InputSystem.Keyboard.current.f8Key.wasPressedThisFrame)
+                    if (UnityEngine.InputSystem.Keyboard.current?.f8Key?.wasPressedThisFrame ?? false)
                         Time.timeScale = Time.timeScale != 1 ? 1 : 3;
 
                 }, token);

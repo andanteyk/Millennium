@@ -269,6 +269,9 @@ namespace Millennium.InGame.Entity.Enemy
                 const int density = 20;
                 float aimRadian = BallisticMath.AimToPlayer(center);
 
+                EffectManager.I.Play(EffectType.Caution, center);
+                SoundManager.I.PlaySe(SeType.Concentration).Forget();
+
                 return UniTaskAsyncEnumerable.Timer(TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(0.05), PlayerLoopTiming.FixedUpdate)
                     .Select((_, i) => i)
                     .Take(20)
