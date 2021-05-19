@@ -32,6 +32,7 @@ namespace Millennium
             public long Score;
             public bool IsCleared;
             public float BattleSeconds;
+            public StageManager.PlayerType PlayerType;
         }
 
 

@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using Cysharp.Threading.Tasks.Triggers;
+using Millennium.InGame.Stage;
 using Millennium.IO;
 using Millennium.Sound;
 using Millennium.UI;
@@ -10,8 +11,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
-
-
+using static Millennium.InGame.Stage.StageManager;
 
 namespace Millennium.OutGame.Screen
 {
@@ -30,6 +30,7 @@ namespace Millennium.OutGame.Screen
         [SerializeField]
         private Button m_TweetButton;
 
+        private PlayerType m_PlayerType;
         private bool m_IsCleared;
 
 
@@ -61,6 +62,7 @@ namespace Millennium.OutGame.Screen
             m_ScoreText.text = param.Score.ToString();
             m_Time.text = TimeSpan.FromSeconds(param.BattleSeconds).ToString(@"mm\:ss\.ff");
             m_IsCleared = param.IsCleared;
+            m_PlayerType = param.PlayerType;
 
             m_Title.text = m_IsCleared ? "Battle Completed" : "Defeated";
         }
@@ -96,7 +98,16 @@ namespace Millennium.OutGame.Screen
 
         private string CreateMessage()
         {
-            string body = $"ブルアカ二次創作 STG <Millennium Assault> を{(m_IsCleared ? "クリア" : "プレイ")}しました! (スコア: {m_ScoreText.text})";
+            string playerName = m_PlayerType switch
+            {
+                PlayerType.Momoi => "モモイ",
+                PlayerType.Midori => "ミドリ",
+                PlayerType.Alice => "アリス",
+                PlayerType.Yuzu => "ユズ",
+                _ => throw new NotSupportedException(),
+            };
+
+            string body = $"ブルアカ二次創作 STG <Millennium Assault> を [{playerName}] で{(m_IsCleared ? "クリア" : "プレイ")}! ({m_ScoreText.text} pt)";
             string url = @$"https://twitter.com/intent/tweet?text={ body }&hashtags={ "MillenniumAssault" }&url={ @"https://andanteyk.github.io/MillenniumAssault" }";
             return url;
         }

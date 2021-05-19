@@ -33,6 +33,7 @@ namespace Millennium.InGame.Stage
 
 
         private Player m_Player = null;
+        private PlayerType m_PlayerType;
         private GameObject m_Background = null;
         private string m_CurrentStage = null;
         private float m_BattleStarted;
@@ -95,14 +96,13 @@ namespace Millennium.InGame.Stage
             m_Player = Instantiate(playerPrefab).GetComponent<Player>();
             m_Player.transform.position = new Vector3(0, -100, 0);
             m_Player.IsDebugMode = param.IsDebugMode;
+
+            m_PlayerType = param.PlayerType;
         }
 
 
         public async UniTask PlayNextStage()
         {
-
-
-
             m_Player?.AddStageClearReward();
 
             var fade = await UI.Fader.CreateFade();
@@ -127,7 +127,8 @@ namespace Millennium.InGame.Stage
                     FirstUIAddress = "Assets/Millennium/Assets/Prefabs/OutGame/UI/Result.prefab",
                     Score = m_Player.Score + m_Player.Health * 500000 / 100 + m_Player.BombCount * 100000,
                     IsCleared = true,
-                    BattleSeconds = Time.time - m_BattleStarted
+                    BattleSeconds = Time.time - m_BattleStarted,
+                    PlayerType = m_PlayerType
                 });
             }
             else
@@ -153,7 +154,8 @@ namespace Millennium.InGame.Stage
                 FirstUIAddress = "Assets/Millennium/Assets/Prefabs/OutGame/UI/Result.prefab",
                 Score = m_Player.Score,
                 IsCleared = false,
-                BattleSeconds = Time.time - m_BattleStarted
+                BattleSeconds = Time.time - m_BattleStarted,
+                PlayerType = m_PlayerType
             });
 
             Time.timeScale = 1;
