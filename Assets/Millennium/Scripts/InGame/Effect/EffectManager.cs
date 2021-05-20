@@ -26,7 +26,6 @@ namespace Millennium.InGame.Effect
 
         public async UniTask Load()
         {
-            // TODO: ロードが終わる前にコールされる可能性がある　なんかで待ち合わせできるようにしたほうがいいかも
             Prefabs = new Dictionary<EffectType, GameObject>
             {
                 { EffectType.Explosion, await Addressables.LoadAssetAsync<GameObject>("Assets/Millennium/Assets/Prefabs/InGame/Effect/Explosion.prefab") },

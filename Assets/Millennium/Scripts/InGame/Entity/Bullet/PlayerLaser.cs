@@ -9,6 +9,9 @@ using UnityEngine;
 
 namespace Millennium.InGame.Entity.Bullet
 {
+    /// <summary>
+    /// アリスのサブショットレーザー (先見の明がないので名前がひどい)
+    /// </summary>
     public class PlayerLaser : BulletBase
     {
         public Transform OwnerTransform { get; set; }

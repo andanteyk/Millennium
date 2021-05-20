@@ -10,6 +10,9 @@ using UnityEngine;
 
 namespace Millennium.InGame.Entity.Bullet
 {
+    /// <summary>
+    /// アリスのボム (先見の明がないので名前がひどい)
+    /// </summary>
     public class PlayerBomb : BulletBase
     {
         [SerializeField]
