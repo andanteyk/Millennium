@@ -106,16 +106,15 @@ namespace Millennium.InGame.Entity.Enemy
 
             await PlayDeathEffect(destroyToken);
 
-            if (destroyToken.IsCancellationRequested)
-                return;
+            destroyToken.ThrowIfCancellationRequested();
             Destroy(gameObject);
         }
 
 
         private async UniTask PlayerAimshot1(CancellationToken token)
         {
-            if (token.IsCancellationRequested)
-                return;
+            token.ThrowIfCancellationRequested();
+
 
             EffectManager.I.Play(EffectType.Concentration, transform.position);
             SoundManager.I.PlaySe(SeType.Concentration).Forget();
@@ -157,8 +156,7 @@ namespace Millennium.InGame.Entity.Enemy
 
         private async UniTask Spiral(CancellationToken token)
         {
-            if (token.IsCancellationRequested)
-                return;
+            token.ThrowIfCancellationRequested();
 
             await RandomMove(1, token);
 

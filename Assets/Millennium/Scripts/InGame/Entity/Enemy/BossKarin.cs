@@ -112,8 +112,7 @@ namespace Millennium.InGame.Entity.Enemy
 
             await PlayDeathEffect(destroyToken);
 
-            if (destroyToken.IsCancellationRequested)
-                return;
+            destroyToken.ThrowIfCancellationRequested();
             Destroy(gameObject);
         }
 
@@ -122,8 +121,7 @@ namespace Millennium.InGame.Entity.Enemy
 
         private async UniTask PlayerAimshot1(CancellationToken token)
         {
-            if (token.IsCancellationRequested)
-                return;
+            token.ThrowIfCancellationRequested();
 
             await RandomMove(1.5f, token);
 
@@ -154,17 +152,15 @@ namespace Millennium.InGame.Entity.Enemy
         {
             await RandomMove(1, token);
 
-            if (token.IsCancellationRequested)
-                return;
+            token.ThrowIfCancellationRequested();
 
             float playerDirection = BallisticMath.AimToPlayer(transform.position);
             var bullet = BulletBase.Instantiate(m_HugeShotPrefab, transform.position, BallisticMath.FromPolar(128, playerDirection));
             async UniTaskVoid explode(BulletBase bullet, CancellationToken token)
             {
                 token.ThrowIfCancellationRequested();
-                await bullet.DOSpeed(Vector3.zero, 1f).WithCancellation(token);
+                await bullet.DOSpeed(Vector3.zero, 1f).ToUniTask(TweenCancelBehaviour.KillAndCancelAwait, token);
 
-                token.ThrowIfCancellationRequested();
                 foreach (var r in BallisticMath.CalculateWayRadians(Seiran.Shared.NextRadian(), 24))
                 {
                     BulletBase.Instantiate(m_NormalShotPrefab, bullet.transform.position, BallisticMath.FromPolar(Seiran.Shared.NextSingle(16, 64), r));
@@ -174,7 +170,7 @@ namespace Millennium.InGame.Entity.Enemy
                 SoundManager.I.PlaySe(SeType.Explosion).Forget();
                 Destroy(bullet.gameObject);
             }
-            explode(bullet, token).Forget();
+            explode(bullet, bullet.GetCancellationTokenOnDestroy()).Forget();
 
             SoundManager.I.PlaySe(SeType.Explosion).Forget();
 
@@ -228,7 +224,6 @@ namespace Millennium.InGame.Entity.Enemy
             SoundManager.I.PlaySe(SeType.Concentration).Forget();
 
 
-            token.ThrowIfCancellationRequested();
             float playerDirection = BallisticMath.AimToPlayer(transform.position);
             await UniTaskAsyncEnumerable.Timer(TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(0.05), PlayerLoopTiming.FixedUpdate)
                 .Select((_, i) => i)
@@ -314,8 +309,7 @@ namespace Millennium.InGame.Entity.Enemy
 
             await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
 
-            if (token.IsCancellationRequested)
-                return;
+            token.ThrowIfCancellationRequested();
 
             EffectManager.I.Play(EffectType.Concentration, transform.position);
             SoundManager.I.PlaySe(SeType.Concentration).Forget();

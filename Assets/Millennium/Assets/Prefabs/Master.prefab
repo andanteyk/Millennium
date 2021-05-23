@@ -142,7 +142,7 @@ MonoBehaviour:
   m_AssetsPPU: 1
   m_RefResolutionX: 256
   m_RefResolutionY: 224
-  m_UpscaleRT: 0
+  m_UpscaleRT: 1
   m_PixelSnapping: 1
   m_CropFrameX: 1
   m_CropFrameY: 1
@@ -247,6 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6b5a4af1eb712f4ca6d016cdb96fb1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_NowLoading: {fileID: 0}
 --- !u!1 &8802674184526165212
 GameObject:
   m_ObjectHideFlags: 0

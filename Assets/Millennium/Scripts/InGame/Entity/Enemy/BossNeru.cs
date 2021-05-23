@@ -121,16 +121,14 @@ namespace Millennium.InGame.Entity.Enemy
 
             await PlayDeathEffect(destroyToken);
 
-            if (destroyToken.IsCancellationRequested)
-                return;
+            destroyToken.ThrowIfCancellationRequested();
             Destroy(gameObject);
         }
 
 
         private async UniTask PlayerAimshot1(CancellationToken token)
         {
-            if (token.IsCancellationRequested)
-                return;
+            token.ThrowIfCancellationRequested();
 
             RandomMove(4, token).Forget();
             await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(0.125f), updateTiming: PlayerLoopTiming.FixedUpdate)

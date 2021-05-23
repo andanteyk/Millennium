@@ -103,8 +103,7 @@ namespace Millennium.InGame.Entity.Enemy
 
             await PlayDeathEffect(destroyToken);
 
-            if (destroyToken.IsCancellationRequested)
-                return;
+            destroyToken.ThrowIfCancellationRequested();
             Destroy(gameObject);
         }
 
@@ -113,8 +112,7 @@ namespace Millennium.InGame.Entity.Enemy
 
         private async UniTask ReflectionShot(CancellationToken token)
         {
-            if (token.IsCancellationRequested)
-                return;
+            token.ThrowIfCancellationRequested();
 
             EffectManager.I.Play(EffectType.Concentration, transform.position);
             SoundManager.I.PlaySe(SeType.Concentration).Forget();
@@ -152,8 +150,7 @@ namespace Millennium.InGame.Entity.Enemy
 
         private async UniTask SkillElegantPenetration(CancellationToken token)
         {
-            if (token.IsCancellationRequested)
-                return;
+            token.ThrowIfCancellationRequested();
 
             EffectManager.I.Play(EffectType.Concentration, transform.position);
             SoundManager.I.PlaySe(SeType.Concentration).Forget();
@@ -323,8 +320,7 @@ namespace Millennium.InGame.Entity.Enemy
 
         private async UniTask ThrowBomb(CancellationToken token)
         {
-            if (token.IsCancellationRequested)
-                return;
+            token.ThrowIfCancellationRequested();
 
             async UniTaskVoid Bomb(BulletBase bullet, CancellationToken token)
             {
@@ -335,8 +331,7 @@ namespace Millennium.InGame.Entity.Enemy
                         bullet.Speed += Vector3.down * (32 * Time.deltaTime);
                     }, token);
 
-                if (token.IsCancellationRequested)
-                    return;
+                token.ThrowIfCancellationRequested();
 
                 bullet.Speed = Vector3.zero;
                 EffectManager.I.Play(EffectType.Caution, bullet.transform.position);
@@ -357,8 +352,7 @@ namespace Millennium.InGame.Entity.Enemy
                         SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
                     }, token);
 
-                if (token.IsCancellationRequested)
-                    return;
+                token.ThrowIfCancellationRequested();
 
                 EffectManager.I.Play(bullet.EffectOnDestroy, bullet.transform.position);
                 Destroy(bullet.gameObject);
@@ -390,8 +384,8 @@ namespace Millennium.InGame.Entity.Enemy
             await UniTask.WaitUntil(() => bullet.transform.position.x < InGameConstants.FieldArea.xMin || bullet.transform.position.x > InGameConstants.FieldArea.xMax,
                 PlayerLoopTiming.FixedUpdate, cancellationToken: token);
 
-            if (token.IsCancellationRequested)
-                return;
+            token.ThrowIfCancellationRequested();
+
             bullet.Speed = new Vector3(-bullet.Speed.x, bullet.Speed.y);
             SoundManager.I.PlaySe(SeType.PlayerBulletImmune).Forget();
         }

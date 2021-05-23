@@ -246,8 +246,7 @@ namespace Millennium.InGame.Entity.Enemy
 
             await PlayBinahDeathEffect(destroyToken);
 
-            if (destroyToken.IsCancellationRequested)
-                return;
+            destroyToken.ThrowIfCancellationRequested();
             Destroy(gameObject);
         }
 
