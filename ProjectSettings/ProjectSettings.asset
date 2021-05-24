@@ -551,6 +551,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
+    1: UNITASK_DOTWEEN_SUPPORT
     13: UNITASK_DOTWEEN_SUPPORT
   additionalCompilerArguments: {}
   platformArchitecture: {}
