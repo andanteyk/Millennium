@@ -56,29 +56,25 @@ namespace Millennium.InGame.AI
             var token = this.GetCancellationTokenOnDestroy();
 
 
-            await UniTask.Delay(TimeSpan.FromSeconds(m_StartTime), cancellationToken: token);
-
-            await UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
+            await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.FromSeconds(m_StartTime), TimeSpan.FromSeconds(m_Interval), PlayerLoopTiming.FixedUpdate)
                 .Where(_ => owner != null && owner.CanMove)
-                .ForEachAwaitAsync(async _ =>
+                .WithCancellation(token))
+            {
+                if (m_Repeat == 0)
+                    return;
+                m_Repeat--;
+
+
+                float direction = (m_InitialDegree + Seiran.Shared.NextSingle(-m_RandomizeDegree, m_RandomizeDegree)) * Mathf.Deg2Rad;
+
+                foreach (var way in BallisticMath.CalculateWayRadians(direction, (int)m_Way, m_WayDegree * Mathf.Deg2Rad))
                 {
-                    if (m_Repeat == 0)
-                        return;
-                    m_Repeat--;
+                    BulletBase.Instantiate(m_BulletPrefab, transform.position, BallisticMath.FromPolar(m_Speed, way));
+                }
 
-
-                    float direction = (m_InitialDegree + Seiran.Shared.NextSingle(-m_RandomizeDegree, m_RandomizeDegree)) * Mathf.Deg2Rad;
-
-                    foreach (var way in BallisticMath.CalculateWayRadians(direction, (int)m_Way, m_WayDegree * Mathf.Deg2Rad))
-                    {
-                        BulletBase.Instantiate(m_BulletPrefab, transform.position, BallisticMath.FromPolar(m_Speed, way));
-                    }
-
-                    EffectManager.I.Play(EffectType.MuzzleFlash, transform.position);
-                    SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
-
-                    await UniTask.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken: token);
-                }, token);
+                EffectManager.I.Play(EffectType.MuzzleFlash, transform.position);
+                SoundManager.I.PlaySe(SeType.EnemyShot).Forget();
+            }
         }
     }
 }

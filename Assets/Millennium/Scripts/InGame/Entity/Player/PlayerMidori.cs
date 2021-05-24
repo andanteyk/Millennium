@@ -23,7 +23,7 @@ namespace Millennium.InGame.Entity.Player
         }
 
 
-        protected override UniTask SubShot()
+        protected override UniTask SubShot(CancellationToken token)
         {
             var nearest = GetNearestEnemy();
 
@@ -50,7 +50,7 @@ namespace Millennium.InGame.Entity.Player
 
             EffectManager.I.Play(EffectType.Concentration, transform.position).SetParent(transform);
             SoundManager.I.PlaySe(SeType.Ultimate).Forget();
-            await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
 
 
             EffectManager.I.Play(EffectType.MidoriUlt, transform.position + Vector3.up * 24).SetParent(transform);

@@ -8,6 +8,7 @@ using Millennium.UI;
 using System;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Millennium.InGame.Entity.Player
 {
@@ -52,7 +53,7 @@ namespace Millennium.InGame.Entity.Player
         public bool IsDebugMode { get; set; } = false;
 
 
-        // Start is called before the first frame update
+
         private void Start()
         {
             // 100 HP == 1 残機
@@ -71,46 +72,33 @@ namespace Millennium.InGame.Entity.Player
 
             // input loop - main shot
             UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
-                .ForEachAwaitAsync(async _ =>
+                .Where(_ => IsControllable && input.Player.Fire.IsPressed())
+                .ForEachAwaitWithCancellationAsync(async (_, token) =>
                 {
-                    if (!IsControllable)
-                        return;
-                    if (!input.Player.Fire.IsPressed())
-                        return;
+                    await MainShot(token);
 
-                    await MainShot();
-
-                    await UniTask.Delay(TimeSpan.FromSeconds(m_MainShotInterval));
+                    await UniTask.Delay(TimeSpan.FromSeconds(m_MainShotInterval), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
                 }, token);
 
             // input loop - sub shot
             UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
-                .ForEachAwaitAsync(async _ =>
+                .Where(_ => IsControllable && input.Player.Fire.IsPressed())
+                .ForEachAwaitWithCancellationAsync(async (_, token) =>
                 {
-                    if (!IsControllable)
-                        return;
-                    if (!input.Player.Fire.IsPressed())
-                        return;
+                    await SubShot(token);
 
-                    await SubShot();
-
-                    await UniTask.Delay(TimeSpan.FromSeconds(m_SubShotInterval));
+                    await UniTask.Delay(TimeSpan.FromSeconds(m_SubShotInterval), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
                 }, token);
 
             // input loop - bomb
-            UniTaskAsyncEnumerable.EveryUpdate()
-                .ForEachAwaitAsync(async _ =>
+            // IsPressed(): WasPressedThisFrame だと低 FPS 時に絶望的に反応が悪くなるので;
+            // 押しっぱなしで連続発動してしまうが、あまり問題にならないと思うので IsPressed で
+            UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
+                .Where(_ => IsControllable &&
+                    input.Player.Bomb.IsPressed() &&
+                    !IsInvincible)
+                .ForEachAwaitWithCancellationAsync(async (_, token) =>
                 {
-                    if (!IsControllable)
-                        return;
-
-                    // WasPressedThisFrame だと低 FPS 時に絶望的に反応が悪くなるので;
-                    // 押しっぱなしで連続発動してしまうが、あまり問題にならないと思うので IsPressed で
-                    if (!input.Player.Bomb.IsPressed())
-                        return;
-
-                    if (IsInvincible)
-                        return;
                     if (BombCount <= 0)
                     {
                         await SoundManager.I.PlaySe(SeType.Disabled);
@@ -118,7 +106,9 @@ namespace Millennium.InGame.Entity.Player
                     }
 
                     if (!IsDebugMode)
+                    {
                         BombCount--;
+                    }
 
                     SetInvincible(6);
                     m_DelayedDamage = null;
@@ -159,7 +149,7 @@ namespace Millennium.InGame.Entity.Player
 
 
                     // DEBUG: ブルアカらしくて残しておいてもいいかもしれない
-                    if (UnityEngine.InputSystem.Keyboard.current?.f8Key?.wasPressedThisFrame ?? false)
+                    if (Keyboard.current?.f8Key?.wasPressedThisFrame ?? false)
                         Time.timeScale = Time.timeScale != 1 ? 1 : 3;
 
                 }, token);
@@ -188,7 +178,7 @@ namespace Millennium.InGame.Entity.Player
         }
 
 
-        protected virtual UniTask MainShot()
+        protected virtual UniTask MainShot(CancellationToken token)
         {
             for (int i = -1; i <= 1; i += 2)
             {
@@ -198,8 +188,8 @@ namespace Millennium.InGame.Entity.Player
 
             return UniTask.CompletedTask;
         }
-        protected virtual UniTask SubShot() => UniTask.CompletedTask;
-        protected virtual UniTask FireBomb(CancellationToken token) => UniTask.CompletedTask;
+        protected abstract UniTask SubShot(CancellationToken token);
+        protected abstract UniTask FireBomb(CancellationToken token);
 
 
         public override void DealDamage(DamageSource damage)
@@ -220,30 +210,31 @@ namespace Millennium.InGame.Entity.Player
                 await UniTask.Delay(TimeSpan.FromSeconds(0.25), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
 
                 token.ThrowIfCancellationRequested();
-                if (m_DelayedDamage != null)
+                if (m_DelayedDamage == null)
+                    return;
+
+
+                // hit
+                if (!IsDebugMode)
                 {
-                    // hit
-                    if (!IsDebugMode)
-                    {
-                        Health -= m_DelayedDamage.Damage;
-                        BombCount = Math.Max(BombCount, 2);
-                    }
-
-                    if (Health > 0)
-                    {
-                        SetInvincible(5);
-
-                        var remover = Instantiate(m_BulletRemoverPrefab);
-                        remover.transform.position = transform.position;
-                    }
-                    else if (!m_IsDead)
-                    {
-                        m_IsDead = true;
-                        GameOver().Forget();
-                    }
-
-                    m_DelayedDamage = null;
+                    Health -= m_DelayedDamage.Damage;
+                    BombCount = Math.Max(BombCount, 2);
                 }
+
+                if (Health > 0)
+                {
+                    SetInvincible(5);
+
+                    var remover = Instantiate(m_BulletRemoverPrefab);
+                    remover.transform.position = transform.position;
+                }
+                else if (!m_IsDead)
+                {
+                    m_IsDead = true;
+                    GameOver().Forget();
+                }
+
+                m_DelayedDamage = null;
             });
         }
 
@@ -291,7 +282,7 @@ namespace Millennium.InGame.Entity.Player
         {
             EffectManager.I.Play(EffectType.Explosion, transform.position);
 
-            await UniTask.Delay(2000);
+            await UniTask.Delay(TimeSpan.FromSeconds(2));
 
             FindObjectOfType<Stage.StageManager>().GameOver().Forget();
         }

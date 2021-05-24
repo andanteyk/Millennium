@@ -28,7 +28,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb547725d1877b47a751ec38184f305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Power: 50
+  m_Power: 80
   m_Speed: {x: 16, y: 128, z: 0}
   m_LifeTime: 20
   EffectOnDestroy: 19

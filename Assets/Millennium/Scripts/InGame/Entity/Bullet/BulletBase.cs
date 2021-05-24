@@ -74,7 +74,7 @@ namespace Millennium.InGame.Entity.Bullet
                 }, token);
         }
 
-        protected UniTask CollisionSwitcher(float intervalSeconds, CancellationToken token)
+        protected UniTask CollisionSwitcher(float intervalSeconds, int activeFrames, CancellationToken token)
         {
             var colliders = GetComponentsInChildren<Collider2D>();
             return UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(intervalSeconds), PlayerLoopTiming.FixedUpdate)
@@ -83,7 +83,7 @@ namespace Millennium.InGame.Entity.Bullet
                     token.ThrowIfCancellationRequested();
                     Array.ForEach(colliders, c => c.enabled = true);
 
-                    await UniTask.DelayFrame(1, PlayerLoopTiming.FixedUpdate, cancellationToken: token);
+                    await UniTask.DelayFrame(activeFrames, PlayerLoopTiming.FixedUpdate, cancellationToken: token);
                     Array.ForEach(colliders, c => c.enabled = false);
                 }, token);
         }

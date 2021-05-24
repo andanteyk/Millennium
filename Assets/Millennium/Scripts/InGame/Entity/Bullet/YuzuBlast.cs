@@ -12,14 +12,17 @@ namespace Millennium.InGame.Entity.Bullet
 
     public class YuzuBlast : BulletBase
     {
-        private void Start()
+        private async UniTaskVoid Start()
         {
             var token = this.GetCancellationTokenOnDestroy();
 
-            Move(token);
-            DestroyWhenExpired(token);
-            DamageWhenStay(token);
-            CollisionSwitcher(0.2f, token);
+            Move(token).Forget();
+            DestroyWhenExpired(token).Forget();
+            DamageWhenStay(token).Forget();
+
+            Array.ForEach(GetComponentsInChildren<Collider2D>(), c => c.enabled = false);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.125), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
+            CollisionSwitcher(0.5f, 2, token).Forget();
         }
     }
 

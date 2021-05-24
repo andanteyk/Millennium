@@ -8,14 +8,16 @@ namespace Millennium.InGame.Effect
     [RequireComponent(typeof(ParticleSystem))]
     public class ParticleDestroyer : MonoBehaviour
     {
-        async void Start()
+        async UniTaskVoid Start()
         {
             var particle = GetComponent<ParticleSystem>();
-            await UniTask.WaitWhile(() => particle != null && particle.IsAlive());
+            var token = this.GetCancellationTokenOnDestroy();
 
-            // エディタ再生を終了したときに null になるので
-            if (this != null && gameObject != null)
-                Destroy(gameObject);
+            await UniTask.WaitWhile(() => particle != null && particle.IsAlive(), cancellationToken: token);
+
+
+            token.ThrowIfCancellationRequested();
+            Destroy(gameObject);
         }
     }
 }

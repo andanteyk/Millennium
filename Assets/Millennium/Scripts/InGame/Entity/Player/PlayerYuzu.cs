@@ -6,8 +6,6 @@ using Millennium.InGame.Entity.Bullet;
 using Millennium.Mathematics;
 using Millennium.Sound;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
@@ -16,7 +14,7 @@ namespace Millennium.InGame.Entity.Player
     public class PlayerYuzu : Player
     {
 
-        protected override UniTask SubShot()
+        protected override UniTask SubShot(CancellationToken token)
         {
             for (int i = 0; i < 2; i++)
             {
@@ -35,7 +33,7 @@ namespace Millennium.InGame.Entity.Player
 
             EffectManager.I.Play(EffectType.Concentration, transform.position).SetParent(transform);
             SoundManager.I.PlaySe(SeType.Ultimate).Forget();
-            await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
 
 
             await UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(0.25), PlayerLoopTiming.FixedUpdate)
@@ -51,7 +49,7 @@ namespace Millennium.InGame.Entity.Player
                 }, token);
 
 
-            await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
+            await UniTask.Delay(TimeSpan.FromSeconds(1), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
 
             MoveSpeedModifier = 1;
         }

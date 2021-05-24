@@ -18,23 +18,21 @@ namespace Millennium.InGame.Effect
         private float m_Interval = 0.5f;
 
 
-        private void Start()
+        private async UniTaskVoid Start()
         {
             SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-            bool flipX = true, flipY = true; ;
+            bool flipX = true, flipY = true;
 
 
-            UniTaskAsyncEnumerable.EveryUpdate()
-                .ForEachAwaitAsync(async _ =>
-                {
-                    flipX = !flipX & m_FlipX;
-                    flipY = !flipY & m_FlipY;
+            await foreach (var _ in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(m_Interval))
+                .WithCancellation(this.GetCancellationTokenOnDestroy()))
+            {
+                flipX = !flipX & m_FlipX;
+                flipY = !flipY & m_FlipY;
 
-                    renderer.flipX = flipX;
-                    renderer.flipY = flipY;
-
-                    await UniTask.Delay(TimeSpan.FromSeconds(m_Interval));
-                }, this.GetCancellationTokenOnDestroy());
+                renderer.flipX = flipX;
+                renderer.flipY = flipY;
+            }
         }
     }
 }

@@ -10,12 +10,12 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 12
 --- !u!114 &3416997184004100222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575b8511ed5d3ac41814e0890e2bb2ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Power: 20
-  m_Speed: {x: 0, y: 0, z: 0}
+  m_Power: 40
+  m_Speed: {x: 0, y: 16, z: 0}
   m_LifeTime: 0.5
   EffectOnDestroy: -1
   Owner: {fileID: 0}

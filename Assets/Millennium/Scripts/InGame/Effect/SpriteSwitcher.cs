@@ -15,21 +15,16 @@ namespace Millennium.InGame.Effect
         private float m_Interval = 0.5f;
 
 
-        private void Start()
+        private async UniTaskVoid Start()
         {
             SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-            int spriteIndex = -1;
 
-            UniTaskAsyncEnumerable.EveryUpdate()
-                .ForEachAwaitAsync(async _ =>
-                {
-                    if (++spriteIndex >= m_Sprites.Length)
-                        spriteIndex = 0;
-
-                    renderer.sprite = m_Sprites[spriteIndex];
-
-                    await UniTask.Delay(TimeSpan.FromSeconds(m_Interval));
-                }, this.GetCancellationTokenOnDestroy());
+            await foreach (var i in UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(m_Interval))
+                .Select((_, i) => i % m_Sprites.Length)
+                .WithCancellation(this.GetCancellationTokenOnDestroy()))
+            {
+                renderer.sprite = m_Sprites[i];
+            }
         }
     }
 }

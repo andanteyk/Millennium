@@ -1,10 +1,5 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
-using Cysharp.Threading.Tasks.Triggers;
-using Millennium.InGame.Effect;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Millennium.InGame.Entity.Bullet
@@ -24,7 +19,7 @@ namespace Millennium.InGame.Entity.Bullet
 
             DestroyWhenExpired(token);
             DamageWhenStay(token);
-            CollisionSwitcher(0.5f, token);
+            CollisionSwitcher(0.5f, 1, token);
 
             UniTaskAsyncEnumerable.EveryUpdate(PlayerLoopTiming.FixedUpdate)
                 .ForEachAsync(_ =>

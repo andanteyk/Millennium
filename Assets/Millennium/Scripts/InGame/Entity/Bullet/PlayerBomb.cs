@@ -11,7 +11,7 @@ using UnityEngine;
 namespace Millennium.InGame.Entity.Bullet
 {
     /// <summary>
-    /// アリスのボム (先見の明がないので名前がひどい)
+    /// アリスのスキル (先見の明がないので名前がひどい)
     /// </summary>
     public class PlayerBomb : BulletBase
     {
@@ -28,21 +28,15 @@ namespace Millennium.InGame.Entity.Bullet
             Move(token);
             DestroyWhenExpired(token);
             DamageWhenEnter(token);
+            CollisionSwitcher(m_HitInterval, 2, token);
 
-            UniTaskAsyncEnumerable.EveryUpdate()
-                .ForEachAsync(_ => { spriteRenderer.flipX = Time.time % 0.5f < 0.25f; }, token);
+            UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(0.25))
+                .Select((_, i) => (i & 1) != 0)
+                .ForEachAsync(flip => spriteRenderer.flipX = flip, token);
 
             transform.DOScale(4, 0.5f)
                 .SetLink(gameObject)
                 .WithCancellation(token);
-
-            UniTaskAsyncEnumerable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(m_HitInterval), PlayerLoopTiming.FixedUpdate)
-                .ForEachAwaitAsync(async _ =>
-                {
-                    Array.ForEach(colliders, c => c.enabled = true);
-                    await UniTask.Yield(token);
-                    Array.ForEach(colliders, c => c.enabled = false);
-                }, token);
         }
     }
 }

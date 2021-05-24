@@ -25,12 +25,11 @@ namespace Millennium.InGame.Effect
             var particle = GetComponent<ParticleSystem>();
             var shape = particle.shape;
 
-            var sequence = DOTween.Sequence();
-            sequence.AppendInterval(m_StartSeconds);
-            sequence.Append(DOTween.To(() => shape.scale, value => shape.scale = value,
+            DOTween.To(() => shape.scale, value => shape.scale = value,
                 new Vector3(m_EndValue, m_EndValue, 1), m_EndSeconds - m_StartSeconds)
                 .SetEase(m_Ease)
-                .SetLink(gameObject));
+                .SetLink(gameObject)
+                .SetDelay(m_StartSeconds);
         }
     }
 }

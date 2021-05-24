@@ -21,6 +21,7 @@ namespace Millennium.InGame.Entity.Bullet
             var token = this.GetCancellationTokenOnDestroy();
 
             Move(token);
+            DamageWhenEnter(token);
             DestroyWhenExpired(token);
 
             this.OnDestroyAsync().ContinueWith(() =>

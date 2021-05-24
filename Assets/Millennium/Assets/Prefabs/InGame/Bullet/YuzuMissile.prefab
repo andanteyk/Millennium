@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240040582ed6b44479e11ec105f4626f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Power: 400
+  m_Power: 200
   m_Speed: {x: 0, y: 0, z: 0}
   m_LifeTime: 1.25
   EffectOnDestroy: 19
@@ -307,6 +307,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 417658410202453122, guid: 4d9d796c20828ca45bc3938d848df2e9, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417658410202453122, guid: 4d9d796c20828ca45bc3938d848df2e9, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6112776344313891395, guid: 4d9d796c20828ca45bc3938d848df2e9, type: 3}
       propertyPath: EffectOnDestroy
       value: 19

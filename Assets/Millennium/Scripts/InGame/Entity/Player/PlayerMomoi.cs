@@ -12,7 +12,7 @@ namespace Millennium.InGame.Entity.Player
 {
     public class PlayerMomoi : Player
     {
-        protected override UniTask SubShot()
+        protected override UniTask SubShot(CancellationToken token)
         {
             for (int i = -2; i <= 2; i++)
             {
@@ -37,7 +37,7 @@ namespace Millennium.InGame.Entity.Player
 
             EffectManager.I.Play(EffectType.Concentration, transform.position).SetParent(transform);
             SoundManager.I.PlaySe(SeType.Ultimate).Forget();
-            await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: token);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5), delayTiming: PlayerLoopTiming.FixedUpdate, cancellationToken: token);
 
 
             EffectManager.I.Play(EffectType.MomoiUlt, transform.position + Vector3.up * 24).SetParent(transform);
